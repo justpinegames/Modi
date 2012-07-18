@@ -16,10 +16,10 @@
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="src" />
-    <class path="..\SharedLibs\as3-signals\src" />
-    <class path="..\SharedLibs\foxhole-starling\source" />
-    <class path="..\SharedLibs\GTween_v2_01\src" />
-    <class path="..\SharedLibs\Starling-Framework\starling\src" />
+    <class path="..\..\SharedLibs\as3-signals\src" />
+    <class path="..\..\SharedLibs\foxhole-starling\source" />
+    <class path="..\..\SharedLibs\GTween_v2_01\src" />
+    <class path="..\..\SharedLibs\Starling-Framework\starling\src" />
   </classpaths>
   <!-- Build options -->
   <build>
