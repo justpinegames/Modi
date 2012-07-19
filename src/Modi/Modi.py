@@ -115,11 +115,23 @@ def createMachineClass(directory, package, className, classData):
 			
 			""" --------------------------------------------------------------------------- """
 			
+			file.write("\t\tpublic static const ATTRIBUTES:Array = [");
+			for attributeName in classData[className]:
+				file.write("\"" + attributeName + "\", ")
+			file.write("];\n\t\tpublic static const ATTRIBUTES_TYPES:Array = [");
+			for attributeName in classData[className]:
+				attributeData = classData[className][attributeName]
+				attributeType = attributeData
+				if type(attributeData) == dict:
+					attributeType = "String"
+				file.write("\"" + attributeType + "\", ")
+			file.write("];\n\n")
+			
 			for attributeName in classData[className]:
 				file.write("\t\tpublic static const ATTRIBUTE_" + attributeName.upper() + ":String = \"" + attributeName + "\";\n")
-				
-			file.write("\n")
 			
+			file.write("\n")
+				
 			for attributeName in classData[className]:
 				attributeData = classData[className][attributeName]
 				if type(attributeData) == dict:
@@ -153,8 +165,7 @@ def createMachineClass(directory, package, className, classData):
 			""" --------------------------------------------------------------------------- """
 			
 			file.write("\n\t\tpublic function _" + className + "()\n\t\t{\n")
-			for attributeName in classData[className]:
-				file.write("\t\t\tthis.registerAttribute(ATTRIBUTE_" + attributeName.upper() + ");\n")
+			file.write("\t\t\tthis.registerAttributes(ATTRIBUTES, ATTRIBUTES_TYPES);\n")
 			
 			file.write("\n")
 			
@@ -164,7 +175,7 @@ def createMachineClass(directory, package, className, classData):
 					for key in attributeData:
 						value = attributeData[key]
 						if type(value) == str and key == "default":
-							file.write("\t\t\t_" + attributeName + " = " + attributeName.upper() + "_" + value.upper() + ";\n")
+							file.write("\t\t\tthis._" + attributeName + " = " + attributeName.upper() + "_" + value.upper() + ";\n")
 			
 			file.write("\t\t}\n\n")
 			

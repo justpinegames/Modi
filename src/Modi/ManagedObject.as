@@ -69,7 +69,7 @@ package Modi
 			return false;
 		}
 		
-		protected function registerAttribute(attributes:Array, attributesTypes:Array):void
+		protected function registerAttributes(attributes:Array, attributesTypes:Array):void
 		{
 			_registeredAttributes = attributes;
 			_registeredAttributesTypes = attributesTypes;
