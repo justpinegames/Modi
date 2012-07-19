@@ -1,7 +1,5 @@
-package Modi.player
+package player
 {
-	import Modi.ManagedObject
-	
 	public class _Player extends ManagedObject
 	{
 		public static const ATTRIBUTE_WEAPONS:String = "weapons";
@@ -69,6 +67,18 @@ package Modi.player
 		public function set HealthDirectUnsafe(health:Number):void
 		{
 			this._health = health;
+		}
+
+		public override function serialize(serializator:ISerializator):void
+		{
+			writeUnindentified("weapons", this.weapons, "String", serializator);
+			writeUnindentified("health", this.health, "Number", serializator);
+		}
+
+		public override function deserialize(deserializator:IDserializator):void
+		{
+			this.weapons = readUnindentified("weapons", "String", deserializator);
+			this.health = readUnindentified("health", "Number", deserializator);
 		}
 
 	}
