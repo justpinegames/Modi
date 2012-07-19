@@ -12,6 +12,7 @@ package Modi
 	import Core.Utility;
 	import flash.geom.Rectangle;
 	import flash.geom.Point;
+	import flash.utils.getQualifiedClassName;
 	
 	public class ManagedObject implements IObservableObject, ISerializableObject
 	{
@@ -197,8 +198,8 @@ package Modi
 			}
 			else if (type == "ManagedObject" || type == "ManagedArray" || type == "ManagedMap")
 			{
-				deserializator.pushObject(name);
-				var objectClass:Class = Utility.getClassFromString(deserializator.currentClassName);
+				var className:String = deserializator.pushObject(name);
+				var objectClass:Class = Utility.getClassFromString(className);
 				var object:ManagedObject = new objectClass();
 				object.deserialize(deserializator);
 				toReturn = object;
@@ -245,7 +246,7 @@ package Modi
 			}
 			else if (type == "ManagedObject" || type == "ManagedArray" || type == "ManagedMap")
 			{
-				serializator.pushObject(name);
+				serializator.pushObject(name, getQualifiedClassName(object));
 				(object as ISerializableObject).serialize(serializator);
 				serializator.popObject();
 			}

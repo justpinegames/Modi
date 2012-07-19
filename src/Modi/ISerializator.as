@@ -13,8 +13,10 @@ package Modi
 		function writeBoolean(name:String, object:Boolean):void;
 		function writePoint(name:String, object:Point):void;
 		function writeRectangle(name:String, object:Rectangle):void;
-		function pushObject(name:String):void;
+		function pushObject(name:String, className:String):void;
 		function popObject():void;
+		
+		function serializeData():*;
 	
 	}
 	
