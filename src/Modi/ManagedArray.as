@@ -233,14 +233,14 @@ package Modi
 				return true;
 			}
 			
-			var target_observers:Array = _observers[ALLOW_REMOVE];
-			var length:int = target_observers.length;
+			var targetObservers:Array = _observers[ALLOW_REMOVE];
+			var length:int = targetObservers.length;
 			var observer:IObserver;
 			var i:int;
 			
 			for (i = 0; i < length; i++)
 			{
-				observer = target_observers[i];				
+				observer = targetObservers[i];				
 				var observerEvent:ArrayObserverEvent = new ArrayObserverEvent(object, ALLOW_REMOVE, index);
 				var allowed:Boolean = observer.callback(observerEvent);
 				
@@ -263,14 +263,14 @@ package Modi
 				return;
 			}
 			
-			var target_observers:Array = _observers[WILL_REMOVE];
-			var length:int = target_observers.length;
+			var targetObservers:Array = _observers[WILL_REMOVE];
+			var length:int = targetObservers.length;
 			var observer:IObserver;
 			var i:int;
 			
 			for (i = 0; i < length; i++)
 			{
-				observer = target_observers[i];
+				observer = targetObservers[i];
 				var observerEvent:ArrayObserverEvent = new ArrayObserverEvent(object, WILL_REMOVE, index);
 				observer.callback(observerEvent);
 			}
@@ -284,14 +284,14 @@ package Modi
 				return;
 			}
 			
-			var target_observers:Array = _observers[HAS_REMOVED];
-			var length:int = target_observers.length;
+			var targetObservers:Array = _observers[HAS_REMOVED];
+			var length:int = targetObservers.length;
 			var observer:IObserver;
 			var i:int;
 			
 			for (i = 0; i < length; i++)
 			{
-				observer = target_observers[i];				
+				observer = targetObservers[i];				
 				var observerEvent:ArrayObserverEvent = new ArrayObserverEvent(object, HAS_REMOVED, index);
 				observer.callback(observerEvent);
 			}
@@ -305,14 +305,14 @@ package Modi
 				return true;
 			}
 			
-			var target_observers:Array = _observers[ALLOW_ADD];
-			var length:int = target_observers.length;
+			var targetObservers:Array = _observers[ALLOW_ADD];
+			var length:int = targetObservers.length;
 			var observer:IObserver;
 			var i:int;
 			
 			for (i = 0; i < length; i++)
 			{
-				observer = target_observers[i];				
+				observer = targetObservers[i];				
 				var observerEvent:ArrayObserverEvent = new ArrayObserverEvent(object, ALLOW_ADD, index);
 				var allowed:Boolean = observer.callback(observerEvent);
 				
@@ -335,14 +335,14 @@ package Modi
 				return;
 			}
 			
-			var target_observers:Array = _observers[WILL_ADD];
-			var length:int = target_observers.length;
+			var targetObservers:Array = _observers[WILL_ADD];
+			var length:int = targetObservers.length;
 			var observer:IObserver;
 			var i:int;
 			
 			for (i = 0; i < length; i++)
 			{
-				observer = target_observers[i];
+				observer = targetObservers[i];
 				var observerEvent:ArrayObserverEvent = new ArrayObserverEvent(object, WILL_ADD, index);
 				observer.callback(observerEvent);
 			}
@@ -356,14 +356,14 @@ package Modi
 				return;
 			}
 			
-			var target_observers:Array = _observers[HAS_ADDED];
-			var length:int = target_observers.length;
+			var targetObservers:Array = _observers[HAS_ADDED];
+			var length:int = targetObservers.length;
 			var observer:IObserver;
 			var i:int;
 			
 			for (i = 0; i < length; i++)
 			{
-				observer = target_observers[i];				
+				observer = targetObservers[i];				
 				var observerEvent:ArrayObserverEvent = new ArrayObserverEvent(object, HAS_ADDED, index);
 				observer.callback(observerEvent);
 			}
@@ -377,14 +377,14 @@ package Modi
 				return true;
 			}
 			
-			var target_observers:Array = _observers[ALLOW_REPLACE];
-			var length:int = target_observers.length;
+			var targetObservers:Array = _observers[ALLOW_REPLACE];
+			var length:int = targetObservers.length;
 			var observer:IObserver;
 			var i:int;
 			
 			for (i = 0; i < length; i++)
 			{
-				observer = target_observers[i];				
+				observer = targetObservers[i];				
 				var observerEvent:ArrayObserverEvent = new ArrayObserverEvent(newObject, ALLOW_REPLACE, index, oldObject);
 				var allowed:Boolean = observer.callback(observerEvent);
 				
@@ -407,14 +407,14 @@ package Modi
 				return;
 			}
 			
-			var target_observers:Array = _observers[WILL_REPLACE];
-			var length:int = target_observers.length;
+			var targetObservers:Array = _observers[WILL_REPLACE];
+			var length:int = targetObservers.length;
 			var observer:IObserver;
 			var i:int;
 			
 			for (i = 0; i < length; i++)
 			{
-				observer = target_observers[i];
+				observer = targetObservers[i];
 				var observerEvent:ArrayObserverEvent = new ArrayObserverEvent(newObject, WILL_REPLACE, index, oldObject);
 				observer.callback(observerEvent);
 			}
@@ -428,14 +428,14 @@ package Modi
 				return;
 			}
 			
-			var target_observers:Array = _observers[HAS_REPLACED];
-			var length:int = target_observers.length;
+			var targetObservers:Array = _observers[HAS_REPLACED];
+			var length:int = targetObservers.length;
 			var observer:IObserver;
 			var i:int;
 			
 			for (i = 0; i < length; i++)
 			{
-				observer = target_observers[i];				
+				observer = targetObservers[i];				
 				var observerEvent:ArrayObserverEvent = new ArrayObserverEvent(newObject, HAS_REPLACED, index, oldObject);
 				observer.callback(observerEvent);
 			}

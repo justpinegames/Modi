@@ -1,11 +1,14 @@
 package  
 {
 	
+	import flash.geom.Point;
 	import flash.utils.Dictionary;
 	import Modi.ArrayObserverEvent;
 	import Modi.ManagedArray;
 	import Modi.ManagedObject;
+	import Modi.ManagedMap;
 	import Modi.AttributeObserverEvent;
+	import Modi.MapObserverEvent;
 	import starling.display.Sprite;
 	import starling.events.Event;
 	
@@ -22,14 +25,25 @@ package
 		
 		private function addedToStageHandler(event:Event):void
 		{
-			var test:Dictionary = new Dictionary();
-			var x:int = 2;
-			var y:int = 3;
+			var map:ManagedMap = new ManagedMap();
+			map.registerObserver(ManagedMap.HAS_CHANGED, mapChanged);
+			map.setObjectAt(1, 3, new Player());
+			map.setObjectAt(4, 3, new Player());
 			
-			test[x + "x" + y] = 100;
+			map.removeObjectAt(1, 3);
+			map.setObjectAtPoint(new Point(4, 3), null);
 			
-			trace(test["2x3"]);
+			map.setObjectAt(5, 5, null);
 			
+			trace(map.getObjectAt(4, 3));
+			trace(map.getObjectAt(1, 3));
+		}
+		
+		private function mapChanged(e:MapObserverEvent):void
+		{
+			trace("Map was changed at position: " + e.x + "x" + e.y);
+			trace("Old value: " + e.oldObject + ", new value: " + e.newObject);
+			trace("------------------------------------");
 		}
 	}
 }

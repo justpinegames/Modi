@@ -14,16 +14,10 @@ package Modi
 		
 		function removeObserver(event:String, callback:Function):Boolean;
 		
-		function allowRemove(object:ManagedObject, index:int):Boolean;
+		function allowChange(oldObject:ManagedObject, newObject:ManagedObject, x:int, y:int):Boolean;
 		
-		function willRemove(object:ManagedObject, index:int):void;
+		function willChange(oldObject:ManagedObject, newObject:ManagedObject, x:int, y:int):void;
 		
-		function hasRemoved(object:ManagedObject, index:int):void;
-		
-		function allowAdd(object:ManagedObject, index:int):Boolean;
-		
-		function willAdd(object:ManagedObject, index:int):void;
-		
-		function hasAdded(object:ManagedObject, index:int):void;
+		function hasChanged(oldObject:ManagedObject, newObject:ManagedObject, x:int, y:int):void;
 	}
 }
