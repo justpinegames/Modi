@@ -9,8 +9,11 @@
 package Modi
 {
 	import flash.utils.Dictionary;
+	import Core.Utility;
+	import flash.geom.Rectangle;
+	import flash.geom.Point;
 	
-	public class ManagedObject implements IObservableObject
+	public class ManagedObject implements IObservableObject, ISerializableObject
 	{
 		public static var ALLOW_CHANGE:String = "AllowChange";
 		public static var WILL_CHANGE:String = "WillChange";
@@ -149,5 +152,108 @@ package Modi
 				}
 			}
 		}
+		
+		public function serialize(serializator:ISerializator):void 
+		{
+			//writeUnindentified("attribute", attribute, "String", serializator);
+		}
+		
+		public function deserialize(deserializator:IDeserializator):void 
+		{
+			//this.attribute = readUnindentified("attribute", "String", serializator);
+		}
+
+		protected function readUnindentified(name:String, type:String, deserializator:IDeserializator):* 
+		{
+			var toReturn:* = null;
+			
+			if (type == "String") 
+			{
+				toReturn = deserializator.readString(name);
+			}
+			else if (type == "int") 
+			{
+				toReturn = deserializator.readInt(name);
+			}
+			else if (type == "uint") 
+			{
+				toReturn = deserializator.readUInt(name);
+			}
+			else if (type == "Number") 
+			{
+				toReturn = deserializator.readNumber(name);
+			}
+			else if (type == "Boolean") 
+			{
+				toReturn = deserializator.readBoolean(name);
+			}
+			else if (type == "Point") 
+			{
+				toReturn = deserializator.readPoint(name);
+			}
+			else if (type == "Rectangle") 
+			{
+				toReturn = deserializator.readRectangle(name);
+			}
+			else if (type == "ManagedObject" || type == "ManagedArray" || type == "ManagedMap")
+			{
+				deserializator.pushObject(name);
+				var objectClass:Class = Utility.getClassFromString(deserializator.currentClassName);
+				var object:ManagedObject = new objectClass();
+				object.deserialize(deserializator);
+				toReturn = object;
+				deserializator.popObject();
+			}
+			else 
+			{
+				/// ignore
+			}
+			
+			return toReturn;
+		}
+		
+		
+		protected function writeUnindentified(name:String, object:*, type:String, serializator:ISerializator):void 
+		{
+			if (type == "String") 
+			{
+				serializator.writeString(name, object as String);
+			}
+			else if (type == "int") 
+			{
+				serializator.writeInt(name, object as int);
+			}
+			else if (type == "uint") 
+			{
+				serializator.writeUInt(name, object as int);
+			}
+			else if (type == "Number") 
+			{
+				serializator.writeNumber(name, object as Number);
+			}
+			else if (type == "Boolean") 
+			{
+				serializator.writeBoolean(name, object as Boolean);
+			}
+			else if (type == "Point") 
+			{
+				serializator.writePoint(name, object as Point);
+			}
+			else if (type == "Rectangle") 
+			{
+				serializator.writeRectangle(name, object as Rectangle);
+			}
+			else if (type == "ManagedObject" || type == "ManagedArray" || type == "ManagedMap")
+			{
+				serializator.pushObject(name);
+				(object as ISerializableObject).serialize(serializator);
+				serializator.popObject();
+			}
+			else 
+			{
+				/// ignore
+			}
+		}
+		
 	}
 }
