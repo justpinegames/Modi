@@ -22,6 +22,8 @@ package Modi
 		private var _registeredAttributes:Array;
 		private var _attributeObservers:Array;
 		
+		private var test:int;
+		
 		public function ManagedObject()
 		{
 			_attributeObservers = new Array();
