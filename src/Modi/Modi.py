@@ -1,4 +1,5 @@
 #!/usr/bin/python
+
 import sys
 import yaml
 import os
@@ -14,80 +15,47 @@ def main(argv):
 	elif len(argv) == 1 and argv[0] == "--help":
 		printHelp()
 	else:
-		machineFlag = False
-		humanFlag = False
+		packageFlag = False
 		outputFlag = False
 		
-		argumentsProvided = {"machineFlag":False, "machineDirectory":False, "humanFlag":False, "humanDirectory":False, "model":False}
-		
-		machineDirectory = None
-		humanDirectory = None
-		outputDirectory = ""
-		generatePackage = False
+		packageDirectory = "./"
+		outputDirectory = "./"
 		modelFiles = []
 
 		for arg in argv:
-			if machineFlag == True:
-				machineDirectory = arg
-				machineFlag = False
-				argumentsProvided["machineDirectory"] = True
-			elif humanFlag == True:
-				humanDirectory = arg
-				humanFlag = False
-				argumentsProvided["humanDirectory"] = True
+			if packageFlag == True:
+				packageDirectory = arg
+				packageFlag = False
 			elif outputFlag == True:
-				print outputDirectory
-				outputDirectory = arg + "/"
-				print outputDirectory
+				outputDirectory = arg
 				outputFlag = False
 			else:
-				if arg == '-M':
-					machineFlag = True
-					machineFlagProvided = True
-					argumentsProvided["machineFlag"] = True
-				elif arg == '-H':
-					humanFlag = True
-					humanFlagProvided = True
-					argumentsProvided["humanFlag"] = True
-				elif arg == '-P':
-					generatePackage = True
-				elif arg == '-O':
+				if arg == '-P' or arg == '-p':
+					packageFlag = True
+				elif arg == '-O' or arg == '-o':
 					outputFlag = True
 				else:
 					modelFiles.append(arg)
-					argumentsProvided["model"] = True
 
-		terminate = False
-		for key in argumentsProvided:
-			if argumentsProvided[key] == False:
-				print "You did not provide " + key + "."
-				terminate = True
-					
-		if terminate:
+		if len(modelFiles) == 0:
 			print "Script terminated.\n"
-			print 'Type "' + sys.argv[0] + ' --help" for instructions on how to call this script properly.'
+			print 'Type "Modi.py --help" for instructions on how to call this script properly.'
 		else:
-			machinePackage = ""
-			humanPackage = ""
+			packageForCode = packageDirectory
+			packages = packageDirectory.split('.')
+			packageDirectory = ""
+			for package in packages:
+				packageDirectory += package + "/"
+				
+			classesDirectory = os.path.abspath(outputDirectory + "/" + packageDirectory)
+			createDirectory(classesDirectory)
 			
-			if generatePackage:
-				machinePackage = machineDirectory
-				humanPackage = humanDirectory
 			
-			machineDirectory = outputDirectory + machineDirectory
-			machineDirectory = os.path.abspath(machineDirectory)
-			
-			humanDirectory = outputDirectory + humanDirectory
-			humanDirectory = os.path.abspath(humanDirectory)
-			
-			createDirectory(machineDirectory)
-			createDirectory(humanDirectory)
-
 			for model in modelFiles:
-				generateClassesFromModel(model, machineDirectory, humanDirectory, machinePackage, humanPackage)
+				generateClassesFromModel(model, classesDirectory, packageForCode)
 
 
-def generateClassesFromModel(model, machineDirectory, humanDirectory, machinePackage, humanPackage):
+def generateClassesFromModel(model, directory, package):
 	try:
 		stream = open(model, 'r')
 		
@@ -96,8 +64,8 @@ def generateClassesFromModel(model, machineDirectory, humanDirectory, machinePac
 			
 			for classData in yamlData:
 				for className in classData:
-					createMachineClass(machineDirectory, machinePackage, className, classData)
-					createHumanClass(humanDirectory, humanPackage, className, classData)
+					createMachineClass(directory, package, className, classData)
+					createHumanClass(directory, package, className, classData)
 				
 		except yaml.YAMLError:
 			print "Model file with name " + model + " is not properly defined!"
@@ -107,10 +75,10 @@ def generateClassesFromModel(model, machineDirectory, humanDirectory, machinePac
 		cleanAndExit()
 
 
-def createHumanClass(humanDirectory, package, className, classData):
+def createHumanClass(directory, package, className, classData):
 
 	global CREATED_FILES
-	classPath = humanDirectory + "/" + className + ".as"
+	classPath = directory + "/" + className + ".as"
 	
 	if not os.path.exists(classPath):
 		try:
@@ -127,18 +95,23 @@ def createHumanClass(humanDirectory, package, className, classData):
 			cleanAndExit()
 
 
-def createMachineClass(machineDirectory, package, className, classData):
+def createMachineClass(directory, package, className, classData):
 
 	global CREATED_FILES
-	classPath = machineDirectory + "/" + "_" + className + ".as"	
+	classPath = directory + "/_" + className + ".as"	
 	
 	try:
 		file = open(classPath, "w")
 		CREATED_FILES.append(classPath);
 		
 		try:
-			file.write("package " + package + "\n{\n\tpublic class _" + className + " extends ManagedObject\n\t{\n")
-			
+			file.write("package " + package + "\n{\n")
+			file.write("\timport Modi.IDeserializator;\n")
+			file.write("\timport Modi.ISerializator;\n")
+			file.write("\timport Modi.ManagedObject;\n")
+			file.write("\timport Modi.ManagedArray;\n")
+			file.write("\timport Modi.ManagedMap;\n")
+			file.write("\n\tpublic class _" + className + " extends ManagedObject\n\t{\n")
 			
 			""" --------------------------------------------------------------------------- """
 			
@@ -230,7 +203,7 @@ def createMachineClass(machineDirectory, package, className, classData):
 				file.write("\t\t\twriteUnindentified(\"" + attributeName + "\", this." + attributeName + ", \"" + attributeType + "\", serializator);\n")
 			file.write("\t\t}\n\n")
 			
-			file.write("\t\tpublic override function deserialize(deserializator:IDserializator):void\n\t\t{\n")
+			file.write("\t\tpublic override function deserialize(deserializator:IDeserializator):void\n\t\t{\n")
 			for attributeName in classData[className]:
 				attributeData = classData[className][attributeName]
 				attributeType = attributeData
