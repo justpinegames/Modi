@@ -1,4 +1,4 @@
-package Modi.player
+package player
 {
 	public class Player extends _Player
 	{

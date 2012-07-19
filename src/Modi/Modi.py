@@ -165,8 +165,7 @@ def createMachineClass(machineDirectory, package, className, classData):
 						if type(values) == list:
 							for value in values:
 								file.write("\"" + value + "\", ");
-			
-			file.write("];\n\n")
+					file.write("];\n\n")
 			
 			for attributeName in classData[className]:
 				attributeData = classData[className][attributeName]
@@ -221,6 +220,24 @@ def createMachineClass(machineDirectory, package, className, classData):
 				file.write("):void\n\t\t{\n\t\t\tthis._" + attributeName + " = " + attributeName + ";\n\t\t}\n\n")
 			
 			""" --------------------------------------------------------------------------- """
+			
+			file.write("\t\tpublic override function serialize(serializator:ISerializator):void\n\t\t{\n")
+			for attributeName in classData[className]:
+				attributeData = classData[className][attributeName]
+				attributeType = attributeData
+				if type(attributeData) == dict:
+					attributeType = "String"
+				file.write("\t\t\twriteUnindentified(\"" + attributeName + "\", this." + attributeName + ", \"" + attributeType + "\", serializator);\n")
+			file.write("\t\t}\n\n")
+			
+			file.write("\t\tpublic override function deserialize(deserializator:IDserializator):void\n\t\t{\n")
+			for attributeName in classData[className]:
+				attributeData = classData[className][attributeName]
+				attributeType = attributeData
+				if type(attributeData) == dict:
+					attributeType = "String"
+				file.write("\t\t\tthis." + attributeName + " = readUnindentified(\"" + attributeName + "\", \"" + attributeType + "\", deserializator);\n");
+			file.write("\t\t}\n\n")
 			
 			file.write("\t}\n}")
 			

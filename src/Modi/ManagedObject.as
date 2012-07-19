@@ -156,14 +156,14 @@ package Modi
 		
 		public function serialize(serializator:ISerializator):void 
 		{
-			//writeUnindentified("attribute", attribute, "String", serializator);
+			
 		}
 		
 		public function deserialize(deserializator:IDeserializator):void 
 		{
-			//this.attribute = readUnindentified("attribute", "String", serializator);
+			
 		}
-
+		
 		protected function readUnindentified(name:String, type:String, deserializator:IDeserializator):* 
 		{
 			var toReturn:* = null;
@@ -213,7 +213,6 @@ package Modi
 			return toReturn;
 		}
 		
-		
 		protected function writeUnindentified(name:String, object:*, type:String, serializator:ISerializator):void 
 		{
 			if (type == "String") 
@@ -255,6 +254,5 @@ package Modi
 				/// ignore
 			}
 		}
-		
 	}
 }
