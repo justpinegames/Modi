@@ -64,8 +64,8 @@ def generateClassesFromModel(model, directory, package):
 			
 			for classData in yamlData:
 				for className in classData:
-					createMachineClass(machineDirectory, machinePackage, className, classData)
-					createHumanClass(humanDirectory, humanPackage, className, classData)
+					createMachineClass(directory, package, className, classData)
+					createHumanClass(directory, package, className, classData)
 				
 		except yaml.YAMLError:
 			print "Model file with name " + model + " is not properly defined!"
@@ -75,10 +75,10 @@ def generateClassesFromModel(model, directory, package):
 		cleanAndExit()
 
 
-def createHumanClass(humanDirectory, package, className, classData):
+def createHumanClass(directory, package, className, classData):
 
 	global CREATED_FILES
-	classPath = humanDirectory + "/" + className + ".as"
+	classPath = directory + "/" + className + ".as"
 	
 	if not os.path.exists(classPath):
 		try:
@@ -95,10 +95,10 @@ def createHumanClass(humanDirectory, package, className, classData):
 			cleanAndExit()
 
 
-def createMachineClass(machineDirectory, package, className, classData):
+def createMachineClass(directory, package, className, classData):
 
 	global CREATED_FILES
-	classPath = machineDirectory + "/" + "_" + className + ".as"	
+	classPath = directory + "/_" + className + ".as"	
 	
 	try:
 		file = open(classPath, "w")
@@ -106,11 +106,11 @@ def createMachineClass(machineDirectory, package, className, classData):
 		
 		try:
 			file.write("package " + package + "\n{\n")
-			file.write("\timport Modi.IDeserializator;\n");
-			file.write("\timport Modi.ISerializator;\n");
-			file.write("\timport Modi.ManagedObject;\n");
-			file.write("\timport Modi.ManagedArray;\n");
-			file.write("\timport Modi.ManagedMap;\n");s
+			file.write("\timport Modi.IDeserializator;\n")
+			file.write("\timport Modi.ISerializator;\n")
+			file.write("\timport Modi.ManagedObject;\n")
+			file.write("\timport Modi.ManagedArray;\n")
+			file.write("\timport Modi.ManagedMap;\n")
 			file.write("\n\tpublic class _" + className + " extends ManagedObject\n\t{\n")
 			
 			""" --------------------------------------------------------------------------- """
