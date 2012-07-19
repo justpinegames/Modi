@@ -5,18 +5,26 @@ package player
 		public static const ATTRIBUTE_WEAPONS:String = "weapons";
 		public static const ATTRIBUTE_HEALTH:String = "health";
 
+		public static const ATTRIBUTES:Array = ["weapons", "health", ];
+		public static const ATTRIBUTES_TYPES:Array = ["String", "Number", ];
+		
 		public static const WEAPONS_SWORD:String = "sword";
 		public static const WEAPONS_AXE:String = "axe";
 		public static const WEAPONS_BOW:String = "bow";
 		public static const WEAPONS_ENUM_ARRAY:Array = ["sword", "axe", "bow", ];
 
+		
+		
+		
 		private var _weapons:String;
 		private var _health:Number;
 
 		public function _Player()
 		{
-			this.registerAttribute(ATTRIBUTE_WEAPONS);
-			this.registerAttribute(ATTRIBUTE_HEALTH);
+			//this.registerAttribute(ATTRIBUTE_WEAPONS);
+			//this.registerAttribute(ATTRIBUTE_HEALTH);
+			
+			this.registerAttributes(ATTRIBUTES, ATTRIBUTES_TYPES);
 
 			_weapons = WEAPONS_SWORD;
 		}
