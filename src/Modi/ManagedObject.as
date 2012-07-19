@@ -21,12 +21,14 @@ package Modi
 		public static var HAS_CHANGED:String = "HasChanged";
 		
 		private var _registeredAttributes:Array;
+		private var _registeredAttributesTypes:Array;
 		private var _attributeObservers:Array;
 		
 		public function ManagedObject()
 		{
 			_attributeObservers = new Array();
 			_registeredAttributes = new Array();
+			_registeredAttributesTypes = new Array();
 		}
 		
 		public function registerObserver(attribute:String, event:String, callback:Function):void
@@ -68,9 +70,10 @@ package Modi
 			return false;
 		}
 		
-		protected function registerAttribute(attribute:String):void
+		protected function registerAttributes(attributes:Array, attributesTypes:Array):void
 		{
-			_registeredAttributes.push(attribute);
+			_registeredAttributes = attributes;
+			_registeredAttributesTypes = attributesTypes;
 		}
 		
 		public function allowChange(attribute:String, oldState:*, newState:*):Boolean
