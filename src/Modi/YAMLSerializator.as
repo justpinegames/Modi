@@ -57,13 +57,14 @@ package Modi
 		public function writeRectangle(name:String, object:Rectangle):void 
 		{
 			stackTop()[name] = "(" +	object.x.toString() + ", " + object.y.toString() + ", " + 
-														object.width.toString() + ", " + object.height.toString() + ")";
+												object.width.toString() + ", " + object.height.toString() + ")";
 		}
 		
 		public function pushObject(name:String, className:String):void 
 		{
-			var newData:Object = { };
-			stackTop()[name] = { "className": className, "data": newData };
+			trace(name, className);
+			var newData:Object = {};
+			stackTop()[name] = {"className": className, "data": newData};
 			_stack.push(newData);
 		}
 		
@@ -74,7 +75,7 @@ package Modi
 		
 		public function serializeData():* 
 		{
-			var yamlData:String = YAML.encode(_stack[0].data);
+			var yamlData:String = YAML.encode(_data);
 			return yamlData;
 		}
 		

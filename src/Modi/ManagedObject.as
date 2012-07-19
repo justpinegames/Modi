@@ -164,7 +164,7 @@ package Modi
 			
 		}
 		
-		protected function readUnindentified(name:String, type:String, deserializator:IDeserializator):* 
+		public static function readUnindentified(name:String, type:String, deserializator:IDeserializator):* 
 		{
 			var toReturn:* = null;
 			
@@ -213,8 +213,11 @@ package Modi
 			return toReturn;
 		}
 		
-		protected function writeUnindentified(name:String, object:*, type:String, serializator:ISerializator):void 
+		public static function writeUnindentified(name:String, object:*, type:String, serializator:ISerializator):Boolean 
 		{
+			
+			var pass: Boolean = true;
+			
 			if (type == "String") 
 			{
 				serializator.writeString(name, object as String);
@@ -245,14 +248,21 @@ package Modi
 			}
 			else if (type == "ManagedObject" || type == "ManagedArray" || type == "ManagedMap")
 			{
-				serializator.pushObject(name, getQualifiedClassName(object));
-				(object as ISerializableObject).serialize(serializator);
+				serializator.pushObject(name, type);
+				if (object) 
+				{
+					(object as ISerializableObject).serialize(serializator);
+				}
 				serializator.popObject();
 			}
 			else 
 			{
+				pass = false;
 				/// ignore
 			}
+			
+			return pass;
+			
 		}
 	}
 }
