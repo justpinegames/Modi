@@ -1,6 +1,7 @@
 Player:
-    super: NekaSuperKlasa
+    super: ManagedObject
     health: Number
+    units: ManagedArray
     weapons:
         values: [sword, axe, bow]
         default: sword
