@@ -251,7 +251,7 @@ package Modi
 			}
 			else if (type == "ManagedObject")
 			{
-				serializator.pushObject(name);
+				serializator.pushObject(name, "ManagedObject"); /// ovdje netreba drugi parametar
 				if (object) 
 				{
 					(object as ISerializableObject).serialize(serializator);
