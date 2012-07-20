@@ -249,14 +249,23 @@ package Modi
 			{
 				serializator.writeRectangle(name, object as Rectangle);
 			}
-			else if (type == "ManagedObject" || type == "ManagedArray" || type == "ManagedMap")
+			else if (type == "ManagedObject")
 			{
-				serializator.pushObject(name, type);
+				serializator.pushObject(name);
 				if (object) 
 				{
 					(object as ISerializableObject).serialize(serializator);
 				}
 				serializator.popObject();
+			}
+			else if (type == "ManagedArray")
+			{
+				/// push array
+			}
+			else if (type == "ManagedMap")
+			{
+				/// push map
+				
 			}
 			else 
 			{

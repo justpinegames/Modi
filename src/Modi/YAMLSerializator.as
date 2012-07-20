@@ -62,10 +62,9 @@ package Modi
 		
 		public function pushObject(name:String, className:String):void 
 		{
-			trace(name, className);
-			var newData:Object = {};
-			stackTop()[name] = {"className": className, "data": newData};
-			_stack.push(newData);
+			var newObject:Object = { };
+			stackTop()[name] = newObject;
+			_stack.push(newObject);
 		}
 		
 		public function popObject():void 
