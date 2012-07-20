@@ -1,0 +1,124 @@
+package classes
+{
+	import flash.geom.Rectangle;
+	import flash.geom.Point;
+
+	import Modi.IDeserializator;
+	import Modi.ISerializator;
+	import Modi.ManagedObject;
+	import Modi.ManagedArray;
+	import Modi.ManagedMap;
+
+	public class _Player extends NekaSuperKlasa
+	{
+		public static const ATTRIBUTES:Array = ["weapons", "super", "health", ];
+		public static const ATTRIBUTES_TYPES:Array = ["String", "NekaSuperKlasa", "Number", ];
+
+		public static const ATTRIBUTE_WEAPONS:String = "weapons";
+		public static const ATTRIBUTE_SUPER:String = "super";
+		public static const ATTRIBUTE_HEALTH:String = "health";
+
+		public static const WEAPONS_SWORD:String = "sword";
+		public static const WEAPONS_AXE:String = "axe";
+		public static const WEAPONS_BOW:String = "bow";
+		public static const WEAPONS_ENUM_ARRAY:Array = ["sword", "axe", "bow", ];
+
+		private var _weapons:String;
+		private var _super:NekaSuperKlasa;
+		private var _health:Number;
+
+		public function _Player()
+		{
+			this.registerAttributes(ATTRIBUTES, ATTRIBUTES_TYPES);
+
+			this._weapons = WEAPONS_SWORD;
+		}
+
+		public function set weapons(weapons:String):void
+		{
+			if (!this.allowChange(ATTRIBUTE_WEAPONS, this._weapons, weapons))
+			{
+				return;
+			}
+
+			this.willChange(ATTRIBUTE_WEAPONS, this._weapons, weapons)
+
+			this._weapons = weapons;
+
+			this.hasChanged(ATTRIBUTE_WEAPONS, this._weapons, weapons)
+		}
+
+		public function get weapons():String
+		{
+			return this._weapons;
+		}
+
+		public function set WeaponsDirectUnsafe(weapons:String):void
+		{
+			this._weapons = weapons;
+		}
+
+		public function set super(super:NekaSuperKlasa):void
+		{
+			if (!this.allowChange(ATTRIBUTE_SUPER, this._super, super))
+			{
+				return;
+			}
+
+			this.willChange(ATTRIBUTE_SUPER, this._super, super)
+
+			this._super = super;
+
+			this.hasChanged(ATTRIBUTE_SUPER, this._super, super)
+		}
+
+		public function get super():NekaSuperKlasa
+		{
+			return this._super;
+		}
+
+		public function set SuperDirectUnsafe(super:NekaSuperKlasa):void
+		{
+			this._super = super;
+		}
+
+		public function set health(health:Number):void
+		{
+			if (!this.allowChange(ATTRIBUTE_HEALTH, this._health, health))
+			{
+				return;
+			}
+
+			this.willChange(ATTRIBUTE_HEALTH, this._health, health)
+
+			this._health = health;
+
+			this.hasChanged(ATTRIBUTE_HEALTH, this._health, health)
+		}
+
+		public function get health():Number
+		{
+			return this._health;
+		}
+
+		public function set HealthDirectUnsafe(health:Number):void
+		{
+			this._health = health;
+		}
+
+		public override function serialize(serializator:ISerializator):void
+		{
+			writeUnindentified("weapons", this.weapons, "String", serializator);
+			writeUnindentified("super", this.super, "NekaSuperKlasa", serializator);
+			writeUnindentified("health", this.health, "Number", serializator);
+		}
+
+		public override function deserialize(deserializator:IDeserializator):void
+		{
+			this.weapons = readUnindentified("weapons", "String", deserializator);
+			this.super = readUnindentified("super", "NekaSuperKlasa", deserializator);
+			this.health = readUnindentified("health", "Number", deserializator);
+		}
+
+	}
+}

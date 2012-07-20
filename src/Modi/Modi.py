@@ -105,13 +105,23 @@ def createMachineClass(directory, package, className, classData):
 		CREATED_FILES.append(classPath);
 		
 		try:
+		
 			file.write("package " + package + "\n{\n")
+			file.write("\timport flash.geom.Rectangle;\n")
+			file.write("\timport flash.geom.Point;\n\n")
 			file.write("\timport Modi.IDeserializator;\n")
 			file.write("\timport Modi.ISerializator;\n")
 			file.write("\timport Modi.ManagedObject;\n")
 			file.write("\timport Modi.ManagedArray;\n")
 			file.write("\timport Modi.ManagedMap;\n")
-			file.write("\n\tpublic class _" + className + " extends ManagedObject\n\t{\n")
+			
+			superClass = "ManagedObject"
+			
+			for attributeName in classData[className]:
+				if attributeName == "super":
+					superClass = classData[className][attributeName]
+			
+			file.write("\n\tpublic class _" + className + " extends " + superClass + "\n\t{\n")
 			
 			""" --------------------------------------------------------------------------- """
 			

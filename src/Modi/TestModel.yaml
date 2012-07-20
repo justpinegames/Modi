@@ -1,4 +1,5 @@
 Player:
+    super: NekaSuperKlasa
     health: Number
     weapons:
         values: [sword, axe, bow]
