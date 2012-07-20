@@ -13,11 +13,15 @@ package Modi
 		function readUInt(name:String):uint;
 		function readNumber(name:String):Number;
 		function readBoolean(name:String):Boolean;
-		function readPoint(name:String):Point;
-		function readRectangle(name:String):Rectangle;
-		function pushObject(name:String):String;
+		function pushObject(name:String):void;
 		function popObject():void;
+		function pushArray(name:String):void;
+		function popArray():void;
+		function pushMap(name:String):void;
+		function popMap():void;
 
+		function getCurrentLength():int;
+		
 	}
 	
 }

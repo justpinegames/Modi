@@ -283,5 +283,7 @@ package Modi
 		{
 			return (a == b ? 0 : (a < b) ? -1 : 1);
 		}
+		
+		/// deserialize, prvo treba sve removati
 	}
 }

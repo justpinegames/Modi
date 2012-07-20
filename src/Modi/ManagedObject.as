@@ -159,61 +159,87 @@ package Modi
 		
 		public function serialize(serializator:ISerializator):void 
 		{
-			
+			var lenght: int = this._registeredAttributes.length;
+			for (var i: int = 0; i < lenght; i++) 
+			{
+				var attributeName:String = this._registeredAttributes[i];
+				var attributeType:String = this._registeredAttributesTypes[i];
+				
+				writeUnindentified(attributeName, this[attributeName], attributeType, serializator);
+			}
 		}
 		
 		public function deserialize(deserializator:IDeserializator):void 
 		{
-			
+			var lenght: int = this._registeredAttributes.length;
+			for (var i: int = 0; i < lenght; i++) 
+			{
+				var attributeName:String = this._registeredAttributes[i];
+				var attributeType:String = this._registeredAttributesTypes[i];
+				
+				readUnindentified(attributeName, this, attributeType, deserializator);
+			}
 		}
 		
-		public static function readUnindentified(name:String, type:String, deserializator:IDeserializator):* 
+		public static function readUnindentified(name:String, object:*, type:String, deserializator:IDeserializator):Boolean
 		{
-			var toReturn:* = null;
+			var pass: Boolean = true;
 			
 			if (type == "String") 
 			{
-				toReturn = deserializator.readString(name);
+				object[name] = deserializator.readString(name);
 			}
 			else if (type == "int") 
 			{
-				toReturn = deserializator.readInt(name);
+				object[name] = deserializator.readInt(name);
 			}
 			else if (type == "uint") 
 			{
-				toReturn = deserializator.readUInt(name);
+				object[name] = deserializator.readUInt(name);
 			}
 			else if (type == "Number") 
 			{
-				toReturn = deserializator.readNumber(name);
+				object[name] = deserializator.readNumber(name);
 			}
 			else if (type == "Boolean") 
 			{
-				toReturn = deserializator.readBoolean(name);
+				object[name] = deserializator.readBoolean(name);
 			}
-			else if (type == "Point") 
+			else if (type == "ManagedArray")
 			{
-				toReturn = deserializator.readPoint(name);
+				deserializator.pushArray(name);
+				(object as ManagedArray).deserialize(deserializator);
+				deserializator.popArray();
 			}
-			else if (type == "Rectangle") 
+			else if (type == "ManagedMap")
 			{
-				toReturn = deserializator.readRectangle(name);
+				
+				trace("managed map not implemented for deserialization");
+				/*
+				var className:String = deserializator.pushMap(name);
+				(object as ManagedMap).deserialize(deserializator);
+				deserializator.popMap();
+				*/
 			}
-			else if (type == "ManagedObject" || type == "ManagedArray" || type == "ManagedMap")
+			else /// object
 			{
-				var className:String = deserializator.pushObject(name);
-				var objectClass:Class = Utility.getClassFromString(className);
-				var object:ManagedObject = new objectClass();
-				object.deserialize(deserializator);
-				toReturn = object;
-				deserializator.popObject();
-			}
-			else 
-			{
-				/// ignore
+				var objectClass:Class = Utility.getClassFromString(type);
+				var newObject:ManagedObject = new objectClass();
+				
+				if (newObject is ManagedObject)
+				{
+					object.deserialize(deserializator);
+					object[name] = newObject;
+					deserializator.popObject();
+				}
+				else 
+				{
+					/// ignore
+					pass = false;
+				}
 			}
 			
-			return toReturn;
+			return pass;
 		}
 		
 		public static function writeUnindentified(name:String, object:*, type:String, serializator:ISerializator):Boolean 
@@ -241,36 +267,39 @@ package Modi
 			{
 				serializator.writeBoolean(name, object as Boolean);
 			}
-			else if (type == "Point") 
+			else if (type == "ManagedArray")
 			{
-				serializator.writePoint(name, object as Point);
-			}
-			else if (type == "Rectangle") 
-			{
-				serializator.writeRectangle(name, object as Rectangle);
-			}
-			else if (type == "ManagedObject")
-			{
-				serializator.pushObject(name, "ManagedObject"); /// ovdje netreba drugi parametar
+				serializator.pushArray(name);
 				if (object) 
 				{
 					(object as ISerializableObject).serialize(serializator);
 				}
-				serializator.popObject();
-			}
-			else if (type == "ManagedArray")
-			{
-				/// push array
+				serializator.popArray();
 			}
 			else if (type == "ManagedMap")
 			{
 				/// push map
-				
+				trace("map serialization not yet implemented");
 			}
 			else 
 			{
-				pass = false;
-				/// ignore
+				if (type == "ManagedObject" || object is ManagedObject)
+				{
+					serializator.pushObject(name);
+					if (object) 
+					{
+						(object as ISerializableObject).serialize(serializator);
+					}
+					serializator.popObject();
+				}
+				else 
+				{
+
+					
+					pass = false;
+					/// ignore
+					
+				}
 			}
 			
 			return pass;

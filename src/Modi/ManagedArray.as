@@ -57,6 +57,14 @@ package Modi
 			hasRemoved(object, index);
 		}
 		
+		public function pushMultiple(array:Array):void
+		{
+			for each (var element:ManagedObject in array)
+			{
+				this.push(element);
+			}
+		}
+		
 		public function pop():ManagedObject
 		{
 			var object:ManagedObject = null;
@@ -466,16 +474,14 @@ package Modi
 		
 		public function deserialize(deserializator:IDeserializator):void 
 		{
-			var i:int = 0;
-			var length: int = deserializator.readInt("length");
-			
 			this.removeAllObjects();
+			
+			var length: int = 0;//deserializator.getLength();
 				
-			for (i = 0; i < length; i++) 
+			for (var i:int = 0; i < length; i++) 
 			{
-				var object:* = ManagedObject.readUnindentified(i.toString(), "ManagedObject", deserializator);
+				var object:* = ManagedObject.readUnindentified(i.toString(), this, "ManagedObject", deserializator);
 				this.push(object);
-				i++;
 			}
 			
 		}
