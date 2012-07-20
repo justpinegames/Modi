@@ -172,7 +172,7 @@ package Modi
 			return _data.lastIndexOf(searchElement, fromIndex);
 		}
 		
-		public function objectAt(index:int):ManagedObject
+		public function objectAt(index:int):*
 		{
 			if (index < 0 || index >= _data.length)
 			{
