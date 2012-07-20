@@ -107,8 +107,6 @@ def createMachineClass(directory, package, className, classData):
 		try:
 		
 			file.write("package " + package + "\n{\n")
-			file.write("\timport flash.geom.Rectangle;\n")
-			file.write("\timport flash.geom.Point;\n\n")
 			file.write("\timport Modi.IDeserializator;\n")
 			file.write("\timport Modi.ISerializator;\n")
 			file.write("\timport Modi.ManagedObject;\n")
@@ -163,14 +161,14 @@ def createMachineClass(directory, package, className, classData):
 					file.write("];\n\n")
 			
 			for attributeName in classData[className]:
-				attributeData = classData[className][attributeName]
-				attributeType = ""
-				if type(attributeData) == dict:
-					attributeType = "String"
-				else:
-					attributeType = attributeData
-					
-				file.write("\t\tprivate var _" + attributeName + ":" + attributeType + ";\n")
+				if attributeName != "super":
+					attributeData = classData[className][attributeName]
+					attributeType = ""
+					if type(attributeData) == dict:
+						attributeType = "String"
+					else:
+						attributeType = attributeData
+					file.write("\t\tprivate var _" + attributeName + ":" + attributeType + ";\n")
 				
 			""" --------------------------------------------------------------------------- """
 			
@@ -187,8 +185,15 @@ def createMachineClass(directory, package, className, classData):
 						if type(value) == str and key == "default":
 							file.write("\t\t\tthis._" + attributeName + " = " + attributeName.upper() + "_" + value.upper() + ";\n")
 			
+			file.write("\n")
+
+			for attributeName in classData[className]:
+				attributeData = classData[className][attributeName]
+				if attributeData == "ManagedArray" or attributeData == "ManagedMap":
+					file.write("\t\t\tthis._" + attributeName + " = new " + attributeData + ";\n")
+
 			file.write("\t\t}\n\n")
-			
+
 			""" --------------------------------------------------------------------------- """
 			
 			for attributeName in classData[className]:
