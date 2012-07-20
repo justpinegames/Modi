@@ -10,7 +10,7 @@ package Modi
 {
 	import flash.utils.Dictionary;
 	
-	public class ManagedArray implements IObservableArray
+	public class ManagedArray implements IObservableArray, ISerializableObject
 	{
 		public static var ALLOW_REMOVE:String = "AllowRemove";
 		public static var WILL_REMOVE:String = "WillRemove";
@@ -440,5 +440,46 @@ package Modi
 				observer.callback(observerEvent);
 			}
 		}
+		
+		
+		public function removeAllObjects():void
+		{
+			while (_data.length > 0) 
+			{
+				this.pop();
+			}
+		}
+		
+		/* INTERFACE Modi.ISerializableObject */
+		
+		public function serialize(serializator:ISerializator):void 
+		{
+			var i:int = 0;
+			serializator.writeInt("length", _data.length);
+			for each (var object:* in _data) 
+			{
+				ManagedObject.writeUnindentified(i.toString(), object, "ManagedObject", serializator);
+				i++;
+			}
+			
+		}
+		
+		public function deserialize(deserializator:IDeserializator):void 
+		{
+			var i:int = 0;
+			var length: int = deserializator.readInt("length");
+			
+			this.removeAllObjects();
+				
+			for (i = 0; i < length; i++) 
+			{
+				var object:* = ManagedObject.readUnindentified(i.toString(), "ManagedObject", deserializator);
+				this.push(object);
+				i++;
+			}
+			
+		}
+		
+		
 	}
 }

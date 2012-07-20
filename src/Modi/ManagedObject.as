@@ -12,6 +12,7 @@ package Modi
 	import Core.Utility;
 	import flash.geom.Rectangle;
 	import flash.geom.Point;
+	import flash.utils.getQualifiedClassName;
 	
 	public class ManagedObject implements IObservableObject, ISerializableObject
 	{
@@ -166,7 +167,7 @@ package Modi
 			
 		}
 		
-		protected function readUnindentified(name:String, type:String, deserializator:IDeserializator):* 
+		public static function readUnindentified(name:String, type:String, deserializator:IDeserializator):* 
 		{
 			var toReturn:* = null;
 			
@@ -200,8 +201,8 @@ package Modi
 			}
 			else if (type == "ManagedObject" || type == "ManagedArray" || type == "ManagedMap")
 			{
-				deserializator.pushObject(name);
-				var objectClass:Class = Utility.getClassFromString(deserializator.currentClassName);
+				var className:String = deserializator.pushObject(name);
+				var objectClass:Class = Utility.getClassFromString(className);
 				var object:ManagedObject = new objectClass();
 				object.deserialize(deserializator);
 				toReturn = object;
@@ -215,8 +216,11 @@ package Modi
 			return toReturn;
 		}
 		
-		protected function writeUnindentified(name:String, object:*, type:String, serializator:ISerializator):void 
+		public static function writeUnindentified(name:String, object:*, type:String, serializator:ISerializator):Boolean 
 		{
+			
+			var pass: Boolean = true;
+			
 			if (type == "String") 
 			{
 				serializator.writeString(name, object as String);
@@ -245,16 +249,32 @@ package Modi
 			{
 				serializator.writeRectangle(name, object as Rectangle);
 			}
-			else if (type == "ManagedObject" || type == "ManagedArray" || type == "ManagedMap")
+			else if (type == "ManagedObject")
 			{
-				serializator.pushObject(name);
-				(object as ISerializableObject).serialize(serializator);
+				serializator.pushObject(name, "ManagedObject"); /// ovdje netreba drugi parametar
+				if (object) 
+				{
+					(object as ISerializableObject).serialize(serializator);
+				}
 				serializator.popObject();
+			}
+			else if (type == "ManagedArray")
+			{
+				/// push array
+			}
+			else if (type == "ManagedMap")
+			{
+				/// push map
+				
 			}
 			else 
 			{
+				pass = false;
 				/// ignore
 			}
+			
+			return pass;
+			
 		}
 	}
 }

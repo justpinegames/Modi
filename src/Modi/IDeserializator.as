@@ -6,6 +6,8 @@ package Modi
 	public interface IDeserializator 
 	{
 		
+		function deserializeData(data:*):void;
+		
 		function readString(name:String):String;
 		function readInt(name:String):int;
 		function readUInt(name:String):uint;
@@ -13,11 +15,9 @@ package Modi
 		function readBoolean(name:String):Boolean;
 		function readPoint(name:String):Point;
 		function readRectangle(name:String):Rectangle;
-		function pushObject(name:String):void;
+		function pushObject(name:String):String;
 		function popObject():void;
-		
-		function get currentClassName():String;
-		
+
 	}
 	
 }
