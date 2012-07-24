@@ -2,6 +2,7 @@ package Modi
 {
 	import flash.geom.Rectangle;
 	import flash.geom.Point;
+	import flash.utils.Dictionary;
 	import org.as3yaml.YAML;
 	
 	public class YAMLSerializator implements ISerializator
@@ -11,13 +12,11 @@ package Modi
 		private const SERIALIZATOR_STATE_MAP:String = "SERIALIZATOR_STATE_MAP";
 		
 		private var _stack:Array;
-		private var _data:Object;
 		
 		public function YAMLSerializator() 
 		{
 			_stack = new Array();
-			_data = {};
-			_stack.push({data: _data, context: SERIALIZATOR_STATE_OBJECT});
+			_stack.push({data: {}, context: SERIALIZATOR_STATE_OBJECT});
 		}
 		
 		private function stackTop():* 
@@ -114,7 +113,7 @@ package Modi
 		
 		public function serializeData():* 
 		{
-			var yamlData:String = YAML.encode(_data);
+			var yamlData:String = YAML.encode(stackTop());
 			return yamlData;
 		}
 		
