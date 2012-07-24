@@ -107,8 +107,6 @@ def createMachineClass(directory, package, className, classData):
 		try:
 		
 			file.write("package " + package + "\n{\n")
-			file.write("\timport Modi.IDeserializator;\n")
-			file.write("\timport Modi.ISerializator;\n")
 			file.write("\timport Modi.ManagedObject;\n")
 			file.write("\timport Modi.ManagedArray;\n")
 			file.write("\timport Modi.ManagedMap;\n")
@@ -219,24 +217,6 @@ def createMachineClass(directory, package, className, classData):
 				file.write("):void\n\t\t{\n\t\t\tthis._" + attributeName + " = " + attributeName + ";\n\t\t}\n\n")
 			
 			""" --------------------------------------------------------------------------- """
-			
-			file.write("\t\tpublic override function serialize(serializator:ISerializator):void\n\t\t{\n")
-			for attributeName in classData[className]:
-				attributeData = classData[className][attributeName]
-				attributeType = attributeData
-				if type(attributeData) == dict:
-					attributeType = "String"
-				file.write("\t\t\twriteUnindentified(\"" + attributeName + "\", this." + attributeName + ", \"" + attributeType + "\", serializator);\n")
-			file.write("\t\t}\n\n")
-			
-			file.write("\t\tpublic override function deserialize(deserializator:IDeserializator):void\n\t\t{\n")
-			for attributeName in classData[className]:
-				attributeData = classData[className][attributeName]
-				attributeType = attributeData
-				if type(attributeData) == dict:
-					attributeType = "String"
-				file.write("\t\t\tthis." + attributeName + " = readUnindentified(\"" + attributeName + "\", \"" + attributeType + "\", deserializator);\n");
-			file.write("\t\t}\n\n")
 			
 			file.write("\t}\n}")
 			
