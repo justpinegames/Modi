@@ -18,18 +18,18 @@ package Modi
 		
 		function willRemove(object:ManagedObject, index:int):void;
 		
-		function hasRemoved(object:ManagedObject, index:int):void;
+		function wasRemoved(object:ManagedObject, index:int):void;
 		
 		function allowAdd(object:ManagedObject, index:int):Boolean;
 		
 		function willAdd(object:ManagedObject, index:int):void;
 		
-		function hasAdded(object:ManagedObject, index:int):void;
+		function wasAdded(object:ManagedObject, index:int):void;
 		
 		function allowReplace(oldObject:ManagedObject, newObject:ManagedObject, index:int):Boolean;
 		
 		function willReplace(oldObject:ManagedObject, newObject:ManagedObject, index:int):void;
 		
-		function hasReplaced(oldObject:ManagedObject, newObject:ManagedObject, index:int):void;
+		function wasReplaced(oldObject:ManagedObject, newObject:ManagedObject, index:int):void;
 	}
 }

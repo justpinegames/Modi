@@ -14,13 +14,13 @@ package Modi
 	{
 		public static var ALLOW_REMOVE:String = "AllowRemove";
 		public static var WILL_REMOVE:String = "WillRemove";
-		public static var HAS_REMOVED:String = "HasRemoved";
+		public static var WAS_REMOVED:String = "WasRemoved";
 		public static var ALLOW_ADD:String = "AllowAdd";
 		public static var WILL_ADD:String = "WillAdd";
-		public static var HAS_ADDED:String = "HasAdded";
+		public static var WAS_ADDED:String = "WasAdded";
 		public static var ALLOW_REPLACE:String = "AllowReplace";
 		public static var WILL_REPLACE:String = "WillReplace";
-		public static var HAS_REPLACED:String = "HasReplaced";
+		public static var WAS_REPLACED:String = "WasReplaced";
 		
 		private var _data:Vector.<ManagedObject>;
 		private var _observers:Dictionary;
@@ -32,13 +32,13 @@ package Modi
 			_observers = new Dictionary();
 			_observers[ALLOW_REMOVE] = new Array();
 			_observers[WILL_REMOVE] = new Array();
-			_observers[HAS_REMOVED] = new Array();
+			_observers[WAS_REMOVED] = new Array();
 			_observers[ALLOW_ADD] = new Array();
 			_observers[WILL_ADD] = new Array();
-			_observers[HAS_ADDED] = new Array();
+			_observers[WAS_ADDED] = new Array();
 			_observers[ALLOW_REPLACE] = new Array();
 			_observers[WILL_REPLACE] = new Array();
-			_observers[HAS_REPLACED] = new Array();
+			_observers[WAS_REPLACED] = new Array();
 		}
 		
 		public function push(object:ManagedObject):void
@@ -54,7 +54,7 @@ package Modi
 			
 			_data.push(object);
 			
-			hasRemoved(object, index);
+			wasRemoved(object, index);
 		}
 		
 		public function pushMultiple(array:Array):void
@@ -97,7 +97,7 @@ package Modi
 				
 				_data.splice(index, 1);
 				
-				hasRemoved(object, index);
+				wasRemoved(object, index);
 				
 				return true;
 			}
@@ -165,7 +165,7 @@ package Modi
 			
 			_data[index] = newObject;
 			
-			hasReplaced(oldObject, newObject, index);
+			wasReplaced(oldObject, newObject, index);
 			
 			return true;
 		}
@@ -284,15 +284,15 @@ package Modi
 			}
 		}
 		
-		public function hasRemoved(object:ManagedObject, index:int):void
+		public function wasRemoved(object:ManagedObject, index:int):void
 		{
 			/// Ako ne postoje observeri na ovaj event, izlazi van jer nema koga obavijestiti
-			if (_observers[HAS_REMOVED].length == 0)
+			if (_observers[WAS_REMOVED].length == 0)
 			{
 				return;
 			}
 			
-			var targetObservers:Array = _observers[HAS_REMOVED];
+			var targetObservers:Array = _observers[WAS_REMOVED];
 			var length:int = targetObservers.length;
 			var observer:IObserver;
 			var i:int;
@@ -300,7 +300,7 @@ package Modi
 			for (i = 0; i < length; i++)
 			{
 				observer = targetObservers[i];				
-				var observerEvent:ArrayObserverEvent = new ArrayObserverEvent(object, HAS_REMOVED, index);
+				var observerEvent:ArrayObserverEvent = new ArrayObserverEvent(object, WAS_REMOVED, index);
 				observer.callback(observerEvent);
 			}
 		}
@@ -356,15 +356,15 @@ package Modi
 			}
 		}
 		
-		public function hasAdded(object:ManagedObject, index:int):void
+		public function wasAdded(object:ManagedObject, index:int):void
 		{
 			/// Ako ne postoje observeri na ovaj event, izlazi van jer nema koga obavijestiti
-			if (_observers[HAS_ADDED].length == 0)
+			if (_observers[WAS_ADDED].length == 0)
 			{
 				return;
 			}
 			
-			var targetObservers:Array = _observers[HAS_ADDED];
+			var targetObservers:Array = _observers[WAS_ADDED];
 			var length:int = targetObservers.length;
 			var observer:IObserver;
 			var i:int;
@@ -372,7 +372,7 @@ package Modi
 			for (i = 0; i < length; i++)
 			{
 				observer = targetObservers[i];				
-				var observerEvent:ArrayObserverEvent = new ArrayObserverEvent(object, HAS_ADDED, index);
+				var observerEvent:ArrayObserverEvent = new ArrayObserverEvent(object, WAS_ADDED, index);
 				observer.callback(observerEvent);
 			}
 		}
@@ -428,15 +428,15 @@ package Modi
 			}
 		}
 		
-		public function hasReplaced(oldObject:ManagedObject, newObject:ManagedObject, index:int):void
+		public function wasReplaced(oldObject:ManagedObject, newObject:ManagedObject, index:int):void
 		{
 			/// Ako ne postoje observeri na ovaj event, izlazi van jer nema koga obavijestiti
-			if (_observers[HAS_REPLACED].length == 0)
+			if (_observers[WAS_REPLACED].length == 0)
 			{
 				return;
 			}
 			
-			var targetObservers:Array = _observers[HAS_REPLACED];
+			var targetObservers:Array = _observers[WAS_REPLACED];
 			var length:int = targetObservers.length;
 			var observer:IObserver;
 			var i:int;
@@ -444,7 +444,7 @@ package Modi
 			for (i = 0; i < length; i++)
 			{
 				observer = targetObservers[i];				
-				var observerEvent:ArrayObserverEvent = new ArrayObserverEvent(newObject, HAS_REPLACED, index, oldObject);
+				var observerEvent:ArrayObserverEvent = new ArrayObserverEvent(newObject, WAS_REPLACED, index, oldObject);
 				observer.callback(observerEvent);
 			}
 		}

@@ -15,7 +15,7 @@ package Modi
 	{
 		public static var ALLOW_CHANGE:String = "AllowChange";
 		public static var WILL_CHANGE:String = "WillChange";
-		public static var HAS_CHANGED:String = "HasChanged";
+		public static var WAS_CHANGED:String = "WasChanged";
 		
 		private var _data:Dictionary;
 		private var _observers:Dictionary;
@@ -29,7 +29,7 @@ package Modi
 			_observers = new Dictionary();
 			_observers[ALLOW_CHANGE] = new Array();
 			_observers[WILL_CHANGE] = new Array();
-			_observers[HAS_CHANGED] = new Array();
+			_observers[WAS_CHANGED] = new Array();
 			
 			_xValues = new Vector.<int>();
 			_yValues = new Vector.<int>();
@@ -119,15 +119,15 @@ package Modi
 			}
 		}
 		
-		public function hasChanged(oldObject:ManagedObject, newObject:ManagedObject, x:int, y:int):void
+		public function wasChanged(oldObject:ManagedObject, newObject:ManagedObject, x:int, y:int):void
 		{
 			/// Ako ne postoje observeri na ovaj event, izlazi van jer nema koga obavijestiti
-			if (_observers[HAS_CHANGED].length == 0)
+			if (_observers[WAS_CHANGED].length == 0)
 			{
 				return;
 			}
 			
-			var targetObservers:Array = _observers[HAS_CHANGED];
+			var targetObservers:Array = _observers[WAS_CHANGED];
 			var length:int = targetObservers.length;
 			var observer:IObserver;
 			var i:int;
@@ -159,7 +159,7 @@ package Modi
 			
 			_data[x + "x" + y] = object;
 			
-			hasChanged(oldObject, object, x, y);
+			wasChanged(oldObject, object, x, y);
 			
 			if (oldObject != null)
 			{

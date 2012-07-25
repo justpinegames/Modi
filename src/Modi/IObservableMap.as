@@ -18,6 +18,6 @@ package Modi
 		
 		function willChange(oldObject:ManagedObject, newObject:ManagedObject, x:int, y:int):void;
 		
-		function hasChanged(oldObject:ManagedObject, newObject:ManagedObject, x:int, y:int):void;
+		function wasChanged(oldObject:ManagedObject, newObject:ManagedObject, x:int, y:int):void;
 	}
 }

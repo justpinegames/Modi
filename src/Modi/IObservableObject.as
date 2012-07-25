@@ -18,6 +18,6 @@ package Modi
 		
 		function willChange(attribute:String, oldState:*, newState:*):void;
 		
-		function hasChanged(attribute:String, oldState:*, newState:*):void;
+		function wasChanged(attribute:String, oldState:*, newState:*):void;
 	}
 }

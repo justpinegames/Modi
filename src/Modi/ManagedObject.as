@@ -18,7 +18,7 @@ package Modi
 	{
 		public static var ALLOW_CHANGE:String = "AllowChange";
 		public static var WILL_CHANGE:String = "WillChange";
-		public static var HAS_CHANGED:String = "HasChanged";
+		public static var WAS_CHANGED:String = "WasChanged";
 		
 		private var _registeredAttributes:Array;
 		private var _registeredAttributesTypes:Array;
@@ -133,7 +133,7 @@ package Modi
 			}
 		}
 		
-		public function hasChanged(attribute:String, oldState:*, newState:*):void
+		public function wasChanged(attribute:String, oldState:*, newState:*):void
 		{
 			/// Ako ne postoje observeri na ovaj atribut, izlazi van jer nema koga obavijestiti
 			if (_attributeObservers[attribute] == undefined)
@@ -149,9 +149,9 @@ package Modi
 			for (i = 0; i < length; i++)
 			{
 				observer = targetObservers[i];
-				if (observer.observedEvent == HAS_CHANGED)
+				if (observer.observedEvent == WAS_CHANGED)
 				{
-					var observerEvent:AttributeObserverEvent = new AttributeObserverEvent(attribute, HAS_CHANGED, oldState, newState);
+					var observerEvent:AttributeObserverEvent = new AttributeObserverEvent(attribute, WAS_CHANGED, oldState, newState);
 					observer.callback(observerEvent);
 				}
 			}
