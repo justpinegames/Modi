@@ -50,11 +50,11 @@ package Modi
 				return;
 			}
 			
-			willRemove(object, index);
+			willAdd(object, index);
 			
 			_data.push(object);
 			
-			wasRemoved(object, index);
+			wasAdded(object, index);
 		}
 		
 		public function pushMultiple(array:Array):void
@@ -204,7 +204,7 @@ package Modi
 		{
 			if (_observers[event] == undefined)
 			{
-				throw new Error("Event " + event + " does not exists nor can it be tracked!");
+				throw new Error("Event " + event + " does not exist nor can it be tracked!");
 			}
 			
 			_observers[event].push(new IObserver(event, callback));
@@ -214,7 +214,7 @@ package Modi
 		{
 			if (_observers[event] == undefined)
 			{
-				throw new Error("Event " + event + " does not exists nor can it be tracked!");
+				throw new Error("Event " + event + " does not exist nor can it be tracked!");
 			}
 			
 			var length:int = _observers[event].length;
