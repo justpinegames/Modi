@@ -45,6 +45,7 @@ package Modi
 			}
 			
 			_attributeObservers[attribute].push(new IObserver(event, callback));
+			trace(_attributeObservers[attribute].length);
 		}
 		
 		public function removeObserver(attribute:String, callback:Function):Boolean

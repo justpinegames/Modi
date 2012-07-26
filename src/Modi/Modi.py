@@ -18,8 +18,8 @@ def main(argv):
 		packageFlag = False
 		outputFlag = False
 		
-		packageDirectory = "./"
-		outputDirectory = "./"
+		packageDirectory = ""
+		outputDirectory = ""
 		modelFiles = []
 
 		for arg in argv:
@@ -123,18 +123,21 @@ def createMachineClass(directory, package, className, classData):
 			
 			file.write("\t\tpublic static const ATTRIBUTES:Array = [");
 			for attributeName in classData[className]:
-				file.write("\"" + attributeName + "\", ")
+				if attributeName != "super":
+					file.write("\"" + attributeName + "\", ")
 			file.write("];\n\t\tpublic static const ATTRIBUTES_TYPES:Array = [");
 			for attributeName in classData[className]:
-				attributeData = classData[className][attributeName]
-				attributeType = attributeData
-				if type(attributeData) == dict:
-					attributeType = "String"
-				file.write("\"" + attributeType + "\", ")
+				if attributeName != "super":
+					attributeData = classData[className][attributeName]
+					attributeType = attributeData
+					if type(attributeData) == dict:
+						attributeType = "String"
+					file.write("\"" + attributeType + "\", ")
 			file.write("];\n\n")
 			
 			for attributeName in classData[className]:
-				file.write("\t\tpublic static const ATTRIBUTE_" + attributeName.upper() + ":String = \"" + attributeName + "\";\n")
+				if attributeName != "super":
+					file.write("\t\tpublic static const ATTRIBUTE_" + attributeName.upper() + ":String = \"" + attributeName + "\";\n")
 			
 			file.write("\n")
 				
@@ -195,26 +198,27 @@ def createMachineClass(directory, package, className, classData):
 			""" --------------------------------------------------------------------------- """
 			
 			for attributeName in classData[className]:
-				attributeData = classData[className]
-				argumentAndReturnType = ""
-				
-				if type(attributeData[attributeName]) == dict:
-					argumentAndReturnType = "String"
-				else:
-					argumentAndReturnType = attributeData[attributeName]
+				if attributeName != "super":
+					attributeData = classData[className]
+					argumentAndReturnType = ""
 					
-				file.write("\t\tpublic function set " + attributeName + "(" + attributeName + ":" + argumentAndReturnType + "):void\n\t\t{\n")
-				file.write("\t\t\tif (!this.allowChange(ATTRIBUTE_" + attributeName.upper() + ", this._" + attributeName + ", " + attributeName + "))\n")
-				file.write("\t\t\t{\n\t\t\t\treturn;\n\t\t\t}\n\n\t\t\t")
-				file.write("this.willChange(ATTRIBUTE_" + attributeName.upper() + ", this._" + attributeName + ", " + attributeName + ")\n\n\t\t\t")
-				file.write("this._" + attributeName + " = " + attributeName + ";\n\n\t\t\t")
-				file.write("this.wasChanged(ATTRIBUTE_" + attributeName.upper() + ", this._" + attributeName + ", " + attributeName + ")\n\t\t}\n\n")
-				
-				file.write("\t\tpublic function get " + attributeName + "():" + argumentAndReturnType + "\n\t\t{\n\t\t\t")
-				file.write("return this._" + attributeName + ";\n\t\t}\n\n")
-				
-				file.write("\t\tpublic function set " + attributeName.capitalize() + "DirectUnsafe("+ attributeName + ":" + argumentAndReturnType)
-				file.write("):void\n\t\t{\n\t\t\tthis._" + attributeName + " = " + attributeName + ";\n\t\t}\n\n")
+					if type(attributeData[attributeName]) == dict:
+						argumentAndReturnType = "String"
+					else:
+						argumentAndReturnType = attributeData[attributeName]
+						
+					file.write("\t\tpublic function set " + attributeName + "(" + attributeName + ":" + argumentAndReturnType + "):void\n\t\t{\n")
+					file.write("\t\t\tif (!this.allowChange(ATTRIBUTE_" + attributeName.upper() + ", this._" + attributeName + ", " + attributeName + "))\n")
+					file.write("\t\t\t{\n\t\t\t\treturn;\n\t\t\t}\n\n\t\t\t")
+					file.write("this.willChange(ATTRIBUTE_" + attributeName.upper() + ", this._" + attributeName + ", " + attributeName + ")\n\n\t\t\t")
+					file.write("this._" + attributeName + " = " + attributeName + ";\n\n\t\t\t")
+					file.write("this.wasChanged(ATTRIBUTE_" + attributeName.upper() + ", this._" + attributeName + ", " + attributeName + ")\n\t\t}\n\n")
+					
+					file.write("\t\tpublic function get " + attributeName + "():" + argumentAndReturnType + "\n\t\t{\n\t\t\t")
+					file.write("return this._" + attributeName + ";\n\t\t}\n\n")
+					
+					file.write("\t\tpublic function set " + attributeName.capitalize() + "DirectUnsafe("+ attributeName + ":" + argumentAndReturnType)
+					file.write("):void\n\t\t{\n\t\t\tthis._" + attributeName + " = " + attributeName + ";\n\t\t}\n\n")
 			
 			""" --------------------------------------------------------------------------- """
 			
