@@ -26,7 +26,7 @@ package
 		private function addedToStageHandler(event:Event):void
 		{
 			var map:ManagedMap = new ManagedMap();
-			map.registerObserver(ManagedMap.HAS_CHANGED, mapChanged);
+			map.registerObserver(ManagedMap.WAS_CHANGED, mapChanged);
 			map.setObjectAt(1, 3, new Player());
 			map.setObjectAt(4, 3, new Player());
 			

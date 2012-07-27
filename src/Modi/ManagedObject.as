@@ -209,7 +209,7 @@ package Modi
 			else if (type == "ManagedArray")
 			{
 				deserializator.pushArray(name);
-				(object as ManagedArray).deserialize(deserializator);
+				(object[name] as ManagedArray).deserialize(deserializator);
 				deserializator.popArray();
 			}
 			else if (type == "ManagedMap")

@@ -9,6 +9,7 @@
 package Modi
 {
 	import flash.utils.Dictionary;
+	import Core.Utility;
 	
 	public class ManagedArray implements IObservableArray, ISerializableObject
 	{
@@ -482,11 +483,16 @@ package Modi
 		{
 			this.removeAllObjects();
 			
-			var length: int = 0;//deserializator.getLength();
+			var length: int = deserializator.getCurrentLength();
 				
 			for (var i:int = 0; i < length; i++) 
 			{
-				var object:* = ManagedObject.readUnindentified(i.toString(), this, "ManagedObject", deserializator);
+				var ManagedClass:Class = Utility.getClassFromString(_childType);
+				var object:ManagedObject = new ManagedClass();
+				deserializator.pushObject(i.toString())
+				object.deserialize(deserializator);
+				deserializator.popObject();
+				
 				this.push(object);
 			}
 			

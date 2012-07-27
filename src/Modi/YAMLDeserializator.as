@@ -35,7 +35,7 @@ package Modi
 			}
 			else if (stackTopContext() == SERIALIZATOR_STATE_ARRAY) 
 			{
-				return stackTop()[int(object)];
+				return stackTop()[int(name)];
 			}
 			else if (stackTopContext() == SERIALIZATOR_STATE_MAP) 
 			{
@@ -83,22 +83,24 @@ package Modi
 		
 		public function pushObject(name:String):void 
 		{
-			
+			var object:Object = stackTop()[name];
+			_stack.push({data:object, context:SERIALIZATOR_STATE_OBJECT});
 		}
 		
 		public function popObject():void 
 		{
-			
+			_stack.pop();
 		}
 		
 		public function pushArray(name:String):void 
 		{
-			
+			var array:Array = stackTop()[name];
+			_stack.push({data:array, context:SERIALIZATOR_STATE_ARRAY});
 		}
 		
 		public function popArray():void 
 		{
-			
+			_stack.pop();
 		}
 		
 		public function pushMap(name:String):void 
