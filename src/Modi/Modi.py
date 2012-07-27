@@ -196,7 +196,11 @@ def createMachineClass(directory, package, className, classData):
 				attributeData = classData[className][attributeName]
 				if ("ManagedArray" in attributeType or "ManagedMap" in attributeData) and attributeName != "super":
 					file.write("\t\t\tthis._" + attributeName + " = new " + getCollectionType(attributeData) + "();\n")
-					file.write("\t\t\tthis._" + attributeName + '.childType = "' + getChildType(attributeData) + '";\n')
+
+					if package != "":
+						package += "."
+
+					file.write("\t\t\tthis._" + attributeName + '.childType = "' + package + getChildType(attributeData) + '";\n')
 
 			file.write("\t\t}\n\n")
 
