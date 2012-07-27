@@ -132,7 +132,7 @@ def createMachineClass(directory, package, className, classData):
 					attributeType = attributeData
 					if type(attributeData) == dict:
 						attributeType = "String"
-					if "ManagedArray" in attributeType or "ManagedMap" in attributeData:
+					if "Managed" in attributeData:
 						attributeType = getCollectionType(attributeData)
 					file.write("\"" + attributeType + "\", ")
 			file.write("];\n\n")
@@ -171,7 +171,7 @@ def createMachineClass(directory, package, className, classData):
 						attributeType = "String"
 					else:
 						attributeType = attributeData
-						if "ManagedArray" in attributeType or "ManagedMap" in attributeData:
+						if "Managed" in attributeType:
 							attributeType = getCollectionType(attributeData)
 					file.write("\t\tprivate var _" + attributeName + ":" + attributeType + ";\n")
 				
@@ -194,13 +194,15 @@ def createMachineClass(directory, package, className, classData):
 
 			for attributeName in classData[className]:
 				attributeData = classData[className][attributeName]
-				if ("ManagedArray" in attributeType or "ManagedMap" in attributeData) and attributeName != "super":
+				if "Managed" in attributeData and attributeName != "super":
 					file.write("\t\t\tthis._" + attributeName + " = new " + getCollectionType(attributeData) + "();\n")
 
-					if package != "":
-						package += "."
+					if getChildType(attributeData) != "ManagedObject":
 
-					file.write("\t\t\tthis._" + attributeName + '.childType = "' + package + getChildType(attributeData) + '";\n')
+						if package != "":
+							package += "."
+
+						file.write("\t\t\tthis._" + attributeName + '.childType = "' + package + getChildType(attributeData) + '";\n')
 
 			file.write("\t\t}\n\n")
 
@@ -215,7 +217,7 @@ def createMachineClass(directory, package, className, classData):
 						argumentAndReturnType = "String"
 					else:
 						argumentAndReturnType = attributeData[attributeName]
-						if "ManagedArray" in argumentAndReturnType or "ManagedMap" in argumentAndReturnType:
+						if "Managed" in argumentAndReturnType:
 							argumentAndReturnType = getCollectionType(argumentAndReturnType)
 
 					file.write("\t\tpublic function set " + attributeName + "(" + attributeName + ":" + argumentAndReturnType + "):void\n\t\t{\n")
