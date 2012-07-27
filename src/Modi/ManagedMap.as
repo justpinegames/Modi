@@ -18,6 +18,7 @@ package Modi
 		public static var WAS_CHANGED:String = "WasChanged";
 		
 		private var _data:Dictionary;
+		private var _childType:String;
 		private var _observers:Dictionary;
 		private var _xValues:Vector.<int>;
 		private var _yValues:Vector.<int>;
@@ -277,6 +278,11 @@ package Modi
 			}
 			
 			return 0;
+		}
+		
+		public function set childType(type:String):void
+		{
+			_childType = type;
 		}
 		
 		final private function vectorSortBehaviour(a:Number, b:Number):int

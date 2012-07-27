@@ -23,6 +23,7 @@ package Modi
 		public static var WAS_REPLACED:String = "WasReplaced";
 		
 		private var _data:Vector.<ManagedObject>;
+		private var _childType:String;
 		private var _observers:Dictionary;
 		
 		public function ManagedArray() 
@@ -198,6 +199,11 @@ package Modi
 		public function toString():String
 		{
 			return _data.toString();
+		}
+		
+		public function set childType(type:String):void
+		{
+			_childType = type;
 		}
 		
 		public function registerObserver(event:String, callback:Function):void

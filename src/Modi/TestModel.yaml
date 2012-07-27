@@ -1,7 +1,7 @@
 Player:
     super: ManagedObject
     health: Number
-    units: ManagedArray
+    units: ManagedArray<NekaSubklasa>
     weapons:
         values: [sword, axe, bow]
         default: sword

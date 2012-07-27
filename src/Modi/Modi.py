@@ -132,6 +132,8 @@ def createMachineClass(directory, package, className, classData):
 					attributeType = attributeData
 					if type(attributeData) == dict:
 						attributeType = "String"
+					if "Managed" in attributeData:
+						attributeType = getCollectionType(attributeData)
 					file.write("\"" + attributeType + "\", ")
 			file.write("];\n\n")
 			
@@ -169,6 +171,8 @@ def createMachineClass(directory, package, className, classData):
 						attributeType = "String"
 					else:
 						attributeType = attributeData
+						if "Managed" in attributeType:
+							attributeType = getCollectionType(attributeData)
 					file.write("\t\tprivate var _" + attributeName + ":" + attributeType + ";\n")
 				
 			""" --------------------------------------------------------------------------- """
@@ -190,8 +194,9 @@ def createMachineClass(directory, package, className, classData):
 
 			for attributeName in classData[className]:
 				attributeData = classData[className][attributeName]
-				if attributeData == "ManagedArray" or attributeData == "ManagedMap":
-					file.write("\t\t\tthis._" + attributeName + " = new " + attributeData + ";\n")
+				if "Managed" in attributeData and attributeName != "super":
+					file.write("\t\t\tthis._" + attributeName + " = new " + getCollectionType(attributeData) + "();\n")
+					file.write("\t\t\tthis._" + attributeName + '.childType = "' + getChildType(attributeData) + '";\n')
 
 			file.write("\t\t}\n\n")
 
@@ -206,7 +211,9 @@ def createMachineClass(directory, package, className, classData):
 						argumentAndReturnType = "String"
 					else:
 						argumentAndReturnType = attributeData[attributeName]
-						
+						if "Managed" in argumentAndReturnType:
+							argumentAndReturnType = getCollectionType(argumentAndReturnType)
+
 					file.write("\t\tpublic function set " + attributeName + "(" + attributeName + ":" + argumentAndReturnType + "):void\n\t\t{\n")
 					file.write("\t\t\tif (!this.allowChange(ATTRIBUTE_" + attributeName.upper() + ", this._" + attributeName + ", " + attributeName + "))\n")
 					file.write("\t\t\t{\n\t\t\t\treturn;\n\t\t\t}\n\n\t\t\t")
@@ -229,6 +236,34 @@ def createMachineClass(directory, package, className, classData):
 	except IOError:
 		print "Error occoured while opening or reading file: \n" + classPath
 		cleanAndExit()
+
+def getCollectionType(str):
+	childType = ""
+	counts = True
+
+	for char in str:
+		if char == "<":
+			counts = False
+		if counts:
+			childType += char
+
+	return childType;
+
+def getChildType(str):
+	childType = "ManagedObject"
+	counts = False
+
+	for char in str:
+		if char == ">":
+			counts = False
+		if counts:
+			childType += char
+		if char == "<":
+			childType = ""
+			counts = True
+
+	return childType;
+
 
 def createEnumClassFile(machineDirectory, className, classData):
 
