@@ -132,7 +132,7 @@ def createMachineClass(directory, package, className, classData):
 					attributeType = attributeData
 					if type(attributeData) == dict:
 						attributeType = "String"
-					if "Managed" in attributeData:
+					if "ManagedArray" in attributeType or "ManagedMap" in attributeData:
 						attributeType = getCollectionType(attributeData)
 					file.write("\"" + attributeType + "\", ")
 			file.write("];\n\n")
@@ -171,7 +171,7 @@ def createMachineClass(directory, package, className, classData):
 						attributeType = "String"
 					else:
 						attributeType = attributeData
-						if "Managed" in attributeType:
+						if "ManagedArray" in attributeType or "ManagedMap" in attributeData:
 							attributeType = getCollectionType(attributeData)
 					file.write("\t\tprivate var _" + attributeName + ":" + attributeType + ";\n")
 				
@@ -194,7 +194,7 @@ def createMachineClass(directory, package, className, classData):
 
 			for attributeName in classData[className]:
 				attributeData = classData[className][attributeName]
-				if "Managed" in attributeData and attributeName != "super":
+				if ("ManagedArray" in attributeType or "ManagedMap" in attributeData) and attributeName != "super":
 					file.write("\t\t\tthis._" + attributeName + " = new " + getCollectionType(attributeData) + "();\n")
 					file.write("\t\t\tthis._" + attributeName + '.childType = "' + getChildType(attributeData) + '";\n')
 
@@ -211,7 +211,7 @@ def createMachineClass(directory, package, className, classData):
 						argumentAndReturnType = "String"
 					else:
 						argumentAndReturnType = attributeData[attributeName]
-						if "Managed" in argumentAndReturnType:
+						if "ManagedArray" in argumentAndReturnType or "ManagedMap" in argumentAndReturnType:
 							argumentAndReturnType = getCollectionType(argumentAndReturnType)
 
 					file.write("\t\tpublic function set " + attributeName + "(" + attributeName + ":" + argumentAndReturnType + "):void\n\t\t{\n")
