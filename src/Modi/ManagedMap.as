@@ -27,6 +27,8 @@ package Modi
 		{
 			_data = new Dictionary();
 			
+			_childType = "Modi.ManagedObject";
+			
 			_observers = new Dictionary();
 			_observers[ALLOW_CHANGE] = new Array();
 			_observers[WILL_CHANGE] = new Array();

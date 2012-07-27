@@ -31,6 +31,8 @@ package Modi
 		{
 			_data = new Vector.<ManagedObject>();
 			
+			_childType = "Modi.ManagedObject";
+			
 			_observers = new Dictionary();
 			_observers[ALLOW_REMOVE] = new Array();
 			_observers[WILL_REMOVE] = new Array();
