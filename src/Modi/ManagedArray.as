@@ -34,15 +34,15 @@ package Modi
 			_childType = "Modi.ManagedObject";
 			
 			_observers = new Dictionary();
-			_observers[ALLOW_REMOVE] = new Array();
-			_observers[WILL_REMOVE] = new Array();
-			_observers[WAS_REMOVED] = new Array();
-			_observers[ALLOW_ADD] = new Array();
-			_observers[WILL_ADD] = new Array();
-			_observers[WAS_ADDED] = new Array();
-			_observers[ALLOW_REPLACE] = new Array();
-			_observers[WILL_REPLACE] = new Array();
-			_observers[WAS_REPLACED] = new Array();
+			_observers[ALLOW_REMOVE] = new Vector.<IObserver>();
+			_observers[WILL_REMOVE] = new Vector.<IObserver>();
+			_observers[WAS_REMOVED] = new Vector.<IObserver>();
+			_observers[ALLOW_ADD] = new Vector.<IObserver>();
+			_observers[WILL_ADD] = new Vector.<IObserver>();
+			_observers[WAS_ADDED] = new Vector.<IObserver>();
+			_observers[ALLOW_REPLACE] = new Vector.<IObserver>();
+			_observers[WILL_REPLACE] = new Vector.<IObserver>();
+			_observers[WAS_REPLACED] = new Vector.<IObserver>();
 		}
 		
 		public function push(object:ManagedObject):void
@@ -211,7 +211,7 @@ package Modi
 		
 		public function registerObserver(event:String, callback:Function):void
 		{
-			if (_observers[event] == undefined)
+			if (_observers[event] === undefined)
 			{
 				throw new Error("Event " + event + " does not exist nor can it be tracked!");
 			}
@@ -221,7 +221,7 @@ package Modi
 		
 		public function removeObserver(event:String, callback:Function):Boolean
 		{
-			if (_observers[event] == undefined)
+			if (_observers[event] === undefined)
 			{
 				throw new Error("Event " + event + " does not exist nor can it be tracked!");
 			}
@@ -250,7 +250,7 @@ package Modi
 				return true;
 			}
 			
-			var targetObservers:Array = _observers[ALLOW_REMOVE];
+			var targetObservers:Vector.<IObserver> = _observers[ALLOW_REMOVE];
 			var length:int = targetObservers.length;
 			var observer:IObserver;
 			var i:int;
@@ -280,7 +280,7 @@ package Modi
 				return;
 			}
 			
-			var targetObservers:Array = _observers[WILL_REMOVE];
+			var targetObservers:Vector.<IObserver> = _observers[WILL_REMOVE];
 			var length:int = targetObservers.length;
 			var observer:IObserver;
 			var i:int;
@@ -301,7 +301,7 @@ package Modi
 				return;
 			}
 			
-			var targetObservers:Array = _observers[WAS_REMOVED];
+			var targetObservers:Vector.<IObserver> = _observers[WAS_REMOVED];
 			var length:int = targetObservers.length;
 			var observer:IObserver;
 			var i:int;
@@ -322,7 +322,7 @@ package Modi
 				return true;
 			}
 			
-			var targetObservers:Array = _observers[ALLOW_ADD];
+			var targetObservers:Vector.<IObserver> = _observers[ALLOW_ADD];
 			var length:int = targetObservers.length;
 			var observer:IObserver;
 			var i:int;
@@ -352,7 +352,7 @@ package Modi
 				return;
 			}
 			
-			var targetObservers:Array = _observers[WILL_ADD];
+			var targetObservers:Vector.<IObserver> = _observers[WILL_ADD];
 			var length:int = targetObservers.length;
 			var observer:IObserver;
 			var i:int;
@@ -373,7 +373,7 @@ package Modi
 				return;
 			}
 			
-			var targetObservers:Array = _observers[WAS_ADDED];
+			var targetObservers:Vector.<IObserver> = _observers[WAS_ADDED];
 			var length:int = targetObservers.length;
 			var observer:IObserver;
 			var i:int;
@@ -394,7 +394,7 @@ package Modi
 				return true;
 			}
 			
-			var targetObservers:Array = _observers[ALLOW_REPLACE];
+			var targetObservers:Vector.<IObserver> = _observers[ALLOW_REPLACE];
 			var length:int = targetObservers.length;
 			var observer:IObserver;
 			var i:int;
@@ -424,7 +424,7 @@ package Modi
 				return;
 			}
 			
-			var targetObservers:Array = _observers[WILL_REPLACE];
+			var targetObservers:Vector.<IObserver> = _observers[WILL_REPLACE];
 			var length:int = targetObservers.length;
 			var observer:IObserver;
 			var i:int;
@@ -445,7 +445,7 @@ package Modi
 				return;
 			}
 			
-			var targetObservers:Array = _observers[WAS_REPLACED];
+			var targetObservers:Vector.<IObserver> = _observers[WAS_REPLACED];
 			var length:int = targetObservers.length;
 			var observer:IObserver;
 			var i:int;
@@ -499,7 +499,5 @@ package Modi
 			}
 			
 		}
-		
-		
 	}
 }

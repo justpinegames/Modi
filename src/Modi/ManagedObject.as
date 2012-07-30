@@ -20,13 +20,13 @@ package Modi
 		public static var WILL_CHANGE:String = "WillChange";
 		public static var WAS_CHANGED:String = "WasChanged";
 		
+		private var _attributeObservers:Dictionary;
 		private var _registeredAttributes:Array;
 		private var _registeredAttributesTypes:Array;
-		private var _attributeObservers:Array;
 		
 		public function ManagedObject()
 		{
-			_attributeObservers = new Array();
+			_attributeObservers = new Dictionary();
 			_registeredAttributes = new Array();
 			_registeredAttributesTypes = new Array();
 		}
@@ -36,21 +36,20 @@ package Modi
 			var index:int = _registeredAttributes.indexOf(attribute);
 			if (index == -1)
 			{
-				throw new Error("Object " + attribute + " does not exist");
+				throw new Error("Object " + attribute + " does not exist!");
 			}
 			
-			if (_attributeObservers[attribute] == undefined)
+			if (_attributeObservers[attribute] === undefined)
 			{
-				_attributeObservers[attribute] = new Array();
+				_attributeObservers[attribute] = new Vector.<IObserver>();
 			}
 			
 			_attributeObservers[attribute].push(new IObserver(event, callback));
-			trace(_attributeObservers[attribute].length);
 		}
 		
 		public function removeObserver(attribute:String, callback:Function):Boolean
 		{
-			if (_attributeObservers[attribute] == undefined)
+			if (_attributeObservers[attribute] === undefined)
 			{
 				throw new Error("Object " + attribute + " does not exist or it is not being observed!");
 			}
@@ -80,12 +79,12 @@ package Modi
 		public function allowChange(attribute:String, oldState:*, newState:*):Boolean
 		{
 			/// Ako ne postoje observeri na ovaj atribut, odma vraca true
-			if (_attributeObservers[attribute] == undefined)
+			if (_attributeObservers[attribute] === undefined)
 			{
 				return true;
 			}
 			
-			var targetObservers:Array = _attributeObservers[attribute];
+			var targetObservers:Vector.<IObserver> = _attributeObservers[attribute];
 			var length:int = targetObservers.length;
 			var observer:IObserver;
 			var i:int;
@@ -113,12 +112,12 @@ package Modi
 		public function willChange(attribute:String, oldState:*, newState:*):void
 		{
 			/// Ako ne postoje observeri na ovaj atribut, izlazi van jer nema koga obavijestiti
-			if (_attributeObservers[attribute] == undefined)
+			if (_attributeObservers[attribute] === undefined)
 			{
 				return;
 			}
 			
-			var targetObservers:Array = _attributeObservers[attribute];
+			var targetObservers:Vector.<IObserver> = _attributeObservers[attribute];
 			var length:int = targetObservers.length;
 			var observer:IObserver;
 			var i:int;
@@ -137,12 +136,12 @@ package Modi
 		public function wasChanged(attribute:String, oldState:*, newState:*):void
 		{
 			/// Ako ne postoje observeri na ovaj atribut, izlazi van jer nema koga obavijestiti
-			if (_attributeObservers[attribute] == undefined)
+			if (_attributeObservers[attribute] === undefined)
 			{
 				return;
 			}
 			
-			var targetObservers:Array = _attributeObservers[attribute];
+			var targetObservers:Vector.<IObserver> = _attributeObservers[attribute];
 			var length:int = targetObservers.length;
 			var observer:IObserver;
 			var i:int;

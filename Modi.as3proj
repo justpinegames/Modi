@@ -20,6 +20,8 @@
     <class path="..\..\SharedLibs\foxhole-starling\source" />
     <class path="..\..\SharedLibs\GTween_v2_01\src" />
     <class path="..\..\SharedLibs\Starling-Framework\starling\src" />
+    <class path="..\Core\src" />
+    <class path="..\..\SharedLibs\ChewtinfoilStringUtil" />
   </classpaths>
   <!-- Build options -->
   <build>

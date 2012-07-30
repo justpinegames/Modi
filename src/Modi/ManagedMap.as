@@ -30,9 +30,9 @@ package Modi
 			_childType = "Modi.ManagedObject";
 			
 			_observers = new Dictionary();
-			_observers[ALLOW_CHANGE] = new Array();
-			_observers[WILL_CHANGE] = new Array();
-			_observers[WAS_CHANGED] = new Array();
+			_observers[ALLOW_CHANGE] = new Vector.<IObserver>();
+			_observers[WILL_CHANGE] = new Vector.<IObserver>();
+			_observers[WAS_CHANGED] = new Vector.<IObserver>();
 			
 			_xValues = new Vector.<int>();
 			_yValues = new Vector.<int>();
@@ -40,7 +40,7 @@ package Modi
 		
 		public function registerObserver(event:String, callback:Function):void
 		{
-			if (_observers[event] == undefined)
+			if (_observers[event] === undefined)
 			{
 				throw new Error("Event " + event + " does not exists nor can it be tracked!");
 			}
@@ -50,7 +50,7 @@ package Modi
 		
 		public function removeObserver(event:String, callback:Function):Boolean
 		{
-			if (_observers[event] == undefined)
+			if (_observers[event] === undefined)
 			{
 				throw new Error("Event " + event + " does not exists nor can it be tracked!");
 			}
@@ -79,7 +79,7 @@ package Modi
 				return true;
 			}
 			
-			var targetObservers:Array = _observers[ALLOW_CHANGE];
+			var targetObservers:Vector.<IObserver> = _observers[ALLOW_CHANGE];
 			var length:int = targetObservers.length;
 			var observer:IObserver;
 			var i:int;
@@ -109,7 +109,7 @@ package Modi
 				return;
 			}
 			
-			var targetObservers:Array = _observers[WILL_CHANGE];
+			var targetObservers:Vector.<IObserver> = _observers[WILL_CHANGE];
 			var length:int = targetObservers.length;
 			var observer:IObserver;
 			var i:int;
@@ -130,7 +130,7 @@ package Modi
 				return;
 			}
 			
-			var targetObservers:Array = _observers[WAS_CHANGED];
+			var targetObservers:Vector.<IObserver> = _observers[WAS_CHANGED];
 			var length:int = targetObservers.length;
 			var observer:IObserver;
 			var i:int;
@@ -148,7 +148,7 @@ package Modi
 			var key:String = x + "x" + y;
 			var oldObject:ManagedObject = null;
 			
-			if (_data[key] != undefined)
+			if (_data[key] !== undefined)
 			{
 				oldObject = _data[key];
 			}
@@ -201,7 +201,7 @@ package Modi
 			var object:ManagedObject = null;
 			var key:String = x + "x" + y;
 			
-			if (_data[key] != undefined)
+			if (_data[key] !== undefined)
 			{
 				object = _data[key];
 			}

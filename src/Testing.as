@@ -12,8 +12,8 @@ package
 	import starling.display.Sprite;
 	import starling.events.Event;
 	
-	import Modi.player.Player;
-	import Modi.player._Player;
+	//import Modi.player.Player;
+	//import Modi.player._Player;
 	
 	public class Testing extends Sprite
 	{
@@ -25,18 +25,22 @@ package
 		
 		private function addedToStageHandler(event:Event):void
 		{
-			var map:ManagedMap = new ManagedMap();
-			map.registerObserver(ManagedMap.WAS_CHANGED, mapChanged);
-			map.setObjectAt(1, 3, new Player());
-			map.setObjectAt(4, 3, new Player());
 			
-			map.removeObjectAt(1, 3);
-			map.setObjectAtPoint(new Point(4, 3), null);
+			var test:Vector.<String> = new Vector.<String>();
+			trace(test.length);
 			
-			map.setObjectAt(5, 5, null);
-			
-			trace(map.getObjectAt(4, 3));
-			trace(map.getObjectAt(1, 3));
+			//var map:ManagedMap = new ManagedMap();
+			//map.registerObserver(ManagedMap.WAS_CHANGED, mapChanged);
+			//map.setObjectAt(1, 3, new Player());
+			//map.setObjectAt(4, 3, new Player());
+			//
+			//map.removeObjectAt(1, 3);
+			//map.setObjectAtPoint(new Point(4, 3), null);
+			//
+			//map.setObjectAt(5, 5, null);
+			//
+			//trace(map.getObjectAt(4, 3));
+			//trace(map.getObjectAt(1, 3));
 		}
 		
 		private function mapChanged(e:MapObserverEvent):void
