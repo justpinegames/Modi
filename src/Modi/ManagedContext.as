@@ -43,5 +43,13 @@ package Modi
 			
 			return managedObject;
 		}
+		
+		public function createManagedObject(ObjectClass:Class):*
+		{
+			var object:* = new ObjectClass();
+			this.addToContext(object);
+			return object;
+		}
+		
 	}
 }
