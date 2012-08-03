@@ -24,7 +24,7 @@ package Modi
 		
 		public function addToContext(managedObject:ManagedObject):void
 		{
-			var id:String = "id_" + _idCounter;
+			var id:ManagedObjectId = new ManagedObjectId("id_" + _idCounter);
 			_managedObjects[id] = managedObject;
 			managedObject.contextId = id;
 			_idCounter++;
@@ -36,10 +36,9 @@ package Modi
 			_managedObjects[id] = null;
 		}
 		
-		public function getManagedObjectById(id:String):ManagedObject
+		public function getManagedObjectById(id:ManagedObjectId):ManagedObject
 		{
 			var managedObject:ManagedObject = _managedObjects[id];
-			//Assert(managedObject, "ManagedObject with " + id + " does not exist!");
 			
 			return managedObject;
 		}

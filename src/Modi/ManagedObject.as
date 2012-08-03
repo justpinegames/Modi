@@ -23,7 +23,7 @@ package Modi
 		private var _attributeObservers:Dictionary;
 		private var _registeredAttributes:Array;
 		private var _registeredAttributesTypes:Array;
-		private var _contextId:String;
+		private var _contextId:ManagedObjectId;
 		
 		public function ManagedObject()
 		{
@@ -34,12 +34,12 @@ package Modi
 			_contextId = null;
 		}
 		
-		public function set contextId(contextId:String):void
+		public function set contextId(contextId:ManagedObjectId):void
 		{
 			_contextId = contextId;
 		}
 		
-		public function get contextId():String
+		public function get contextId():ManagedObjectId
 		{
 			return _contextId;
 		}

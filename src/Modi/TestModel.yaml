@@ -5,3 +5,6 @@ Player:
     weapons:
         values: [sword, axe, bow]
         default: sword
+    armor:
+        type: int
+        default: 32

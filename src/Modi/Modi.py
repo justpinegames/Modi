@@ -155,7 +155,7 @@ def createMachineClass(directory, package, className, classData):
 			
 			for attributeName in classData[className]:
 				attributeData = classData[className][attributeName]
-				if type(attributeData) == dict:
+				if type(attributeData) == dict and "values" in attributeData:
 					file.write("\t\tpublic static const " + attributeName.upper() + "_ENUM_ARRAY:Array = [");
 					for key in attributeData:
 						values = attributeData[key]
@@ -169,7 +169,10 @@ def createMachineClass(directory, package, className, classData):
 					attributeData = classData[className][attributeName]
 					attributeType = ""
 					if type(attributeData) == dict:
-						attributeType = "String"
+						if "values" in attributeData:
+							attributeType = "String"
+						elif "type" in attributeData:
+							attributeType = attributeData["type"]
 					else:
 						attributeType = attributeData
 						if "Managed" in attributeType:
@@ -186,11 +189,12 @@ def createMachineClass(directory, package, className, classData):
 			for attributeName in classData[className]:
 				attributeData = classData[className][attributeName]
 				if type(attributeData) == dict:
-					for key in attributeData:
-						value = attributeData[key]
-						if type(value) == str and key == "default":
-							file.write("\t\t\tthis._" + attributeName + " = " + attributeName.upper() + "_" + value.upper() + ";\n")
-			
+					if "default" in attributeData:
+						if "values" in attributeData:
+							file.write("\t\t\tthis._" + attributeName + " = " + attributeName.upper() + "_" + attributeData["default"].upper() + ";\n")
+						elif "type" in attributeData:
+							file.write("\t\t\tthis._" + attributeName + " = " + str(attributeData["default"]) + ";\n")
+
 			file.write("\n")
 
 			for attributeName in classData[className]:
