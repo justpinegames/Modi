@@ -183,6 +183,11 @@ package Modi
 		
 		public function deserialize(deserializator:IDeserializator):void 
 		{
+			if (!deserializator.ready) 
+			{
+				throw new Error("Deserializator was not initialized with data, you should call the deserializeData prior to deserializing data into the ManagedObject");
+			}
+			
 			var lenght: int = this._registeredAttributes.length;
 			for (var i: int = 0; i < lenght; i++) 
 			{
@@ -225,13 +230,7 @@ package Modi
 			}
 			else if (type == "ManagedMap")
 			{
-				
-				trace("managed map not implemented for deserialization");
-				/*
-				var className:String = deserializator.pushMap(name);
-				(object as ManagedMap).deserialize(deserializator);
-				deserializator.popMap();
-				*/
+				throw new Error("ManagedMap is currently not supported in deserialization.");
 			}
 			else /// object
 			{
@@ -246,7 +245,7 @@ package Modi
 				}
 				else 
 				{
-					/// ignore
+					// don't throw, ignore
 					pass = false;
 				}
 			}
@@ -290,8 +289,7 @@ package Modi
 			}
 			else if (type == "ManagedMap")
 			{
-				/// push map
-				trace("map serialization not yet implemented");
+				throw new Error("ManagedMap is currently not supported in serialization.");
 			}
 			else 
 			{
@@ -306,11 +304,8 @@ package Modi
 				}
 				else 
 				{
-
-					
+					// don't throw, ignore	
 					pass = false;
-					/// ignore
-					
 				}
 			}
 			

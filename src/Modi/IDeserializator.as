@@ -6,6 +6,8 @@ package Modi
 	public interface IDeserializator 
 	{
 		
+		function get ready():Boolean;
+		
 		function deserializeData(data:*):void;
 		
 		function readString(name:String):String;

@@ -10,9 +10,11 @@ package Modi
 		
 		private var _stack:Array;
 		private var _data:Object;
+		private var _ready:Boolean;
 		
 		public function YAMLDeserializator()
 		{
+			_ready = false;
 			_data = null;
 			_stack = new Array;
 		}
@@ -39,7 +41,7 @@ package Modi
 			}
 			else if (stackTopContext() == SERIALIZATOR_STATE_MAP) 
 			{
-				
+				throw new Error("ManagedMap serialization not implemented.");
 			}
 			else 
 			{
@@ -54,6 +56,12 @@ package Modi
 		{
 			_data = YAML.decode(data);
 			_stack.push( { data:_data, context:SERIALIZATOR_STATE_OBJECT } );
+			_ready = true;
+		}
+		
+		public function get ready():Boolean
+		{
+			return _ready;
 		}
 		
 		public function readString(name:String):String 
@@ -105,12 +113,12 @@ package Modi
 		
 		public function pushMap(name:String):void 
 		{
-			
+			throw new Error("ManagedMap is not implemented in serialization");
 		}
 		
 		public function popMap():void 
 		{
-			
+			throw new Error("ManagedMap is not implemented in serialization");
 		}
 		
 		public function getCurrentLength():int 
