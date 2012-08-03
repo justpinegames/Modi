@@ -6,7 +6,7 @@
  * Copyright 2012. Vjekoslav Krajacic, Tomislav Podhraski
  */
 
-package Modi.classes 
+package Modi 
 {
 	import Modi.ManagedObject;
 	
