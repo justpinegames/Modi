@@ -11,12 +11,12 @@ package Modi
 	import Core.Assert;
 	import flash.utils.Dictionary;
 	
-	public class ManagedContext 
+	public class ManagedObjectContext 
 	{
 		private var _managedObjects:Dictionary;
 		private var _idCounter:uint;
 		
-		public function ManagedContext() 
+		public function ManagedObjectContext() 
 		{
 			_managedObjects = new Dictionary();
 			_idCounter = 0;
