@@ -110,6 +110,7 @@ def createMachineClass(directory, package, className, classData):
 			file.write("\timport Modi.ManagedObject;\n")
 			file.write("\timport Modi.ManagedArray;\n")
 			file.write("\timport Modi.ManagedMap;\n")
+			file.write("\timport Modi.ManagedObjectId;\n")
 			
 			superClass = "ManagedObject"
 			
