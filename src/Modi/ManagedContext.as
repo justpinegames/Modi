@@ -30,15 +30,15 @@ package Modi
 			_idCounter++;
 		}
 		
-		public function removeFromContext(id:String):void
+		public function removeFromContext(id:ManagedObjectId):void
 		{
-			Assert(_managedObjects[id], "ManagedObject with " + id + " does not exist!");
-			_managedObjects[id] = null;
+			Assert(_managedObjects[id.objectId], "ManagedObject with " + id.objectId + " does not exist!");
+			_managedObjects[id.objectId] = null;
 		}
 		
 		public function getManagedObjectById(id:ManagedObjectId):ManagedObject
 		{
-			var managedObject:ManagedObject = _managedObjects[id.contextId];
+			var managedObject:ManagedObject = _managedObjects[id.objectId];
 			//Assert(managedObject, "ManagedObject with " + id + " does not exist!");
 			
 			return managedObject;
