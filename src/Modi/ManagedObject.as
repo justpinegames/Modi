@@ -30,7 +30,7 @@ package Modi
 			_attributeObservers = new Dictionary();
 			_registeredAttributes = new Array();
 			_registeredAttributesTypes = new Array();
-			_contextId = new ManagedObjectId();
+			_contextId = null;
 		}
 		
 		public function set contextId(contextId:ManagedObjectId):void

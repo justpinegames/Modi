@@ -12,7 +12,7 @@ package Modi
 	
 	public class ManagedObjectId extends ManagedObject 
 	{
-		private var _objectId:String
+		private var _objectId:String;
 		
 		public function ManagedObjectId(objectId:String = "")
 		{
