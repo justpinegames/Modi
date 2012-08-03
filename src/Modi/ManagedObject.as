@@ -30,7 +30,6 @@ package Modi
 			_attributeObservers = new Dictionary();
 			_registeredAttributes = new Array();
 			_registeredAttributesTypes = new Array();
-			
 			_contextId = null;
 		}
 		

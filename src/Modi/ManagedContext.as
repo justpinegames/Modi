@@ -25,20 +25,20 @@ package Modi
 		public function addToContext(managedObject:ManagedObject):void
 		{
 			var id:ManagedObjectId = new ManagedObjectId("id_" + _idCounter);
-			_managedObjects[id] = managedObject;
-			managedObject.contextId = id;
+			_managedObjects[id.objectId] = managedObject;
+			managedObject.contextId = new ManagedObjectId(id);
 			_idCounter++;
 		}
 		
-		public function removeFromContext(id:String):void
+		public function removeFromContext(id:ManagedObjectId):void
 		{
-			Assert(_managedObjects[id], "ManagedObject with " + id + " does not exist!");
-			_managedObjects[id] = null;
+			Assert(_managedObjects[id.objectId], "ManagedObject with " + id.objectId + " does not exist!");
+			_managedObjects[id.objectId] = null;
 		}
 		
 		public function getManagedObjectById(id:ManagedObjectId):ManagedObject
 		{
-			var managedObject:ManagedObject = _managedObjects[id];
+			var managedObject:ManagedObject = _managedObjects[id.objectId];
 			
 			return managedObject;
 		}
