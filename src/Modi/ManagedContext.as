@@ -26,7 +26,7 @@ package Modi
 		{
 			var id:ManagedObjectId = new ManagedObjectId("id_" + _idCounter);
 			_managedObjects[id.objectId] = managedObject;
-			managedObject.contextId = new ManagedObjectId(id);
+			managedObject.contextId = new ManagedObjectId(id.objectId);
 			_idCounter++;
 		}
 		
