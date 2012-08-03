@@ -23,12 +23,25 @@ package Modi
 		private var _attributeObservers:Dictionary;
 		private var _registeredAttributes:Array;
 		private var _registeredAttributesTypes:Array;
+		private var _contextId:String;
 		
 		public function ManagedObject()
 		{
 			_attributeObservers = new Dictionary();
 			_registeredAttributes = new Array();
 			_registeredAttributesTypes = new Array();
+			
+			_contextId = null;
+		}
+		
+		public function set contextId(contextId:String):void
+		{
+			_contextId = contextId;
+		}
+		
+		public function get contextId():String
+		{
+			return _contextId;
 		}
 		
 		public function registerObserver(attribute:String, event:String, callback:Function):void
