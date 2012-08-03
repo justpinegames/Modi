@@ -225,8 +225,9 @@ def createMachineClass(directory, package, className, classData):
 					file.write("\t\t\tif (!this.allowChange(ATTRIBUTE_" + attributeName.upper() + ", this._" + attributeName + ", " + attributeName + "))\n")
 					file.write("\t\t\t{\n\t\t\t\treturn;\n\t\t\t}\n\n\t\t\t")
 					file.write("this.willChange(ATTRIBUTE_" + attributeName.upper() + ", this._" + attributeName + ", " + attributeName + ")\n\n\t\t\t")
+					file.write("var oldState:" + argumentAndReturnType + " = this._" + attributeName + ";\n\n\t\t\t")
 					file.write("this._" + attributeName + " = " + attributeName + ";\n\n\t\t\t")
-					file.write("this.wasChanged(ATTRIBUTE_" + attributeName.upper() + ", this._" + attributeName + ", " + attributeName + ")\n\t\t}\n\n")
+					file.write("this.wasChanged(ATTRIBUTE_" + attributeName.upper() + ", oldState, " + attributeName + ")\n\t\t}\n\n")
 					
 					file.write("\t\tpublic function get " + attributeName + "():" + argumentAndReturnType + "\n\t\t{\n\t\t\t")
 					file.write("return this._" + attributeName + ";\n\t\t}\n\n")
