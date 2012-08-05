@@ -219,7 +219,10 @@ def createMachineClass(directory, package, className, classData):
 					argumentAndReturnType = ""
 					
 					if type(attributeData[attributeName]) == dict:
-						argumentAndReturnType = "String"
+						if "values" in attributeData[attributeName]:
+							argumentAndReturnType = "String"
+						elif "type" in attributeData[attributeName]:
+							argumentAndReturnType = attributeData[attributeName]["type"]
 					else:
 						argumentAndReturnType = attributeData[attributeName]
 						if "Managed" in argumentAndReturnType:
