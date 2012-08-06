@@ -1,7 +1,6 @@
 package Modi 
 {
-	import flash.geom.Point;
-	import flash.geom.Rectangle;
+	import flash.utils.Dictionary;
 	
 	public interface ISerializator 
 	{
@@ -11,6 +10,8 @@ package Modi
 		function writeUInt(name:String, object:int):void;
 		function writeNumber(name:String, object:Number):void;
 		function writeBoolean(name:String, object:Boolean):void;
+		function writeDictionary(name:String, object:Dictionary):void;
+		function writeArray(name:String, object:Array):void;
 		function pushObject(name:String):void;
 		function popObject():void;
 		function pushArray(name:String):void;

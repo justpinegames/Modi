@@ -222,6 +222,14 @@ package Modi
 			{
 				object[name] = deserializator.readBoolean(name);
 			}
+			else if (type == "Dictionary")
+			{
+				object[name] = deserializator.readDictionary(name);
+			}
+			else if (type == "Array")
+			{
+				object[name] = deserializator.readArray(name);
+			}
 			else if (type == "ManagedArray")
 			{
 				deserializator.pushArray(name);
@@ -277,6 +285,14 @@ package Modi
 			else if (type == "Boolean") 
 			{
 				serializator.writeBoolean(name, object as Boolean);
+			}
+			else if (type == "Dictionary")
+			{
+				serializator.writeDictionary(name, object as Dictionary);
+			}
+			else if (type == "Array")
+			{
+				serializator.writeArray(name, object as Array);
 			}
 			else if (type == "ManagedArray")
 			{

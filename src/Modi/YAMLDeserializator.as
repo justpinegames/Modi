@@ -1,5 +1,6 @@
 package Modi
 {
+	import flash.utils.Dictionary;
 	import org.as3yaml.YAML;
 	
 	public class YAMLDeserializator implements IDeserializator
@@ -89,6 +90,18 @@ package Modi
 			return readFromTop(name) as Boolean;
 		}
 		
+		public function readDictionary(name:String):Dictionary
+		{
+			var object:* = readFromTop(name);
+			return object;
+		}
+		
+		public function readArray(name:String):Array
+		{
+			var object:* = readFromTop(name);
+			return object;
+		}
+
 		public function pushObject(name:String):void 
 		{
 			var object:Object = stackTop()[name];
