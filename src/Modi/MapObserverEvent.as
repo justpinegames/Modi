@@ -10,6 +10,10 @@ package Modi
 {
 	public class MapObserverEvent 
 	{
+		public static var ALLOW_CHANGE:String = "AllowChange";
+		public static var WILL_CHANGE:String = "WillChange";
+		public static var WAS_CHANGED:String = "WasChanged";
+		
 		public var oldObject:ManagedObject;
 		public var newObject:ManagedObject;
 		public var event:String;

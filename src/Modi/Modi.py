@@ -110,7 +110,8 @@ def createMachineClass(directory, package, className, classData):
 			file.write("\timport Modi.ManagedObject;\n")
 			file.write("\timport Modi.ManagedArray;\n")
 			file.write("\timport Modi.ManagedMap;\n")
-			file.write("\timport Modi.ManagedObjectId;\n")
+			file.write("\timport Modi.ManagedObjectId;\n\n")
+			file.write("\timport flash.utils.Dictionary;\n")
 			
 			superClass = "ManagedObject"
 			
@@ -193,7 +194,10 @@ def createMachineClass(directory, package, className, classData):
 						if "values" in attributeData:
 							file.write("\t\t\tthis._" + attributeName + " = " + attributeName.upper() + "_" + attributeData["default"].upper() + ";\n")
 						elif "type" in attributeData:
-							file.write("\t\t\tthis._" + attributeName + " = " + str(attributeData["default"]) + ";\n")
+							if attributeData["type"] == "String":
+								file.write("\t\t\tthis._" + attributeName + ' = "' + str(attributeData["default"]) + '";\n')
+							else:
+								file.write("\t\t\tthis._" + attributeName + " = " + str(attributeData["default"]) + ";\n")
 
 			file.write("\n")
 
