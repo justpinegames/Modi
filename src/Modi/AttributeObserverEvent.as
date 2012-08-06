@@ -11,6 +11,10 @@ package Modi
 	
 	public class AttributeObserverEvent 
 	{
+		public static var ALLOW_CHANGE:String = "AllowChange";
+		public static var WILL_CHANGE:String = "WillChange";
+		public static var WAS_CHANGED:String = "WasChanged";
+		
 		public var attribute:String;
 		public var event:String;
 		public var oldState:*;

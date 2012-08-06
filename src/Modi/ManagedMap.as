@@ -13,10 +13,6 @@ package Modi
 	
 	public class ManagedMap implements IObservableMap
 	{
-		public static var ALLOW_CHANGE:String = "AllowChange";
-		public static var WILL_CHANGE:String = "WillChange";
-		public static var WAS_CHANGED:String = "WasChanged";
-		
 		private var _data:Dictionary;
 		private var _childType:String;
 		private var _observers:Dictionary;

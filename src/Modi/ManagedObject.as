@@ -16,10 +16,6 @@ package Modi
 	
 	public class ManagedObject implements IObservableObject, ISerializableObject
 	{
-		public static var ALLOW_CHANGE:String = "AllowChange";
-		public static var WILL_CHANGE:String = "WillChange";
-		public static var WAS_CHANGED:String = "WasChanged";
-		
 		private var _attributeObservers:Dictionary;
 		private var _registeredAttributes:Array;
 		private var _registeredAttributesTypes:Array;
@@ -104,9 +100,9 @@ package Modi
 			for (i = 0; i < length; i++)
 			{
 				observer = targetObservers[i];
-				if (observer.observedEvent == ALLOW_CHANGE)
+				if (observer.observedEvent == AttributeObserverEvent.ALLOW_CHANGE)
 				{
-					var observerEvent:AttributeObserverEvent = new AttributeObserverEvent(attribute, ALLOW_CHANGE, oldState, newState);
+					var observerEvent:AttributeObserverEvent = new AttributeObserverEvent(attribute, AttributeObserverEvent.ALLOW_CHANGE, oldState, newState);
 					var allowed:Boolean = observer.callback(observerEvent);
 					
 					/// Ako ijedan observer ne dozvoljava, vraca se false
@@ -137,9 +133,9 @@ package Modi
 			for (i = 0; i < length; i++)
 			{
 				observer = targetObservers[i];
-				if (observer.observedEvent == WILL_CHANGE)
+				if (observer.observedEvent == AttributeObserverEvent.WILL_CHANGE)
 				{
-					var observerEvent:AttributeObserverEvent = new AttributeObserverEvent(attribute, WILL_CHANGE, oldState, newState);
+					var observerEvent:AttributeObserverEvent = new AttributeObserverEvent(attribute, AttributeObserverEvent.WILL_CHANGE, oldState, newState);
 					observer.callback(observerEvent);
 				}
 			}
@@ -161,9 +157,9 @@ package Modi
 			for (i = 0; i < length; i++)
 			{
 				observer = targetObservers[i];
-				if (observer.observedEvent == WAS_CHANGED)
+				if (observer.observedEvent == AttributeObserverEvent.WAS_CHANGED)
 				{
-					var observerEvent:AttributeObserverEvent = new AttributeObserverEvent(attribute, WAS_CHANGED, oldState, newState);
+					var observerEvent:AttributeObserverEvent = new AttributeObserverEvent(attribute, AttributeObserverEvent.WAS_CHANGED, oldState, newState);
 					observer.callback(observerEvent);
 				}
 			}
