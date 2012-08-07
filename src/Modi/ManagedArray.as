@@ -461,6 +461,7 @@ package Modi
 		
 		public function serialize(serializator:ISerializator):void 
 		{
+			// TODO ovo ne valja, treba dobra normalno serijalizirati tu, nema potrebe za pisanjem lengtha
 			var i:int = 0;
 			serializator.writeInt("length", _data.length);
 			for each (var object:* in _data) 

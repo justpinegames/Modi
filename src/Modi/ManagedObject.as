@@ -226,6 +226,10 @@ package Modi
 			{
 				object[name] = deserializator.readArray(name);
 			}
+			else if (type == "ManagedValue")
+			{
+				object[name] = deserializator.readString(name);
+			}
 			else if (type == "ManagedArray")
 			{
 				deserializator.pushArray(name);
@@ -289,6 +293,10 @@ package Modi
 			else if (type == "Array")
 			{
 				serializator.writeArray(name, object as Array);
+			}
+			else if (type == "ManagedValue")
+			{
+				serializator.writeString(name, object.toString());
 			}
 			else if (type == "ManagedArray")
 			{
