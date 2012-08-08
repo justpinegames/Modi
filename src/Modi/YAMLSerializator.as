@@ -83,7 +83,7 @@ package Modi
 			writeToTop(name, object);
 		}
 		
-		function writeArray(name:String, object:Array):void
+		public function writeArray(name:String, object:Array):void
 		{
 			trace("Not sure that write array works...");	
 			writeToTop(name, object);
