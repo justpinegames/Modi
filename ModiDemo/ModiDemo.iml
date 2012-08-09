@@ -2,7 +2,7 @@
 <module type="Flex" version="4">
   <component name="FlexBuildConfigurationManager" active="ModiDemo">
     <configurations>
-      <configuration name="ModiDemo" pure-as="true" main-class="Main" output-file="ModiDemo.swf" output-folder="$PERSONAL_PROJECT_DIR$/Modi/bin" use-html-wrapper="true" wrapper-template-path="$MODULE_DIR$/html-template">
+      <configuration name="ModiDemo" pure-as="true" main-class="Main" output-file="ModiDemo.swf" output-folder="$PERSONAL_PROJECT_DIR$/Modi/bin" wrapper-template-path="$MODULE_DIR$/html-template">
         <dependencies target-player="11.1">
           <entries>
             <entry module-name="Modi" build-configuration-name="Modi">
