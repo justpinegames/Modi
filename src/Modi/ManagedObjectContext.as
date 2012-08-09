@@ -8,7 +8,6 @@
 
 package Modi 
 {
-	import Core.Assert;
 	import flash.utils.Dictionary;
 	
 	public class ManagedObjectContext 

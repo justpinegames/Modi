@@ -26,9 +26,9 @@ package Modi
 			_childType = "Modi.ManagedObject";
 			
 			_observers = new Dictionary();
-			_observers[ALLOW_CHANGE] = new Vector.<IObserver>();
-			_observers[WILL_CHANGE] = new Vector.<IObserver>();
-			_observers[WAS_CHANGED] = new Vector.<IObserver>();
+			_observers[AttributeObserverEvent.ALLOW_CHANGE] = new Vector.<IObserver>();
+			_observers[AttributeObserverEvent.WILL_CHANGE] = new Vector.<IObserver>();
+			_observers[AttributeObserverEvent.WAS_CHANGED] = new Vector.<IObserver>();
 			
 			_xValues = new Vector.<int>();
 			_yValues = new Vector.<int>();
@@ -70,12 +70,12 @@ package Modi
 		public function allowChange(oldObject:ManagedObject, newObject:ManagedObject, x:int, y:int):Boolean
 		{
 			/// Ako ne postoje observeri na ovaj event, odma vraca true
-			if (_observers[ALLOW_CHANGE].length == 0)
+			if (_observers[AttributeObserverEvent.ALLOW_CHANGE].length == 0)
 			{
 				return true;
 			}
 			
-			var targetObservers:Vector.<IObserver> = _observers[ALLOW_CHANGE];
+			var targetObservers:Vector.<IObserver> = _observers[AttributeObserverEvent.ALLOW_CHANGE];
 			var length:int = targetObservers.length;
 			var observer:IObserver;
 			var i:int;
