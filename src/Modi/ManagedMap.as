@@ -8,7 +8,9 @@
 
 package Modi
 {
-	import flash.geom.Point;
+import Modi.AttributeObserverEvent;
+
+import flash.geom.Point;
 	import flash.utils.Dictionary;
 	
 	public class ManagedMap implements IObservableMap
@@ -83,7 +85,7 @@ package Modi
 			for (i = 0; i < length; i++)
 			{
 				observer = targetObservers[i];				
-				var observerEvent:MapObserverEvent = new MapObserverEvent(oldObject,newObject, ALLOW_CHANGE, x, y);
+				var observerEvent:MapObserverEvent = new MapObserverEvent(oldObject,newObject, AttributeObserverEvent.ALLOW_CHANGE, x, y);
 				var allowed:Boolean = observer.callback(observerEvent);
 				
 				/// Ako ijedan observer ne dozvoljava, vraca se false
@@ -100,12 +102,12 @@ package Modi
 		public function willChange(oldObject:ManagedObject, newObject:ManagedObject, x:int, y:int):void
 		{
 			/// Ako ne postoje observeri na ovaj event, izlazi van jer nema koga obavijestiti
-			if (_observers[WILL_CHANGE].length == 0)
+			if (_observers[AttributeObserverEvent.WILL_CHANGE].length == 0)
 			{
 				return;
 			}
 			
-			var targetObservers:Vector.<IObserver> = _observers[WILL_CHANGE];
+			var targetObservers:Vector.<IObserver> = _observers[AttributeObserverEvent.WILL_CHANGE];
 			var length:int = targetObservers.length;
 			var observer:IObserver;
 			var i:int;
@@ -113,7 +115,7 @@ package Modi
 			for (i = 0; i < length; i++)
 			{
 				observer = targetObservers[i];
-				var observerEvent:MapObserverEvent = new MapObserverEvent(oldObject,newObject, ALLOW_CHANGE, x, y);
+				var observerEvent:MapObserverEvent = new MapObserverEvent(oldObject,newObject, AttributeObserverEvent.ALLOW_CHANGE, x, y);
 				observer.callback(observerEvent);
 			}
 		}
@@ -121,12 +123,12 @@ package Modi
 		public function wasChanged(oldObject:ManagedObject, newObject:ManagedObject, x:int, y:int):void
 		{
 			/// Ako ne postoje observeri na ovaj event, izlazi van jer nema koga obavijestiti
-			if (_observers[WAS_CHANGED].length == 0)
+			if (_observers[AttributeObserverEvent.WAS_CHANGED].length == 0)
 			{
 				return;
 			}
 			
-			var targetObservers:Vector.<IObserver> = _observers[WAS_CHANGED];
+			var targetObservers:Vector.<IObserver> = _observers[AttributeObserverEvent.WAS_CHANGED];
 			var length:int = targetObservers.length;
 			var observer:IObserver;
 			var i:int;
@@ -134,7 +136,7 @@ package Modi
 			for (i = 0; i < length; i++)
 			{
 				observer = targetObservers[i];				
-				var observerEvent:MapObserverEvent = new MapObserverEvent(oldObject,newObject, ALLOW_CHANGE, x, y);
+				var observerEvent:MapObserverEvent = new MapObserverEvent(oldObject,newObject, AttributeObserverEvent.ALLOW_CHANGE, x, y);
 				observer.callback(observerEvent);
 			}
 		}
