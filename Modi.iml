@@ -8,6 +8,9 @@
             <entry module-name="Core" build-configuration-name="Core">
               <dependency linkage="Merged" />
             </entry>
+            <entry library-id="89600117-cfb5-4559-a4b9-dca3b5ac4f28">
+              <dependency linkage="Merged" />
+            </entry>
           </entries>
           <sdk name="flex_sdk_4" />
         </dependencies>
@@ -27,6 +30,16 @@
     <orderEntry type="jdk" jdkName="flex_sdk_4" jdkType="Flex SDK Type (new)" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Core" />
+    <orderEntry type="module-library">
+      <library type="flex">
+        <properties id="89600117-cfb5-4559-a4b9-dca3b5ac4f28" />
+        <CLASSES>
+          <root url="jar://$CODE_DIR$/SharedSWC/external/AS3YAML_041.swc!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
 
