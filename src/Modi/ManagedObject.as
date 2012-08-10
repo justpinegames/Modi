@@ -54,17 +54,17 @@ package Modi
 			
 			_attributeObservers[attribute].push(new IObserver(event, callback));
 		}
-		
+
 		public function removeObserver(attribute:String, callback:Function):Boolean
 		{
 			if (_attributeObservers[attribute] === undefined)
 			{
 				throw new Error("Object " + attribute + " does not exist or it is not being observed!");
 			}
-			
+
 			var length:int = _attributeObservers[attribute].length;
 			var observer:IObserver;
-			
+
 			for (var i:int = 0; i < length; i++)
 			{
 				observer = _attributeObservers[attribute][i];
