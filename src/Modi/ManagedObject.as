@@ -80,8 +80,8 @@ package Modi
 		
 		protected function registerAttributes(attributes:Array, attributesTypes:Array):void
 		{
-			_registeredAttributes = attributes;
-			_registeredAttributesTypes = attributesTypes;
+            _registeredAttributes = _registeredAttributes.concat(attributes);
+            _registeredAttributesTypes = _registeredAttributesTypes.concat(attributesTypes);
 		}
 		
 		public function allowChange(attribute:String, oldState:*, newState:*):Boolean
