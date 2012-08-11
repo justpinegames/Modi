@@ -100,9 +100,9 @@ package Modi
 			for (i = 0; i < length; i++)
 			{
 				observer = targetObservers[i];
-				if (observer.observedEvent == AttributeObserverEvent.ALLOW_CHANGE)
+				if (observer.observedEvent == ManagedObjectEvent.ALLOW_CHANGE)
 				{
-					var observerEvent:AttributeObserverEvent = new AttributeObserverEvent(attribute, AttributeObserverEvent.ALLOW_CHANGE, oldState, newState);
+					var observerEvent:ManagedObjectEvent = new ManagedObjectEvent(attribute, ManagedObjectEvent.ALLOW_CHANGE, oldState, newState);
 					var allowed:Boolean = observer.callback(observerEvent);
 					
 					/// Ako ijedan observer ne dozvoljava, vraca se false
@@ -133,9 +133,9 @@ package Modi
 			for (i = 0; i < length; i++)
 			{
 				observer = targetObservers[i];
-				if (observer.observedEvent == AttributeObserverEvent.WILL_CHANGE)
+				if (observer.observedEvent == ManagedObjectEvent.WILL_CHANGE)
 				{
-					var observerEvent:AttributeObserverEvent = new AttributeObserverEvent(attribute, AttributeObserverEvent.WILL_CHANGE, oldState, newState);
+					var observerEvent:ManagedObjectEvent = new ManagedObjectEvent(attribute, ManagedObjectEvent.WILL_CHANGE, oldState, newState);
 					observer.callback(observerEvent);
 				}
 			}
@@ -157,9 +157,9 @@ package Modi
 			for (i = 0; i < length; i++)
 			{
 				observer = targetObservers[i];
-				if (observer.observedEvent == AttributeObserverEvent.WAS_CHANGED)
+				if (observer.observedEvent == ManagedObjectEvent.WAS_CHANGED)
 				{
-					var observerEvent:AttributeObserverEvent = new AttributeObserverEvent(attribute, AttributeObserverEvent.WAS_CHANGED, oldState, newState);
+					var observerEvent:ManagedObjectEvent = new ManagedObjectEvent(attribute, ManagedObjectEvent.WAS_CHANGED, oldState, newState);
 					observer.callback(observerEvent);
 				}
 			}

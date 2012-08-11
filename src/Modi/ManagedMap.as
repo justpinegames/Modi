@@ -8,7 +8,7 @@
 
 package Modi
 {
-import Modi.AttributeObserverEvent;
+import Modi.ManagedObjectEvent;
 
 import flash.geom.Point;
 	import flash.utils.Dictionary;
@@ -28,9 +28,9 @@ import flash.geom.Point;
 			_childType = "Modi.ManagedObject";
 			
 			_observers = new Dictionary();
-			_observers[AttributeObserverEvent.ALLOW_CHANGE] = new Vector.<IObserver>();
-			_observers[AttributeObserverEvent.WILL_CHANGE] = new Vector.<IObserver>();
-			_observers[AttributeObserverEvent.WAS_CHANGED] = new Vector.<IObserver>();
+			_observers[ManagedObjectEvent.ALLOW_CHANGE] = new Vector.<IObserver>();
+			_observers[ManagedObjectEvent.WILL_CHANGE] = new Vector.<IObserver>();
+			_observers[ManagedObjectEvent.WAS_CHANGED] = new Vector.<IObserver>();
 			
 			_xValues = new Vector.<int>();
 			_yValues = new Vector.<int>();
@@ -72,12 +72,12 @@ import flash.geom.Point;
 		public function allowChange(oldObject:ManagedObject, newObject:ManagedObject, x:int, y:int):Boolean
 		{
 			/// Ako ne postoje observeri na ovaj event, odma vraca true
-			if (_observers[AttributeObserverEvent.ALLOW_CHANGE].length == 0)
+			if (_observers[ManagedObjectEvent.ALLOW_CHANGE].length == 0)
 			{
 				return true;
 			}
 			
-			var targetObservers:Vector.<IObserver> = _observers[AttributeObserverEvent.ALLOW_CHANGE];
+			var targetObservers:Vector.<IObserver> = _observers[ManagedObjectEvent.ALLOW_CHANGE];
 			var length:int = targetObservers.length;
 			var observer:IObserver;
 			var i:int;
@@ -85,7 +85,7 @@ import flash.geom.Point;
 			for (i = 0; i < length; i++)
 			{
 				observer = targetObservers[i];				
-				var observerEvent:MapObserverEvent = new MapObserverEvent(oldObject,newObject, AttributeObserverEvent.ALLOW_CHANGE, x, y);
+				var observerEvent:ManagedMapEvent = new ManagedMapEvent(oldObject,newObject, ManagedObjectEvent.ALLOW_CHANGE, x, y);
 				var allowed:Boolean = observer.callback(observerEvent);
 				
 				/// Ako ijedan observer ne dozvoljava, vraca se false
@@ -102,12 +102,12 @@ import flash.geom.Point;
 		public function willChange(oldObject:ManagedObject, newObject:ManagedObject, x:int, y:int):void
 		{
 			/// Ako ne postoje observeri na ovaj event, izlazi van jer nema koga obavijestiti
-			if (_observers[AttributeObserverEvent.WILL_CHANGE].length == 0)
+			if (_observers[ManagedObjectEvent.WILL_CHANGE].length == 0)
 			{
 				return;
 			}
 			
-			var targetObservers:Vector.<IObserver> = _observers[AttributeObserverEvent.WILL_CHANGE];
+			var targetObservers:Vector.<IObserver> = _observers[ManagedObjectEvent.WILL_CHANGE];
 			var length:int = targetObservers.length;
 			var observer:IObserver;
 			var i:int;
@@ -115,7 +115,7 @@ import flash.geom.Point;
 			for (i = 0; i < length; i++)
 			{
 				observer = targetObservers[i];
-				var observerEvent:MapObserverEvent = new MapObserverEvent(oldObject,newObject, AttributeObserverEvent.ALLOW_CHANGE, x, y);
+				var observerEvent:ManagedMapEvent = new ManagedMapEvent(oldObject,newObject, ManagedObjectEvent.ALLOW_CHANGE, x, y);
 				observer.callback(observerEvent);
 			}
 		}
@@ -123,12 +123,12 @@ import flash.geom.Point;
 		public function wasChanged(oldObject:ManagedObject, newObject:ManagedObject, x:int, y:int):void
 		{
 			/// Ako ne postoje observeri na ovaj event, izlazi van jer nema koga obavijestiti
-			if (_observers[AttributeObserverEvent.WAS_CHANGED].length == 0)
+			if (_observers[ManagedObjectEvent.WAS_CHANGED].length == 0)
 			{
 				return;
 			}
 			
-			var targetObservers:Vector.<IObserver> = _observers[AttributeObserverEvent.WAS_CHANGED];
+			var targetObservers:Vector.<IObserver> = _observers[ManagedObjectEvent.WAS_CHANGED];
 			var length:int = targetObservers.length;
 			var observer:IObserver;
 			var i:int;
@@ -136,7 +136,7 @@ import flash.geom.Point;
 			for (i = 0; i < length; i++)
 			{
 				observer = targetObservers[i];				
-				var observerEvent:MapObserverEvent = new MapObserverEvent(oldObject,newObject, AttributeObserverEvent.ALLOW_CHANGE, x, y);
+				var observerEvent:ManagedMapEvent = new ManagedMapEvent(oldObject,newObject, ManagedObjectEvent.ALLOW_CHANGE, x, y);
 				observer.callback(observerEvent);
 			}
 		}
