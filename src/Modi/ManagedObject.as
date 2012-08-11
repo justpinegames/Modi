@@ -228,9 +228,15 @@ package Modi
 			}
 			else if (type == "ManagedValue")
 			{
-				object[name] = deserializator.readString(name);
+                var managedValue:String = deserializator.readString(name);
+				object[name] = new ManagedValue(managedValue);
 			}
-			else if (type == "ManagedArray")
+            else if (type == "ManagedObjectId")
+            {
+                var objectIdValue:String = deserializator.readString(name);
+                object[name] = new ManagedObjectId(objectIdValue);
+            }
+            else if (type == "ManagedArray")
 			{
 				deserializator.pushArray(name);
 				(object[name] as ManagedArray).deserialize(deserializator);
@@ -294,6 +300,10 @@ package Modi
 			{
 				serializator.writeArray(name, object as Array);
 			}
+            else if (type == "ManagedObjectId")
+            {
+                serializator.writeString(name, (object as ManagedObjectId).objectId);
+            }
 			else if (type == "ManagedValue")
 			{
 				serializator.writeString(name, object.toString());
