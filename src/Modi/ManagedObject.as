@@ -175,6 +175,11 @@ package Modi
 				
 				writeUnindentified(attributeName, this[attributeName], attributeType, serializator);
 			}
+
+            if (contextId)
+            {
+                writeUnindentified("id", contextId.objectId, "String", serializator);
+            }
 		}
 		
 		public function deserialize(deserializator:IDeserializator):void 
@@ -187,11 +192,19 @@ package Modi
 			var lenght: int = this._registeredAttributes.length;
 			for (var i: int = 0; i < lenght; i++) 
 			{
-				var attributeName:String = this._registeredAttributes[i];
-				var attributeType:String = this._registeredAttributesTypes[i];
-				
-				readUnindentified(attributeName, this, attributeType, deserializator);
+				var attributeName:String = _registeredAttributes[i];
+				var attributeType:String = _registeredAttributesTypes[i];
+
+    		    readUnindentified(attributeName, this, attributeType, deserializator);
 			}
+
+            var id:String = deserializator.readString("id");
+
+            if (id)
+            {
+                contextId = new ManagedObjectId(id);
+            }
+
 		}
 		
 		public static function readUnindentified(name:String, object:*, type:String, deserializator:IDeserializator):Boolean
@@ -342,5 +355,9 @@ package Modi
 			return pass;
 			
 		}
-	}
+
+        public function get registeredAttributes():Array {
+            return _registeredAttributes;
+        }
+    }
 }

@@ -14,7 +14,7 @@ package Modi
 	{
 		private var _managedObjects:Dictionary;
 		private var _idCounter:uint;
-		
+
 		public function ManagedObjectContext() 
 		{
 			_managedObjects = new Dictionary();
@@ -23,9 +23,9 @@ package Modi
 		
 		public function addToContext(managedObject:ManagedObject):void
 		{
-			var id:ManagedObjectId = new ManagedObjectId("id_" + _idCounter);
+			var id:ManagedObjectId = new ManagedObjectId("id" + _idCounter);
 			_managedObjects[id.objectId] = managedObject;
-			managedObject.contextId = new ManagedObjectId(id.objectId);
+			managedObject.contextId = id;
 			_idCounter++;
 		}
 		
@@ -48,6 +48,65 @@ package Modi
 			this.addToContext(object);
 			return object;
 		}
-		
+
+        private function addToContextWithId(managedObject:ManagedObject, id:ManagedObjectId):void
+        {
+            _managedObjects[id.objectId] = managedObject;
+        }
+
+        private function deserializeIds(base:ManagedObject):void
+        {
+            if (base.contextId)
+            {
+                _idCounter = Math.max(_idCounter, base.contextId.extractIndex());
+                addToContextWithId(base, base.contextId);
+            }
+
+            for each (var attributeName:String in base.registeredAttributes)
+            {
+                var attribute:* = base[attributeName];
+
+                if (attribute is ManagedArray)
+                {
+                    var managedArray:ManagedArray = attribute as ManagedArray;
+                    for (var index:int = 0; index < managedArray.length; index++)
+                    {
+                        var managedObjectFromArray:ManagedObject = managedArray.objectAt(index);
+                        deserializeIds(managedObjectFromArray);
+                    }
+                }
+                else if (attribute is ManagedObject)
+                {
+                    var managedObject:ManagedObject = attribute as ManagedObject;
+                    deserializeIds(managedObject);
+                }
+                else if (attribute is ManagedMap)
+                {
+                    throw new Error("Managed map deserialization in context is currently not supported.");
+                }
+                else
+                {
+                    // Do nothing, other parts should not be counted in managed object context.
+                }
+
+            }
+
+
+        }
+
+        public function resetContext():void
+        {
+            _managedObjects = new Dictionary();
+            _idCounter = 0;
+        }
+
+        public function deserialize(data: *, deserializator:IDeserializator, target:ManagedObject):*
+        {
+            resetContext();
+            deserializator.deserializeData(data);
+            target.deserialize(deserializator);
+            deserializeIds(target);
+        }
+
 	}
 }

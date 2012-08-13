@@ -9,8 +9,12 @@
 package Modi 
 {
 	import Modi.ManagedObject;
-	
-	public class ManagedObjectId extends ManagedObject 
+
+import com.chewtinfoil.utils.StringUtils;
+
+import mx.utils.StringUtil;
+
+public class ManagedObjectId extends ManagedObject
 	{
 		private var _objectId:String;
 		
@@ -23,5 +27,22 @@ package Modi
 		{
 			return _objectId;
 		}
+
+        public function extractIndex():int
+        {
+            var id: int = -1;
+
+            if (StringUtils.beginsWith(_objectId, "id"))
+            {
+                id = _objectId.substr(2) as int;
+            }
+            else
+            {
+                trace("Id is possibly malformed:", _objectId);
+            }
+
+            return id;
+        }
+
 	}
 }
