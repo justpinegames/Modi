@@ -249,6 +249,12 @@ package Modi
                 var objectIdValue:String = deserializator.readString(name);
                 object[name] = new ManagedObjectId(objectIdValue);
             }
+            else if (type == "ManagedPoint")
+            {
+                deserializator.pushArray(name);
+                (object[name] as ManagedPoint).deserialize(deserializator);
+                deserializator.popArray();
+            }
             else if (type == "ManagedArray")
 			{
 				deserializator.pushArray(name);
@@ -321,6 +327,15 @@ package Modi
 			{
 				serializator.writeString(name, object.toString());
 			}
+            else if (type == "ManagedPoint")
+            {
+                serializator.pushArray(name);
+                if (object)
+                {
+                    (object as ISerializableObject).serialize(serializator);
+                }
+                serializator.popArray();
+            }
 			else if (type == "ManagedArray")
 			{
 				serializator.pushArray(name);
