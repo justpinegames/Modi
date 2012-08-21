@@ -107,11 +107,7 @@ def createMachineClass(directory, package, className, classData):
 		try:
 		
 			file.write("package " + package + "\n{\n")
-			file.write("\timport Modi.ManagedObject;\n")
-			file.write("\timport Modi.ManagedArray;\n")
-			file.write("\timport Modi.ManagedMap;\n")
-			file.write("\timport Modi.ManagedObjectId;\n")
-			file.write("\timport Modi.ManagedValue;\n\n")
+			file.write("\timport Modi.*;\n\n")
 			file.write("\timport flash.utils.Dictionary;\n")
 			
 			superClass = "ManagedObject"
