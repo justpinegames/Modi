@@ -168,6 +168,11 @@ package Modi
 		{
 			return _data.indexOf(searchElement, fromIndex);
 		}
+
+        public function contains(element:ManagedObject):Boolean
+        {
+            return indexOf(element) != -1;
+        }
 		
 		public function lastIndexOf(searchElement:ManagedObject, fromIndex:int = 0x7fffffff):int
 		{
