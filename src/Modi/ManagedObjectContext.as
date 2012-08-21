@@ -37,6 +37,11 @@ package Modi
 		
 		public function getManagedObjectById(id:ManagedObjectId):ManagedObject
 		{
+            if (!id)
+            {
+                return null;
+            }
+
 			var managedObject:ManagedObject = _managedObjects[id.objectId];
 			
 			return managedObject;
