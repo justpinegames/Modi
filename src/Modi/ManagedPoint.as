@@ -26,6 +26,31 @@ package Modi {
             return _point.y;
         }
 
+        /// TODO: Fixat da se omoguci pracenje kad se x i y promjenje.
+        public function set x(value:Number):void
+        {
+            _point.x = value;
+        }
+
+        public function set y(value:Number):void
+        {
+            _point.y = value;
+        }
+
+        public function equals(point:ManagedPoint):Boolean
+        {
+            return (this.x == point.x && this.y == point.y);
+        }
+
+        public static function distance(firstPoint:ManagedPoint, secondPoint:ManagedPoint):Number
+        {
+            var firstFlashPoint:Point = new Point(firstPoint.x, firstPoint.y);
+            var secondFlashPoint:Point = new Point(secondPoint.x, secondPoint.y);
+            var distance:Number = Point.distance(firstFlashPoint, secondFlashPoint);
+
+            return distance;
+        }
+
         override public function serialize(serializator:ISerializator):void
         {
             serializator.writeNumber("0", _point.x);
