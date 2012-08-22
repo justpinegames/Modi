@@ -93,10 +93,7 @@ package Modi
                 {
                     // Do nothing, other parts should not be counted in managed object context.
                 }
-
             }
-
-
         }
 
         public function resetContext():void
@@ -112,6 +109,5 @@ package Modi
             target.deserialize(deserializator);
             deserializeIds(target);
         }
-
 	}
 }

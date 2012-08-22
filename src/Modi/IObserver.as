@@ -8,7 +8,6 @@
 
 package Modi
 {
-	
 	public class IObserver
 	{
 		public var observedEvent:String;

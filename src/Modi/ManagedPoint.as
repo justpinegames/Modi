@@ -1,45 +1,86 @@
-package Modi {
+/*
+ * This is free software; you can redistribute it and/or modify it under the
+ * terms of MIT free software license as published by the Massachusetts
+ * Institute of Technology.
+ *
+ * Copyright 2012. Vjekoslav Krajacic, Tomislav Podhraski
+ */
+
+package Modi
+{
     import flash.geom.Point;
 
     public class ManagedPoint extends ManagedObject
     {
-        private var _point:Point;
+        public static const ATTRIBUTES:Array = ["y", "x", ];
+        public static const ATTRIBUTES_TYPES:Array = ["Number", "Number", ];
 
-        public function ManagedPoint()
+        public static const ATTRIBUTE_Y:String = "y";
+        public static const ATTRIBUTE_X:String = "x";
+
+        private var _y:Number;
+        private var _x:Number;
+
+        public function _ManagedPoint()
         {
-            _point = new Point();
-
+            this.registerAttributes(ATTRIBUTES, ATTRIBUTES_TYPES);
         }
 
-        public function get point():Point
+        public function set y(y:Number):void
         {
-            return _point;
-        }
+            if (!this.allowChange(ATTRIBUTE_Y, this._y, y))
+            {
+                return;
+            }
 
-        public function get x():Number
-        {
-            return _point.x;
+            this.willChange(ATTRIBUTE_Y, this._y, y);
+
+            var oldState:Number = this._y;
+
+            this._y = y;
+
+            this.wasChanged(ATTRIBUTE_Y, oldState, y);
         }
 
         public function get y():Number
         {
-            return _point.y;
+            return this._y;
         }
 
-        /// TODO: Fixat da se omoguci pracenje kad se x i y promjenje.
-        public function set x(value:Number):void
+        public function set YDirectUnsafe(y:Number):void
         {
-            _point.x = value;
+            this._y = y;
         }
 
-        public function set y(value:Number):void
+        public function set x(x:Number):void
         {
-            _point.y = value;
+            if (!this.allowChange(ATTRIBUTE_X, this._x, x))
+            {
+                return;
+            }
+
+            this.willChange(ATTRIBUTE_X, this._x, x);
+
+            var oldState:Number = this._x;
+
+            this._x = x;
+
+            this.wasChanged(ATTRIBUTE_X, oldState, x);
+        }
+
+        public function get x():Number
+        {
+            return this._x;
+        }
+
+        public function set XDirectUnsafe(x:Number):void
+        {
+            this._x = x;
         }
 
         public function equals(point:ManagedPoint):Boolean
         {
-            return (this.x == point.x && this.y == point.y);
+            return (_x == point.x && _y == point.y);
         }
 
         public static function distance(firstPoint:ManagedPoint, secondPoint:ManagedPoint):Number
@@ -53,15 +94,14 @@ package Modi {
 
         override public function serialize(serializator:ISerializator):void
         {
-            serializator.writeNumber("0", _point.x);
-            serializator.writeNumber("1", _point.y);
+            serializator.writeNumber("0", _x);
+            serializator.writeNumber("1", _y);
         }
 
         override public function deserialize(deserializator:IDeserializator):void
         {
-            _point.x = deserializator.readNumber("0");
-            _point.y = deserializator.readNumber("1");
+            _x = deserializator.readNumber("0");
+            _y = deserializator.readNumber("1");
         }
-
     }
 }

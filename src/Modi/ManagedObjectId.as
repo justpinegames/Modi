@@ -8,13 +8,9 @@
 
 package Modi 
 {
-	import Modi.ManagedObject;
+    import com.chewtinfoil.utils.StringUtils;
 
-import com.chewtinfoil.utils.StringUtils;
-
-import mx.utils.StringUtil;
-
-public class ManagedObjectId extends ManagedObject
+    public class ManagedObjectId extends ManagedObject
 	{
 		private var _objectId:String;
 		
@@ -43,6 +39,5 @@ public class ManagedObjectId extends ManagedObject
 
             return id;
         }
-
 	}
 }

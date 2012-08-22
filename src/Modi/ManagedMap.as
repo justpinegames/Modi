@@ -8,12 +8,10 @@
 
 package Modi
 {
-import Modi.ManagedObjectEvent;
+    import flash.geom.Point;
+    import flash.utils.Dictionary;
 
-import flash.geom.Point;
-	import flash.utils.Dictionary;
-	
-	public class ManagedMap implements IObservableMap
+    public class ManagedMap implements IObservableMap
 	{
 		private var _data:Dictionary;
 		private var _childType:String;
@@ -36,7 +34,7 @@ import flash.geom.Point;
 			_yValues = new Vector.<int>();
 		}
 		
-		public function registerObserver(event:String, callback:Function):void
+		public function addEventListener(event:String, callback:Function):void
 		{
 			if (_observers[event] === undefined)
 			{
@@ -46,7 +44,7 @@ import flash.geom.Point;
 			_observers[event].push(new IObserver(event, callback));
 		}
 		
-		public function removeObserver(event:String, callback:Function):Boolean
+		public function removeEventListener(event:String, callback:Function):Boolean
 		{
 			if (_observers[event] === undefined)
 			{

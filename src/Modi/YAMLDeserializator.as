@@ -1,3 +1,11 @@
+/*
+ * This is free software; you can redistribute it and/or modify it under the
+ * terms of MIT free software license as published by the Massachusetts
+ * Institute of Technology.
+ *
+ * Copyright 2012. Vjekoslav Krajacic, Tomislav Podhraski
+ */
+
 package Modi
 {
 	import flash.utils.Dictionary;
@@ -48,10 +56,7 @@ package Modi
 			{
 				throw new Error("Invalid context");
 			}
-			
 		}
-		
-		/* INTERFACE Modi.IDeserializator */
 		
 		public function deserializeData(data:*):void 
 		{
@@ -145,7 +150,5 @@ package Modi
 				throw new Error("current state is not an array")
 			}
 		}
-	
 	}
-
 }

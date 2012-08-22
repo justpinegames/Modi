@@ -204,7 +204,7 @@ package Modi
 			_childType = type;
 		}
 		
-		public function registerObserver(event:String, callback:Function):void
+		public function addEventListener(event:String, callback:Function):void
 		{
 			if (_observers[event] === undefined)
 			{
@@ -214,7 +214,7 @@ package Modi
 			_observers[event].push(new IObserver(event, callback));
 		}
 		
-		public function removeObserver(event:String, callback:Function):Boolean
+		public function removeEventListener(event:String, callback:Function):Boolean
 		{
 			if (_observers[event] === undefined)
 			{

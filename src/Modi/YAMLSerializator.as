@@ -1,11 +1,18 @@
-package Modi 
+/*
+ * This is free software; you can redistribute it and/or modify it under the
+ * terms of MIT free software license as published by the Massachusetts
+ * Institute of Technology.
+ *
+ * Copyright 2012. Vjekoslav Krajacic, Tomislav Podhraski
+ */
+
+package Modi
 {
-	import flash.geom.Rectangle;
-	import flash.geom.Point;
-	import flash.utils.Dictionary;
-	import org.as3yaml.YAML;
-	
-	public class YAMLSerializator implements ISerializator
+    import flash.utils.Dictionary;
+
+    import org.as3yaml.YAML;
+
+    public class YAMLSerializator implements ISerializator
 	{
 		private const SERIALIZATOR_STATE_OBJECT:String = "SERIALIZATOR_STATE_OBJECT";
 		private const SERIALIZATOR_STATE_ARRAY:String = "SERIALIZATOR_STATE_ARRAY";
@@ -49,8 +56,6 @@ package Modi
 			}
 			
 		}
-		
-		/* INTERFACE Modi.ISerializator */
 		
 		public function writeString(name:String, object:String):void 
 		{
@@ -128,7 +133,5 @@ package Modi
 			var yamlData:String = YAML.encode(stackTop());
 			return yamlData;
 		}
-		
 	}
-
 }

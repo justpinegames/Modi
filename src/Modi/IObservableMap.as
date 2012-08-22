@@ -10,9 +10,9 @@ package Modi
 {
 	public interface IObservableMap 
 	{
-		function registerObserver(event:String, callback:Function):void;
+		function addEventListener(event:String, callback:Function):void;
 		
-		function removeObserver(event:String, callback:Function):Boolean;
+		function removeEventListener(event:String, callback:Function):Boolean;
 		
 		function allowChange(oldObject:ManagedObject, newObject:ManagedObject, x:int, y:int):Boolean;
 		

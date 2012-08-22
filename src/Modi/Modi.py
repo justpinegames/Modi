@@ -204,11 +204,14 @@ def createMachineClass(directory, package, className, classData):
 					file.write("\t\t\tthis._" + attributeName + " = new " + getCollectionType(attributeData) + "();\n")
 
 					if getChildType(attributeData) != "ManagedObject":
-						packageToAdd = package
-						if package != "":
-							packageToAdd += "."
+						if getCollectionType(attributeData) != "ManagedObject":
+							file.write("\t\t\tthis._" + attributeName + '.childType = "Modi.' + getChildType(attributeData) + '";\n')
+						else:
+							packageToAdd = package
+							if package != "":
+								packageToAdd += "."
 
-						file.write("\t\t\tthis._" + attributeName + '.childType = "' + packageToAdd + getChildType(attributeData) + '";\n')
+							file.write("\t\t\tthis._" + attributeName + '.childType = "' + packageToAdd + getChildType(attributeData) + '";\n')
 
 			file.write("\t\t}\n\n")
 
@@ -232,10 +235,10 @@ def createMachineClass(directory, package, className, classData):
 					file.write("\t\tpublic function set " + attributeName + "(" + attributeName + ":" + argumentAndReturnType + "):void\n\t\t{\n")
 					file.write("\t\t\tif (!this.allowChange(ATTRIBUTE_" + attributeName.upper() + ", this._" + attributeName + ", " + attributeName + "))\n")
 					file.write("\t\t\t{\n\t\t\t\treturn;\n\t\t\t}\n\n\t\t\t")
-					file.write("this.willChange(ATTRIBUTE_" + attributeName.upper() + ", this._" + attributeName + ", " + attributeName + ")\n\n\t\t\t")
+					file.write("this.willChange(ATTRIBUTE_" + attributeName.upper() + ", this._" + attributeName + ", " + attributeName + ");\n\n\t\t\t")
 					file.write("var oldState:" + argumentAndReturnType + " = this._" + attributeName + ";\n\n\t\t\t")
 					file.write("this._" + attributeName + " = " + attributeName + ";\n\n\t\t\t")
-					file.write("this.wasChanged(ATTRIBUTE_" + attributeName.upper() + ", oldState, " + attributeName + ")\n\t\t}\n\n")
+					file.write("this.wasChanged(ATTRIBUTE_" + attributeName.upper() + ", oldState, " + attributeName + ");\n\t\t}\n\n")
 					
 					file.write("\t\tpublic function get " + attributeName + "():" + argumentAndReturnType + "\n\t\t{\n\t\t\t")
 					file.write("return this._" + attributeName + ";\n\t\t}\n\n")

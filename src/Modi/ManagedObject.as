@@ -8,13 +8,11 @@
 
 package Modi
 {
-	import flash.utils.Dictionary;
-	import Core.Utility;
-	import flash.geom.Rectangle;
-	import flash.geom.Point;
-	import flash.utils.getQualifiedClassName;
-	
-	public class ManagedObject implements IObservableObject, ISerializableObject
+    import Core.Utility;
+
+    import flash.utils.Dictionary;
+
+    public class ManagedObject implements IObservableObject, ISerializableObject
 	{
 		private var _attributeObservers:Dictionary;
 		private var _registeredAttributes:Array;
@@ -39,7 +37,7 @@ package Modi
 			return _contextId;
 		}
 		
-		public function registerObserver(attribute:String, event:String, callback:Function):void
+		public function addEventListener(attribute:String, event:String, callback:Function):void
 		{
 			var index:int = _registeredAttributes.indexOf(attribute);
 			if (index == -1)
@@ -55,7 +53,7 @@ package Modi
 			_attributeObservers[attribute].push(new IObserver(event, callback));
 		}
 
-		public function removeObserver(attribute:String, callback:Function):Boolean
+		public function removeEventListener(attribute:String, callback:Function):Boolean
 		{
 			if (_attributeObservers[attribute] === undefined)
 			{
@@ -167,8 +165,9 @@ package Modi
 		
 		public function serialize(serializator:ISerializator):void 
 		{
-			var lenght: int = this._registeredAttributes.length;
-			for (var i: int = 0; i < lenght; i++) 
+			var length: int = this._registeredAttributes.length;
+
+			for (var i: int = 0; i < length; i++)
 			{
 				var attributeName:String = this._registeredAttributes[i];
 				var attributeType:String = this._registeredAttributesTypes[i];
@@ -204,7 +203,6 @@ package Modi
             {
                 contextId = new ManagedObjectId(id);
             }
-
 		}
 		
 		public static function readUnindentified(name:String, object:*, type:String, deserializator:IDeserializator):Boolean
@@ -371,7 +369,8 @@ package Modi
 			
 		}
 
-        public function get registeredAttributes():Array {
+        public function get registeredAttributes():Array
+        {
             return _registeredAttributes;
         }
     }
