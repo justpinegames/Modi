@@ -30,7 +30,7 @@ package Modi
 
             if (StringUtils.beginsWith(_objectId, "id"))
             {
-                id = _objectId.substr(2) as int;
+                id = int(_objectId.substr(2));
             }
             else
             {

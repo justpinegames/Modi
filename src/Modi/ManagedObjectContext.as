@@ -63,7 +63,7 @@ package Modi
         {
             if (base.contextId)
             {
-                _idCounter = Math.max(_idCounter, base.contextId.extractIndex());
+                _idCounter = Math.max(_idCounter, base.contextId.extractIndex() + 1);
                 addToContextWithId(base, base.contextId);
             }
 
