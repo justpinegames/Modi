@@ -21,7 +21,7 @@ package Modi
         private var _y:Number;
         private var _x:Number;
 
-        public function _ManagedPoint()
+        public function ManagedPoint()
         {
             this.registerAttributes(ATTRIBUTES, ATTRIBUTES_TYPES);
         }
@@ -71,6 +71,11 @@ package Modi
         public function get x():Number
         {
             return this._x;
+        }
+
+        public function get point():Point
+        {
+            return new Point(_x, _y);
         }
 
         public function set XDirectUnsafe(x:Number):void
