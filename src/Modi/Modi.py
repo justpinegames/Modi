@@ -257,11 +257,11 @@ def createMachineClass(directory, package, className, classData):
         cleanAndExit()
 
 def isModiClass(className):
-    """modiClasses = ["ManagedArray", "ManagedMap", "ManagedValue", "ManagedPoint"]
+    modiClasses = ["ManagedArray", "ManagedMap", "ManagedValue", "ManagedPoint"]
     for modiClass in modiClasses:
         if modiClass == className:
             return True
-    """
+    
 
     return False
 
