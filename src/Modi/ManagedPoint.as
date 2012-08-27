@@ -24,6 +24,9 @@ package Modi
         public function ManagedPoint()
         {
             this.registerAttributes(ATTRIBUTES, ATTRIBUTES_TYPES);
+
+            _x = 0;
+            _y = 0;
         }
 
         public function set y(y:Number):void
@@ -86,6 +89,20 @@ package Modi
         public function equals(point:ManagedPoint):Boolean
         {
             return (_x == point.x && _y == point.y);
+        }
+
+        public function toPoint():Point
+        {
+            return new Point(_x, _y);
+        }
+
+        public function normalize(thickness:Number = 1):void
+        {
+            var point:Point = new Point(_x,  _y);
+            point.normalize(thickness);
+
+            this.x = point.x;
+            this.y = point.y;
         }
 
         public static function distance(firstPoint:ManagedPoint, secondPoint:ManagedPoint):Number
