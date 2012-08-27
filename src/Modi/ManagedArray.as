@@ -188,7 +188,17 @@ package Modi
 			
 			return _data[index];
 		}
-		
+
+        public function getLastObject():*
+        {
+            if (_data.length == 0)
+            {
+                return null;
+            }
+
+            return _data[_data.length - 1];
+        }
+
 		public function get length():int
 		{
 			return _data.length;
