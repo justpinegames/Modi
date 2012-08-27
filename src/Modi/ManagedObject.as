@@ -194,7 +194,10 @@ package Modi
 				var attributeName:String = _registeredAttributes[i];
 				var attributeType:String = _registeredAttributesTypes[i];
 
-    		    readUnindentified(attributeName, this, attributeType, deserializator);
+                if (deserializator.exists(attributeName))
+                {
+                    readUnindentified(attributeName, this, attributeType, deserializator);
+                }
 			}
 
             var id:String = deserializator.readString("id");

@@ -37,7 +37,7 @@ package Modi
 		{
 			return _stack[_stack.length - 1].context;
 		}
-		
+
 		private function readFromTop(name:String):*
 		{
 			if (stackTopContext() == SERIALIZATOR_STATE_OBJECT) 
@@ -150,5 +150,11 @@ package Modi
 				throw new Error("current state is not an array")
 			}
 		}
-	}
+
+        public function exists(name:String):Boolean
+        {
+            return (name in stackTop());
+        }
+
+    }
 }

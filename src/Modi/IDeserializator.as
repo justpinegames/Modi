@@ -43,5 +43,7 @@ package Modi
 		function popMap():void;
 
 		function getCurrentLength():int;
+
+        function exists(name:String):Boolean;
 	}
 }
