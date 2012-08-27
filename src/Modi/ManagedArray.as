@@ -495,5 +495,17 @@ package Modi
 			}
 			
 		}
+
+        public function arrayCopy():Array
+        {
+            var array:Array = [];
+
+            for (var i:int = 0; i < _data.length; i++)
+            {
+                array.push(_data[i]);
+            }
+
+            return array;
+        }
 	}
 }
