@@ -39,5 +39,11 @@ package Modi
 
             return id;
         }
+
+        public function isConcrete():Boolean
+        {
+            return _objectId != "";
+        }
+
 	}
 }

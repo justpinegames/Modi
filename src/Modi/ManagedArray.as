@@ -517,5 +517,15 @@ package Modi
 
             return array;
         }
+
+        public function each(closure:Function):void
+        {
+            Assert(closure != null);
+
+            for (var i:int = 0; i < this.length; i++)
+            {
+                closure(this.objectAt(i));
+            }
+        }
 	}
 }

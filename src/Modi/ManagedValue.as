@@ -12,7 +12,7 @@ package Modi
 	{
 		private var _value:*;
 		
-		public function ManagedValue(value:*) 
+		public function ManagedValue(value:* = null)
 		{
 			_value = value;
 		}
@@ -26,5 +26,11 @@ package Modi
 		{
 			_value = value;
 		}
+
+        public function get booleanValue():Boolean
+        {
+            return Boolean(_value);
+        }
+
 	}
 }
