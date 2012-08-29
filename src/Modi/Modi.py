@@ -59,21 +59,22 @@ def generateClassesFromModel(model, directory, package):
     try:
         stream = open(model, 'r')
         
-        try:
-            yamlData = yaml.load_all(stream)
-            
-            for classData in yamlData:
-                for className in classData:
-                    createMachineClass(directory, package, className, classData)
-                    createHumanClass(directory, package, className, classData)
+        yamlData = yaml.load_all(stream)
+        
+        for classData in yamlData:
+            for className in classData:
+                createMachineClass(directory, package, className, classData)
+                createHumanClass(directory, package, className, classData)
                 
-        except yaml.YAMLError:
-            print "Model file with name " + model + " is not properly defined!"
-            cleanAndExit()
-    except IOError:
-        print "Could not find model with name " + model + "!"
+    except yaml.YAMLError, exc:
+        if hasattr(exc, 'problem_mark'):
+            mark = exc.problem_mark
+            print "Error in YAML file: %s (Line %s, Column %s)" % (path, mark.line + 1, mark.column + 1)
         cleanAndExit()
-
+    except IOError as e:
+        print "I/O error({0}): {1}".format(e.errno, e.strerror)
+        cleanAndExit()
+    
 
 def createHumanClass(directory, package, className, classData):
 
@@ -232,7 +233,7 @@ def createMachineClass(directory, package, className, classData):
                         if "Managed" in argumentAndReturnType:
                             argumentAndReturnType = getCollectionType(argumentAndReturnType)
 
-                    file.write("\t\tpublic function set " + attributeName + "(" + attributeName + ":" + argumentAndReturnType + "):void\n\t\t{\n")
+                    file.write("\t\tpublic final function set " + attributeName + "(" + attributeName + ":" + argumentAndReturnType + "):void\n\t\t{\n")
                     file.write("\t\t\tif (!this.allowChange(ATTRIBUTE_" + attributeName.upper() + ", this._" + attributeName + ", " + attributeName + "))\n")
                     file.write("\t\t\t{\n\t\t\t\treturn;\n\t\t\t}\n\n\t\t\t")
                     file.write("this.willChange(ATTRIBUTE_" + attributeName.upper() + ", this._" + attributeName + ", " + attributeName + ");\n\n\t\t\t")
@@ -240,10 +241,10 @@ def createMachineClass(directory, package, className, classData):
                     file.write("this._" + attributeName + " = " + attributeName + ";\n\n\t\t\t")
                     file.write("this.wasChanged(ATTRIBUTE_" + attributeName.upper() + ", oldState, " + attributeName + ");\n\t\t}\n\n")
                     
-                    file.write("\t\tpublic function get " + attributeName + "():" + argumentAndReturnType + "\n\t\t{\n\t\t\t")
+                    file.write("\t\tpublic final function get " + attributeName + "():" + argumentAndReturnType + "\n\t\t{\n\t\t\t")
                     file.write("return this._" + attributeName + ";\n\t\t}\n\n")
                     
-                    file.write("\t\tpublic function set " + attributeName.capitalize() + "DirectUnsafe("+ attributeName + ":" + argumentAndReturnType)
+                    file.write("\t\tpublic final function set " + attributeName.capitalize() + "DirectUnsafe("+ attributeName + ":" + argumentAndReturnType)
                     file.write("):void\n\t\t{\n\t\t\tthis._" + attributeName + " = " + attributeName + ";\n\t\t}\n\n")
             
             """ --------------------------------------------------------------------------- """
