@@ -8,20 +8,23 @@
 
 package Modi
 {
-	
-	public class ManagedObjectEvent
+    import Modi.ManagedObject;
+
+    public class ManagedObjectEvent
 	{
 		public static var ALLOW_CHANGE:String = "AllowChange";
 		public static var WILL_CHANGE:String = "WillChange";
 		public static var WAS_CHANGED:String = "WasChanged";
-		
+
+        public var owner:ManagedObject;
 		public var attribute:String;
 		public var event:String;
 		public var oldState:*;
 		public var newState:*;
 		
-		public function ManagedObjectEvent(attribute:String, event:String, oldState:*, newState:*)
+		public function ManagedObjectEvent(owner:ManagedObject, attribute:String, event:String, oldState:*, newState:*)
 		{
+            this.owner = owner;
 			this.attribute = attribute;
 			this.event = event;
 			this.oldState = oldState;

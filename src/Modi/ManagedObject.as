@@ -100,7 +100,7 @@ package Modi
 				observer = targetObservers[i];
 				if (observer.observedEvent == ManagedObjectEvent.ALLOW_CHANGE)
 				{
-					var observerEvent:ManagedObjectEvent = new ManagedObjectEvent(attribute, ManagedObjectEvent.ALLOW_CHANGE, oldState, newState);
+					var observerEvent:ManagedObjectEvent = new ManagedObjectEvent(this, attribute, ManagedObjectEvent.ALLOW_CHANGE, oldState, newState);
 					var allowed:Boolean = observer.callback(observerEvent);
 					
 					/// Ako ijedan observer ne dozvoljava, vraca se false
@@ -133,7 +133,7 @@ package Modi
 				observer = targetObservers[i];
 				if (observer.observedEvent == ManagedObjectEvent.WILL_CHANGE)
 				{
-					var observerEvent:ManagedObjectEvent = new ManagedObjectEvent(attribute, ManagedObjectEvent.WILL_CHANGE, oldState, newState);
+					var observerEvent:ManagedObjectEvent = new ManagedObjectEvent(this, attribute, ManagedObjectEvent.WILL_CHANGE, oldState, newState);
 					observer.callback(observerEvent);
 				}
 			}
@@ -157,7 +157,7 @@ package Modi
 				observer = targetObservers[i];
 				if (observer.observedEvent == ManagedObjectEvent.WAS_CHANGED)
 				{
-					var observerEvent:ManagedObjectEvent = new ManagedObjectEvent(attribute, ManagedObjectEvent.WAS_CHANGED, oldState, newState);
+					var observerEvent:ManagedObjectEvent = new ManagedObjectEvent(this, attribute, ManagedObjectEvent.WAS_CHANGED, oldState, newState);
 					observer.callback(observerEvent);
 				}
 			}

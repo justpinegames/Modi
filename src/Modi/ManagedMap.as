@@ -83,7 +83,7 @@ package Modi
 			for (i = 0; i < length; i++)
 			{
 				observer = targetObservers[i];				
-				var observerEvent:ManagedMapEvent = new ManagedMapEvent(oldObject,newObject, ManagedObjectEvent.ALLOW_CHANGE, x, y);
+				var observerEvent:ManagedMapEvent = new ManagedMapEvent(this, oldObject,newObject, ManagedObjectEvent.ALLOW_CHANGE, x, y);
 				var allowed:Boolean = observer.callback(observerEvent);
 				
 				/// Ako ijedan observer ne dozvoljava, vraca se false
@@ -113,7 +113,7 @@ package Modi
 			for (i = 0; i < length; i++)
 			{
 				observer = targetObservers[i];
-				var observerEvent:ManagedMapEvent = new ManagedMapEvent(oldObject,newObject, ManagedObjectEvent.ALLOW_CHANGE, x, y);
+				var observerEvent:ManagedMapEvent = new ManagedMapEvent(this, oldObject,newObject, ManagedObjectEvent.ALLOW_CHANGE, x, y);
 				observer.callback(observerEvent);
 			}
 		}
@@ -134,7 +134,7 @@ package Modi
 			for (i = 0; i < length; i++)
 			{
 				observer = targetObservers[i];				
-				var observerEvent:ManagedMapEvent = new ManagedMapEvent(oldObject,newObject, ManagedObjectEvent.ALLOW_CHANGE, x, y);
+				var observerEvent:ManagedMapEvent = new ManagedMapEvent(this, oldObject,newObject, ManagedObjectEvent.ALLOW_CHANGE, x, y);
 				observer.callback(observerEvent);
 			}
 		}

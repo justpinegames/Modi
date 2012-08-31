@@ -131,7 +131,10 @@ def createMachineClass(directory, package, className, classData):
                     attributeData = classData[className][attributeName]
                     attributeType = attributeData
                     if type(attributeData) == dict:
-                        attributeType = "String"
+                        if "type" in attributeData:
+                            attributeType = attributeData["type"]
+                        else:
+                            attributeType = "String"
                     if "Managed" in attributeData:
                         attributeType = getCollectionType(attributeData)
                     file.write("\"" + attributeType + "\", ")
@@ -150,7 +153,7 @@ def createMachineClass(directory, package, className, classData):
                         values = attributeData[key]
                         if type(values) == list:
                             for value in values:
-                                file.write("\t\tpublic static const " + attributeName.upper() + "_" + value.upper() + ":String = \"" + value + "\";\n")
+                                file.write("\t\tpublic static const " + attributeName.upper() + "_" + str(value).upper() + ":String = \"" + str(value) + "\";\n")
             
             for attributeName in classData[className]:
                 attributeData = classData[className][attributeName]
@@ -160,7 +163,7 @@ def createMachineClass(directory, package, className, classData):
                         values = attributeData[key]
                         if type(values) == list:
                             for value in values:
-                                file.write("\"" + value + "\", ");
+                                file.write("\"" + str(value) + "\", ");
                     file.write("];\n\n")
             
             for attributeName in classData[className]:
@@ -190,7 +193,7 @@ def createMachineClass(directory, package, className, classData):
                 if type(attributeData) == dict:
                     if "default" in attributeData:
                         if "values" in attributeData:
-                            file.write("\t\t\tthis._" + attributeName + " = " + attributeName.upper() + "_" + attributeData["default"].upper() + ";\n")
+                            file.write("\t\t\tthis._" + attributeName + " = " + attributeName.upper() + "_" + str(attributeData["default"]).upper() + ";\n")
                         elif "type" in attributeData:
                             if attributeData["type"] == "String":
                                 file.write("\t\t\tthis._" + attributeName + ' = "' + str(attributeData["default"]) + '";\n')
@@ -266,6 +269,14 @@ def isModiClass(className):
 
     return False
 
+def isNumeric(value):
+    numericTypes = ["int", "float", "long", "complex"]
+    for numericType in numericTypes:
+        if type(value) == eval(numericType):
+            return True
+    return False
+
+
 def getCollectionType(str):
     childType = ""
     counts = True
@@ -293,34 +304,6 @@ def getChildType(str):
 
     return childType;
 
-
-def createEnumClassFile(machineDirectory, className, classData):
-
-    global CREATED_FILES
-    classPath = machineDirectory + "/" + className.capitalize() + "Enum.as" 
-    
-    try:
-        file = open(classPath, "w")
-        CREATED_FILES.append(classPath);
-        
-        try:
-            file.write("package\n{\n\tpublic class " + className.capitalize() + "Enum\n\t{\n")
-            
-            for key in classData:
-                values = classData[key]
-                if type(values) == list:
-                    for value in values:
-                        file.write("\t\tpublic static const " + value.upper() + ":String = \"" + value.upper() + "\";\n")
-                else:
-                    file.write("\t\tpublic static const DEFAULT:String = \"" + values.upper() + "\";\n")
-                
-            file.write("\t}\n}")
-        finally:
-            file.close()
-            
-    except IOError:
-        print "Error occoured while opening or reading file: \n" + classPath
-        cleanAndExit()
     
         
 def cleanAndExit():

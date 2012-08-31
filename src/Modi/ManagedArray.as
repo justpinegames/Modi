@@ -263,7 +263,7 @@ package Modi
 			for (i = 0; i < length; i++)
 			{
 				observer = targetObservers[i];				
-				var observerEvent:ManagedArrayEvent = new ManagedArrayEvent(object, ManagedArrayEvent.ALLOW_REMOVE, index);
+				var observerEvent:ManagedArrayEvent = new ManagedArrayEvent(this, object, ManagedArrayEvent.ALLOW_REMOVE, index);
 				var allowed:Boolean = observer.callback(observerEvent);
 				
 				/// Ako ijedan observer ne dozvoljava, vraca se false
@@ -293,7 +293,7 @@ package Modi
 			for (i = 0; i < length; i++)
 			{
 				observer = targetObservers[i];
-				var observerEvent:ManagedArrayEvent = new ManagedArrayEvent(object, ManagedArrayEvent.WILL_REMOVE, index);
+				var observerEvent:ManagedArrayEvent = new ManagedArrayEvent(this, object, ManagedArrayEvent.WILL_REMOVE, index);
 				observer.callback(observerEvent);
 			}
 		}
@@ -314,7 +314,7 @@ package Modi
 			for (i = 0; i < length; i++)
 			{
 				observer = targetObservers[i];				
-				var observerEvent:ManagedArrayEvent = new ManagedArrayEvent(object, ManagedArrayEvent.WAS_REMOVED, index);
+				var observerEvent:ManagedArrayEvent = new ManagedArrayEvent(this, object, ManagedArrayEvent.WAS_REMOVED, index);
 				observer.callback(observerEvent);
 			}
 		}
@@ -335,7 +335,7 @@ package Modi
 			for (i = 0; i < length; i++)
 			{
 				observer = targetObservers[i];				
-				var observerEvent:ManagedArrayEvent = new ManagedArrayEvent(object, ManagedArrayEvent.ALLOW_ADD, index);
+				var observerEvent:ManagedArrayEvent = new ManagedArrayEvent(this, object, ManagedArrayEvent.ALLOW_ADD, index);
 				var allowed:Boolean = observer.callback(observerEvent);
 				
 				/// Ako ijedan observer ne dozvoljava, vraca se false
@@ -365,7 +365,7 @@ package Modi
 			for (i = 0; i < length; i++)
 			{
 				observer = targetObservers[i];
-				var observerEvent:ManagedArrayEvent = new ManagedArrayEvent(object, ManagedArrayEvent.WILL_ADD, index);
+				var observerEvent:ManagedArrayEvent = new ManagedArrayEvent(this, object, ManagedArrayEvent.WILL_ADD, index);
 				observer.callback(observerEvent);
 			}
 		}
@@ -386,7 +386,7 @@ package Modi
 			for (i = 0; i < length; i++)
 			{
 				observer = targetObservers[i];				
-				var observerEvent:ManagedArrayEvent = new ManagedArrayEvent(object, ManagedArrayEvent.WAS_ADDED, index);
+				var observerEvent:ManagedArrayEvent = new ManagedArrayEvent(this, object, ManagedArrayEvent.WAS_ADDED, index);
 				observer.callback(observerEvent);
 			}
 		}
@@ -407,7 +407,7 @@ package Modi
 			for (i = 0; i < length; i++)
 			{
 				observer = targetObservers[i];				
-				var observerEvent:ManagedArrayEvent = new ManagedArrayEvent(newObject, ManagedArrayEvent.ALLOW_REPLACE, index, oldObject);
+				var observerEvent:ManagedArrayEvent = new ManagedArrayEvent(this, newObject, ManagedArrayEvent.ALLOW_REPLACE, index, oldObject);
 				var allowed:Boolean = observer.callback(observerEvent);
 				
 				/// Ako ijedan observer ne dozvoljava, vraca se false
@@ -437,7 +437,7 @@ package Modi
 			for (i = 0; i < length; i++)
 			{
 				observer = targetObservers[i];
-				var observerEvent:ManagedArrayEvent = new ManagedArrayEvent(newObject, ManagedArrayEvent.WILL_REPLACE, index, oldObject);
+				var observerEvent:ManagedArrayEvent = new ManagedArrayEvent(this, newObject, ManagedArrayEvent.WILL_REPLACE, index, oldObject);
 				observer.callback(observerEvent);
 			}
 		}
@@ -458,7 +458,7 @@ package Modi
 			for (i = 0; i < length; i++)
 			{
 				observer = targetObservers[i];				
-				var observerEvent:ManagedArrayEvent = new ManagedArrayEvent(newObject, ManagedArrayEvent.WAS_REPLACED, index, oldObject);
+				var observerEvent:ManagedArrayEvent = new ManagedArrayEvent(this, newObject, ManagedArrayEvent.WAS_REPLACED, index, oldObject);
 				observer.callback(observerEvent);
 			}
 		}

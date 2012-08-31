@@ -8,7 +8,9 @@
 
 package Modi 
 {
-	public class ManagedArrayEvent
+    import Modi.ManagedArray;
+
+    public class ManagedArrayEvent
 	{
 		public static var ALLOW_REMOVE:String = "AllowRemove";
 		public static var WILL_REMOVE:String = "WillRemove";
@@ -19,14 +21,16 @@ package Modi
 		public static var ALLOW_REPLACE:String = "AllowReplace";
 		public static var WILL_REPLACE:String = "WillReplace";
 		public static var WAS_REPLACED:String = "WasReplaced";
-		
+
+        public var owner:ManagedArray;
 		public var object:ManagedObject;
 		public var event:String;
 		public var index:int;
 		public var oldObject:ManagedObject;
 		
-		public function ManagedArrayEvent(object:ManagedObject, event:String, index:int, oldObject:ManagedObject = null)
+		public function ManagedArrayEvent(owner:ManagedArray, object:ManagedObject, event:String, index:int, oldObject:ManagedObject = null)
 		{
+            this.owner = owner;
 			this.object = object;
 			this.event = event;
 			this.index = index;
