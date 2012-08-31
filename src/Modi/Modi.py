@@ -125,7 +125,7 @@ def createMachineClass(directory, package, className, classData):
             for attributeName in classData[className]:
                 if attributeName != "super":
                     file.write("\"" + attributeName + "\", ")
-            file.write("];\n\t\tpublic static const ATTRIBUTES_TYPES:Array = [");
+            file.write("];\n\t\tpublic static const ATTRIBUTE_TYPES:Array = [");
             for attributeName in classData[className]:
                 if attributeName != "super":
                     attributeData = classData[className][attributeName]
@@ -184,7 +184,7 @@ def createMachineClass(directory, package, className, classData):
             """ --------------------------------------------------------------------------- """
             
             file.write("\n\t\tpublic function _" + className + "()\n\t\t{\n")
-            file.write("\t\t\tthis.registerAttributes(ATTRIBUTES, ATTRIBUTES_TYPES);\n")
+            file.write("\t\t\tthis.registerAttributes(ATTRIBUTES, ATTRIBUTE_TYPES);\n")
             
             file.write("\n")
             

@@ -16,14 +16,14 @@ package Modi
 	{
 		private var _attributeObservers:Dictionary;
 		private var _registeredAttributes:Array;
-		private var _registeredAttributesTypes:Array;
+		private var _registeredAttributeTypes:Array;
 		private var _contextId:ManagedObjectId;
 		
 		public function ManagedObject()
 		{
 			_attributeObservers = new Dictionary();
 			_registeredAttributes = new Array();
-			_registeredAttributesTypes = new Array();
+			_registeredAttributeTypes = new Array();
 			_contextId = null;
 		}
 		
@@ -76,10 +76,10 @@ package Modi
 			return false;
 		}
 		
-		protected function registerAttributes(attributes:Array, attributesTypes:Array):void
+		protected function registerAttributes(attributes:Array, attributeTypes:Array):void
 		{
             _registeredAttributes = _registeredAttributes.concat(attributes);
-            _registeredAttributesTypes = _registeredAttributesTypes.concat(attributesTypes);
+            _registeredAttributeTypes = _registeredAttributeTypes.concat(attributeTypes);
 		}
 		
 		public function allowChange(attribute:String, oldState:*, newState:*):Boolean
@@ -170,7 +170,7 @@ package Modi
 			for (var i: int = 0; i < length; i++)
 			{
 				var attributeName:String = this._registeredAttributes[i];
-				var attributeType:String = this._registeredAttributesTypes[i];
+				var attributeType:String = this._registeredAttributeTypes[i];
 				
 				writeUnindentified(attributeName, this[attributeName], attributeType, serializator);
 			}
@@ -192,7 +192,7 @@ package Modi
 			for (var i: int = 0; i < lenght; i++) 
 			{
 				var attributeName:String = _registeredAttributes[i];
-				var attributeType:String = _registeredAttributesTypes[i];
+				var attributeType:String = _registeredAttributeTypes[i];
 
                 if (deserializator.exists(attributeName))
                 {

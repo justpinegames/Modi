@@ -1,7 +1,0 @@
-Test:
-    atribut:
-        type: int
-        default: 10
-    attributttt:
-        values: [dsads, dsads]
-        default: dsads
