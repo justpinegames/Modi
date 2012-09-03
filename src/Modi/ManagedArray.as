@@ -189,6 +189,21 @@ package Modi
 			return _data[index];
 		}
 
+        public function get last():*
+        {
+            return getLastObject();
+        }
+
+        public function get first():*
+        {
+            if (_data.length == 0)
+            {
+                return null;
+            }
+
+            return _data[0];
+        }
+
         public function getLastObject():*
         {
             if (_data.length == 0)
