@@ -37,7 +37,7 @@ package Modi
 		
 		public function getManagedObjectById(id:ManagedObjectId):ManagedObject
 		{
-            if (!id)
+            if (!id || !id.isConcrete())
             {
                 return null;
             }
