@@ -25,6 +25,20 @@ package Modi
 		public function set value(value:*):void 
 		{
 			_value = value;
+
+
+            if (!this.allowChange("value", _value, value))
+            {
+                return;
+            }
+
+            this.willChange("value", _value, value);
+
+            var oldState:* = _value;
+
+            _value = value;
+
+            this.wasChanged("value", oldState, value);
 		}
 
         public function get booleanValue():Boolean
@@ -32,5 +46,24 @@ package Modi
             return Boolean(_value);
         }
 
+        public function get intValue():int
+        {
+            return int(_value);
+        }
+
+        public function get uintValue():uint
+        {
+            return uint(_value);
+        }
+
+        public function get numberValue():Number
+        {
+            return Number(_value);
+        }
+
+        public function get stringValue():String
+        {
+            return String(_value);
+        }
 	}
 }
