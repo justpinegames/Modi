@@ -91,8 +91,8 @@ class MachineClassWritter:
             if attributeName != "super":
                 attributeData = self.classData[attributeName]
                 attributeType = attributeData
-                if "ManagedArray" in attributeData:
-                    attributeType = "ManagedArray"
+                if "Managed" in attributeData:
+                    attributeType = getModiClass(attributeData)
                 elif type(attributeData) == dict:
                     if "type" in attributeData:
                         attributeType = attributeData["type"]
@@ -123,8 +123,8 @@ class MachineClassWritter:
             if attributeName != "super":
                 attributeData = self.classData[attributeName]
                 attributeType = attributeData
-                if "ManagedArray" in attributeType:
-                    attributeType = "ManagedArray"
+                if "Managed" in attributeData:
+                    attributeType = getModiClass(attributeData)
                 elif type(attributeData) == dict:
                     if "type" in attributeData:
                         attributeType = attributeData["type"]
@@ -155,17 +155,19 @@ class MachineClassWritter:
 
         for attributeName in self.classData:
             attributeData = self.classData[attributeName]
-            if "ManagedArray" in attributeData and attributeName != "super":
-                self.write("\t\t\t_" + attributeName + " = new ManagedArray();\n")
-                elementType = getManagedArrayElementType(attributeData)
-                if elementType != "ManagedObject":
-                    if isModiClass(elementType):
-                        self.write("\t\t\t_" + attributeName + '.childType = "Modi.' + elementType + '";\n')
-                    else:
-                        packageToAdd = self.package
-                        if self.package != "":
-                            packageToAdd += "."
-                        self.write("\t\t\t_" + attributeName + '.childType = "' + packageToAdd + elementType + '";\n')
+            if "Managed" in attributeData and attributeName != "super":
+                modiClass = getModiClass(attributeData)
+                self.write("\t\t\t_" + attributeName + " = new " + modiClass + "();\n")
+                if modiClass == "ManagedArray":
+                    elementType = getManagedArrayElementType(attributeData)
+                    if elementType != "ManagedObject":
+                        if isModiClass(elementType):
+                            self.write("\t\t\t_" + attributeName + '.childType = "Modi.' + elementType + '";\n')
+                        else:
+                            packageToAdd = self.package
+                            if self.package != "":
+                                packageToAdd += "."
+                            self.write("\t\t\t_" + attributeName + '.childType = "' + packageToAdd + elementType + '";\n')
         self.write("\t\t}\n\n")
 
     def writeGettersAndSetters(self):
@@ -173,14 +175,14 @@ class MachineClassWritter:
             if attributeName != "super":
                 attributeData = self.classData[attributeName]
                 attributeType = attributeData
-                if "ManagedArray" in attributeType:
-                    attributeType = "ManagedArray"
+                if "Managed" in attributeData:
+                    attributeType = getModiClass(attributeType)
                 elif type(attributeData) == dict:
                     if "type" in attributeData:
                         attributeType = attributeData["type"]
                     else:
                         attributeType = "String"
-                
+
                 self.write("\t\tpublic final function set " + attributeName + "(" + attributeName + ":" + attributeType + "):void\n\t\t{\n")
                 self.write("\t\t\tif (!this.allowChange(ATTRIBUTE_" + toUppercaseWithUnderscores(attributeName) + ", _" + attributeName + ", " + attributeName + "))\n")
                 self.write("\t\t\t{\n\t\t\t\treturn;\n\t\t\t}\n\n\t\t\t")
@@ -215,6 +217,19 @@ def getManagedArrayElementType(str):
             childType = ""
             counts = True
     return childType;
+
+# TODO: Rewrite this function using regular expressions.
+def getModiClass(str):
+    modiClass = ""
+    counts = True
+
+    for char in str:
+        if char == "<":
+            counts = False
+        if counts:
+            modiClass += char
+
+    return modiClass;
 
 # Returns True if className is one of the Modi classes, false otherwise.
 def isModiClass(className):
