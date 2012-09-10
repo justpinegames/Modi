@@ -8,8 +8,6 @@
 
 package Modi 
 {
-    import Modi.ManagedMap;
-
     public class ManagedMapEvent
 	{
 		public static var ALLOW_CHANGE:String = "AllowChange";

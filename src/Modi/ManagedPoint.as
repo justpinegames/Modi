@@ -38,11 +38,11 @@ package Modi
 
             this.willChange(ATTRIBUTE_Y, this._y, y);
 
-            var oldState:Number = this._y;
+            var oldValue:Number = this._y;
 
             this._y = y;
 
-            this.wasChanged(ATTRIBUTE_Y, oldState, y);
+            this.wasChanged(ATTRIBUTE_Y, oldValue, y);
         }
 
         public function get y():Number
@@ -64,11 +64,11 @@ package Modi
 
             this.willChange(ATTRIBUTE_X, this._x, x);
 
-            var oldState:Number = this._x;
+            var oldValue:Number = this._x;
 
             this._x = x;
 
-            this.wasChanged(ATTRIBUTE_X, oldState, x);
+            this.wasChanged(ATTRIBUTE_X, oldValue, x);
         }
 
         public function get x():Number

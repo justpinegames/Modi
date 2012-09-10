@@ -34,17 +34,17 @@ package Modi
 			_yValues = new Vector.<int>();
 		}
 		
-		public function addEventListener(event:String, callback:Function):void
+		public function addEventListener(event:String, listener:Function):void
 		{
 			if (_observers[event] === undefined)
 			{
 				throw new Error("Event " + event + " does not exists nor can it be tracked!");
 			}
 			
-			_observers[event].push(new IObserver(event, callback));
+			_observers[event].push(new IObserver(event, listener));
 		}
 		
-		public function removeEventListener(event:String, callback:Function):Boolean
+		public function removeEventListener(event:String, listener:Function):Boolean
 		{
 			if (_observers[event] === undefined)
 			{
@@ -57,7 +57,7 @@ package Modi
 			for (var i:int = 0; i < length; i++)
 			{
 				observer = _observers[event][i];
-				if (observer.callback == callback)
+				if (observer.listener == listener)
 				{
 					_observers[event].splice(i, 1);
 					return true;
@@ -84,7 +84,7 @@ package Modi
 			{
 				observer = targetObservers[i];				
 				var observerEvent:ManagedMapEvent = new ManagedMapEvent(this, oldObject,newObject, ManagedObjectEvent.ALLOW_CHANGE, x, y);
-				var allowed:Boolean = observer.callback(observerEvent);
+				var allowed:Boolean = observer.listener(observerEvent);
 				
 				/// Ako ijedan observer ne dozvoljava, vraca se false
 				if (!allowed)
@@ -114,7 +114,7 @@ package Modi
 			{
 				observer = targetObservers[i];
 				var observerEvent:ManagedMapEvent = new ManagedMapEvent(this, oldObject,newObject, ManagedObjectEvent.ALLOW_CHANGE, x, y);
-				observer.callback(observerEvent);
+				observer.listener(observerEvent);
 			}
 		}
 		
@@ -135,7 +135,7 @@ package Modi
 			{
 				observer = targetObservers[i];				
 				var observerEvent:ManagedMapEvent = new ManagedMapEvent(this, oldObject,newObject, ManagedObjectEvent.ALLOW_CHANGE, x, y);
-				observer.callback(observerEvent);
+				observer.listener(observerEvent);
 			}
 		}
 		
@@ -287,7 +287,7 @@ package Modi
 		{
 			return (a == b ? 0 : (a < b) ? -1 : 1);
 		}
-		
-		/// deserialize, prvo treba sve removati
+
+        // TODO: Deserialize.
 	}
 }

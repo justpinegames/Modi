@@ -37,7 +37,7 @@ package Modi
 			return _contextId;
 		}
 		
-		public function addEventListener(attribute:String, event:String, callback:Function):void
+		public function addEventListener(attribute:String, event:String, listener:Function):void
 		{
 			var index:int = _registeredAttributes.indexOf(attribute);
 			if (index == -1)
@@ -50,10 +50,10 @@ package Modi
 				_attributeObservers[attribute] = new Vector.<IObserver>();
 			}
 			
-			_attributeObservers[attribute].push(new IObserver(event, callback));
+			_attributeObservers[attribute].push(new IObserver(event, listener));
 		}
 
-		public function removeEventListener(attribute:String, callback:Function):Boolean
+		public function removeEventListener(attribute:String, listener:Function):Boolean
 		{
 			if (_attributeObservers[attribute] === undefined)
 			{
@@ -66,7 +66,7 @@ package Modi
 			for (var i:int = 0; i < length; i++)
 			{
 				observer = _attributeObservers[attribute][i];
-				if (observer.callback == callback)
+				if (observer.listener == listener)
 				{
 					_attributeObservers[attribute].splice(i, 1);
 					return true;
@@ -82,7 +82,7 @@ package Modi
             _registeredAttributeTypes = _registeredAttributeTypes.concat(attributeTypes);
 		}
 		
-		public function allowChange(attribute:String, oldState:*, newState:*):Boolean
+		public function allowChange(attribute:String, oldValue:*, newValue:*):Boolean
 		{
 			/// Ako ne postoje observeri na ovaj atribut, odma vraca true
 			if (_attributeObservers[attribute] === undefined)
@@ -100,8 +100,8 @@ package Modi
 				observer = targetObservers[i];
 				if (observer.observedEvent == ManagedObjectEvent.ALLOW_CHANGE)
 				{
-					var observerEvent:ManagedObjectEvent = new ManagedObjectEvent(this, attribute, ManagedObjectEvent.ALLOW_CHANGE, oldState, newState);
-					var allowed:Boolean = observer.callback(observerEvent);
+					var observerEvent:ManagedObjectEvent = new ManagedObjectEvent(this, attribute, ManagedObjectEvent.ALLOW_CHANGE, oldValue, newValue);
+					var allowed:Boolean = observer.listener(observerEvent);
 					
 					/// Ako ijedan observer ne dozvoljava, vraca se false
 					if (!allowed)
@@ -115,7 +115,7 @@ package Modi
 			return true;
 		}
 		
-		public function willChange(attribute:String, oldState:*, newState:*):void
+		public function willChange(attribute:String, oldValue:*, newValue:*):void
 		{
 			/// Ako ne postoje observeri na ovaj atribut, izlazi van jer nema koga obavijestiti
 			if (_attributeObservers[attribute] === undefined)
@@ -133,13 +133,13 @@ package Modi
 				observer = targetObservers[i];
 				if (observer.observedEvent == ManagedObjectEvent.WILL_CHANGE)
 				{
-					var observerEvent:ManagedObjectEvent = new ManagedObjectEvent(this, attribute, ManagedObjectEvent.WILL_CHANGE, oldState, newState);
-					observer.callback(observerEvent);
+					var observerEvent:ManagedObjectEvent = new ManagedObjectEvent(this, attribute, ManagedObjectEvent.WILL_CHANGE, oldValue, newValue);
+					observer.listener(observerEvent);
 				}
 			}
 		}
 		
-		public function wasChanged(attribute:String, oldState:*, newState:*):void
+		public function wasChanged(attribute:String, oldValue:*, newValue:*):void
 		{
 			/// Ako ne postoje observeri na ovaj atribut, izlazi van jer nema koga obavijestiti
 			if (_attributeObservers[attribute] === undefined)
@@ -157,8 +157,8 @@ package Modi
 				observer = targetObservers[i];
 				if (observer.observedEvent == ManagedObjectEvent.WAS_CHANGED)
 				{
-					var observerEvent:ManagedObjectEvent = new ManagedObjectEvent(this, attribute, ManagedObjectEvent.WAS_CHANGED, oldState, newState);
-					observer.callback(observerEvent);
+					var observerEvent:ManagedObjectEvent = new ManagedObjectEvent(this, attribute, ManagedObjectEvent.WAS_CHANGED, oldValue, newValue);
+					observer.listener(observerEvent);
 				}
 			}
 		}
@@ -289,7 +289,6 @@ package Modi
 		
 		public static function writeUnindentified(name:String, object:*, type:String, serializator:ISerializator):Boolean 
 		{
-			
 			var pass: Boolean = true;
 			
 			if (type == "String") 
@@ -369,7 +368,6 @@ package Modi
 			}
 			
 			return pass;
-			
 		}
 
         public function get registeredAttributes():Array

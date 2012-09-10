@@ -10,9 +10,9 @@ package Modi
 {
 	public interface IObservableArray
 	{
-		function addEventListener(event:String, callback:Function):void;
+		function addEventListener(event:String, listener:Function):void;
 		
-		function removeEventListener(event:String, callback:Function):Boolean;
+		function removeEventListener(event:String, listener:Function):Boolean;
 		
 		function allowRemove(object:ManagedObject, index:int):Boolean;
 		

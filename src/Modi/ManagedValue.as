@@ -34,11 +34,11 @@ package Modi
 
             this.willChange("value", _value, value);
 
-            var oldState:* = _value;
+            var oldValue:* = _value;
 
             _value = value;
 
-            this.wasChanged("value", oldState, value);
+            this.wasChanged("value", oldValue, value);
 		}
 
         public function get booleanValue():Boolean

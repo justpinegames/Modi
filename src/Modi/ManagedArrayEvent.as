@@ -8,8 +8,6 @@
 
 package Modi 
 {
-    import Modi.ManagedArray;
-
     public class ManagedArrayEvent
 	{
 		public static var ALLOW_REMOVE:String = "AllowRemove";

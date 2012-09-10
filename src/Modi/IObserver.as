@@ -11,12 +11,12 @@ package Modi
 	public class IObserver
 	{
 		public var observedEvent:String;
-		public var callback:Function;
+		public var listener:Function;
 		
-		public function IObserver(observedEvent:String, callback:Function)
+		public function IObserver(observedEvent:String, listener:Function)
 		{
 			this.observedEvent = observedEvent;
-			this.callback = callback;
+			this.listener = listener;
 		}
 	}
 }

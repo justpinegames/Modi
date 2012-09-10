@@ -193,29 +193,29 @@ def createMachineClass(directory, package, className, classData):
                 if type(attributeData) == dict:
                     if "default" in attributeData:
                         if "values" in attributeData:
-                            file.write("\t\t\tthis._" + attributeName + " = " + attributeName.upper() + "_" + str(attributeData["default"]).upper() + ";\n")
+                            file.write("\t\t\t_" + attributeName + " = " + attributeName.upper() + "_" + str(attributeData["default"]).upper() + ";\n")
                         elif "type" in attributeData:
                             if attributeData["type"] == "String":
-                                file.write("\t\t\tthis._" + attributeName + ' = "' + str(attributeData["default"]) + '";\n')
+                                file.write("\t\t\t_" + attributeName + ' = "' + str(attributeData["default"]) + '";\n')
                             else:
-                                file.write("\t\t\tthis._" + attributeName + " = " + str(attributeData["default"]) + ";\n")
+                                file.write("\t\t\t_" + attributeName + " = " + str(attributeData["default"]) + ";\n")
 
             file.write("\n")
 
             for attributeName in classData[className]:
                 attributeData = classData[className][attributeName]
                 if "Managed" in attributeData and attributeName != "super":
-                    file.write("\t\t\tthis._" + attributeName + " = new " + getCollectionType(attributeData) + "();\n")
+                    file.write("\t\t\t_" + attributeName + " = new " + getCollectionType(attributeData) + "();\n")
 
                     if getChildType(attributeData) != "ManagedObject":
                         if isModiClass(getChildType(attributeData)):
-                            file.write("\t\t\tthis._" + attributeName + '.childType = "Modi.' + getChildType(attributeData) + '";\n')
+                            file.write("\t\t\t_" + attributeName + '.childType = "Modi.' + getChildType(attributeData) + '";\n')
                         else:
                             packageToAdd = package
                             if package != "":
                                 packageToAdd += "."
 
-                            file.write("\t\t\tthis._" + attributeName + '.childType = "' + packageToAdd + getChildType(attributeData) + '";\n')
+                            file.write("\t\t\t_" + attributeName + '.childType = "' + packageToAdd + getChildType(attributeData) + '";\n')
 
             file.write("\t\t}\n\n")
 
@@ -237,18 +237,18 @@ def createMachineClass(directory, package, className, classData):
                             argumentAndReturnType = getCollectionType(argumentAndReturnType)
 
                     file.write("\t\tpublic final function set " + attributeName + "(" + attributeName + ":" + argumentAndReturnType + "):void\n\t\t{\n")
-                    file.write("\t\t\tif (!this.allowChange(ATTRIBUTE_" + attributeName.upper() + ", this._" + attributeName + ", " + attributeName + "))\n")
+                    file.write("\t\t\tif (!this.allowChange(ATTRIBUTE_" + attributeName.upper() + ", _" + attributeName + ", " + attributeName + "))\n")
                     file.write("\t\t\t{\n\t\t\t\treturn;\n\t\t\t}\n\n\t\t\t")
-                    file.write("this.willChange(ATTRIBUTE_" + attributeName.upper() + ", this._" + attributeName + ", " + attributeName + ");\n\n\t\t\t")
-                    file.write("var oldState:" + argumentAndReturnType + " = this._" + attributeName + ";\n\n\t\t\t")
-                    file.write("this._" + attributeName + " = " + attributeName + ";\n\n\t\t\t")
-                    file.write("this.wasChanged(ATTRIBUTE_" + attributeName.upper() + ", oldState, " + attributeName + ");\n\t\t}\n\n")
+                    file.write("this.willChange(ATTRIBUTE_" + attributeName.upper() + ", _" + attributeName + ", " + attributeName + ");\n\n\t\t\t")
+                    file.write("var oldValue:" + argumentAndReturnType + " = _" + attributeName + ";\n\n\t\t\t")
+                    file.write("_" + attributeName + " = " + attributeName + ";\n\n\t\t\t")
+                    file.write("this.wasChanged(ATTRIBUTE_" + attributeName.upper() + ", oldValue, _" + attributeName + ");\n\t\t}\n\n")
                     
                     file.write("\t\tpublic final function get " + attributeName + "():" + argumentAndReturnType + "\n\t\t{\n\t\t\t")
-                    file.write("return this._" + attributeName + ";\n\t\t}\n\n")
+                    file.write("return _" + attributeName + ";\n\t\t}\n\n")
                     
                     file.write("\t\tpublic final function set " + attributeName.capitalize() + "DirectUnsafe("+ attributeName + ":" + argumentAndReturnType)
-                    file.write("):void\n\t\t{\n\t\t\tthis._" + attributeName + " = " + attributeName + ";\n\t\t}\n\n")
+                    file.write("):void\n\t\t{\n\t\t\t_" + attributeName + " = " + attributeName + ";\n\t\t}\n\n")
             
             """ --------------------------------------------------------------------------- """
             

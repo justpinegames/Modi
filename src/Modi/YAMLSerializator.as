@@ -54,7 +54,6 @@ package Modi
 			{
 				throw new Error("Invalid context");
 			}
-			
 		}
 		
 		public function writeString(name:String, object:String):void 

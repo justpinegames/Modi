@@ -8,8 +8,6 @@
 
 package Modi
 {
-    import Modi.ManagedObject;
-
     public class ManagedObjectEvent
 	{
 		public static var ALLOW_CHANGE:String = "AllowChange";
@@ -19,16 +17,16 @@ package Modi
         public var owner:ManagedObject;
 		public var attribute:String;
 		public var event:String;
-		public var oldState:*;
-		public var newState:*;
+		public var oldValue:*;
+		public var newValue:*;
 		
-		public function ManagedObjectEvent(owner:ManagedObject, attribute:String, event:String, oldState:*, newState:*)
+		public function ManagedObjectEvent(owner:ManagedObject, attribute:String, event:String, oldValue:*, newValue:*)
 		{
             this.owner = owner;
 			this.attribute = attribute;
 			this.event = event;
-			this.oldState = oldState;
-			this.newState = newState;
+			this.oldValue = oldValue;
+			this.newValue = newValue;
 		}
 	}
 }

@@ -155,6 +155,5 @@ package Modi
         {
             return (name in stackTop());
         }
-
     }
 }

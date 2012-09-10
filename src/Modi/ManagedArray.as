@@ -229,17 +229,17 @@ package Modi
 			_childType = type;
 		}
 		
-		public function addEventListener(event:String, callback:Function):void
+		public function addEventListener(event:String, listener:Function):void
 		{
 			if (_observers[event] === undefined)
 			{
 				throw new Error("Event " + event + " does not exist nor can it be tracked!");
 			}
 			
-			_observers[event].push(new IObserver(event, callback));
+			_observers[event].push(new IObserver(event, listener));
 		}
 		
-		public function removeEventListener(event:String, callback:Function):Boolean
+		public function removeEventListener(event:String, listener:Function):Boolean
 		{
 			if (_observers[event] === undefined)
 			{
@@ -252,7 +252,7 @@ package Modi
 			for (var i:int = 0; i < length; i++)
 			{
 				observer = _observers[event][i];
-				if (observer.callback == callback)
+				if (observer.listener == listener)
 				{
 					_observers[event].splice(i, 1);
 					return true;
@@ -279,7 +279,7 @@ package Modi
 			{
 				observer = targetObservers[i];				
 				var observerEvent:ManagedArrayEvent = new ManagedArrayEvent(this, object, ManagedArrayEvent.ALLOW_REMOVE, index);
-				var allowed:Boolean = observer.callback(observerEvent);
+				var allowed:Boolean = observer.listener(observerEvent);
 				
 				/// Ako ijedan observer ne dozvoljava, vraca se false
 				if (!allowed)
@@ -309,7 +309,7 @@ package Modi
 			{
 				observer = targetObservers[i];
 				var observerEvent:ManagedArrayEvent = new ManagedArrayEvent(this, object, ManagedArrayEvent.WILL_REMOVE, index);
-				observer.callback(observerEvent);
+				observer.listener(observerEvent);
 			}
 		}
 		
@@ -330,7 +330,7 @@ package Modi
 			{
 				observer = targetObservers[i];				
 				var observerEvent:ManagedArrayEvent = new ManagedArrayEvent(this, object, ManagedArrayEvent.WAS_REMOVED, index);
-				observer.callback(observerEvent);
+				observer.listener(observerEvent);
 			}
 		}
 		
@@ -351,7 +351,7 @@ package Modi
 			{
 				observer = targetObservers[i];				
 				var observerEvent:ManagedArrayEvent = new ManagedArrayEvent(this, object, ManagedArrayEvent.ALLOW_ADD, index);
-				var allowed:Boolean = observer.callback(observerEvent);
+				var allowed:Boolean = observer.listener(observerEvent);
 				
 				/// Ako ijedan observer ne dozvoljava, vraca se false
 				if (!allowed)
@@ -381,7 +381,7 @@ package Modi
 			{
 				observer = targetObservers[i];
 				var observerEvent:ManagedArrayEvent = new ManagedArrayEvent(this, object, ManagedArrayEvent.WILL_ADD, index);
-				observer.callback(observerEvent);
+				observer.listener(observerEvent);
 			}
 		}
 		
@@ -402,7 +402,7 @@ package Modi
 			{
 				observer = targetObservers[i];				
 				var observerEvent:ManagedArrayEvent = new ManagedArrayEvent(this, object, ManagedArrayEvent.WAS_ADDED, index);
-				observer.callback(observerEvent);
+				observer.listener(observerEvent);
 			}
 		}
 		
@@ -423,7 +423,7 @@ package Modi
 			{
 				observer = targetObservers[i];				
 				var observerEvent:ManagedArrayEvent = new ManagedArrayEvent(this, newObject, ManagedArrayEvent.ALLOW_REPLACE, index, oldObject);
-				var allowed:Boolean = observer.callback(observerEvent);
+				var allowed:Boolean = observer.listener(observerEvent);
 				
 				/// Ako ijedan observer ne dozvoljava, vraca se false
 				if (!allowed)
@@ -453,7 +453,7 @@ package Modi
 			{
 				observer = targetObservers[i];
 				var observerEvent:ManagedArrayEvent = new ManagedArrayEvent(this, newObject, ManagedArrayEvent.WILL_REPLACE, index, oldObject);
-				observer.callback(observerEvent);
+				observer.listener(observerEvent);
 			}
 		}
 		
@@ -474,7 +474,7 @@ package Modi
 			{
 				observer = targetObservers[i];				
 				var observerEvent:ManagedArrayEvent = new ManagedArrayEvent(this, newObject, ManagedArrayEvent.WAS_REPLACED, index, oldObject);
-				observer.callback(observerEvent);
+				observer.listener(observerEvent);
 			}
 		}
 		
@@ -491,7 +491,7 @@ package Modi
 		
 		public function serialize(serializator:ISerializator):void 
 		{
-			// TODO ovo ne valja, treba dobra normalno serijalizirati tu, nema potrebe za pisanjem lengtha
+            // TODO: Remove length from serialization.
 			var i:int = 0;
 			serializator.writeInt("length", _data.length);
 			for each (var object:* in _data) 
