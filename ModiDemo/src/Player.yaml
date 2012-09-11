@@ -1,0 +1,10 @@
+Player:
+    name: String
+    commanders: ManagedArray<Commander>
+    gold:
+        type: Number
+        default: 0
+    selectedEntity: ManagedObjectId
+    mode:
+        values: [idle, walk, attack] #Enum.
+        default: idle
