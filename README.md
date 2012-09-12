@@ -3,13 +3,13 @@ Modi
 
 [Introduction post](http://justpinegames.com/blog/2012/09/introducing-modi/)
 
-Modi is a model library that was inspired by [Core Data](CoreData" href="http://en.wikipedia.org/wiki/Core_Data) framework on MacOS. Core principle is seperating data from code. Model definitions are stored as [YAML](http://en.wikipedia.org/wiki/YAML) text files and are easy to read and maintain. Using simple Python script, data is transformed into Actionscript classes that are easy to monitor.
+Modi is a model library that was inspired by [Core Data](http://en.wikipedia.org/wiki/Core_Data) framework on MacOS. Core principle is seperating data from code. Model definitions are stored as [YAML](http://en.wikipedia.org/wiki/YAML) text files and are easy to read and maintain. Using simple Python script, data is transformed into Actionscript classes that are easy to monitor.
 
 Requirements
 --------------------
-[Python 2.7.3](http://python.org/)
-[as3yaml](http://code.google.com/p/as3yaml/)
-[PyYAML](http://pyyaml.org/wiki/PyYAML)
+* [Python 2.7.3](http://python.org/)
+* [as3yaml](http://code.google.com/p/as3yaml/)
+* [PyYAML](http://pyyaml.org/wiki/PyYAML)
 
 ModiDemo example
 --------------------
@@ -27,11 +27,11 @@ ModiDemo/src/Player.yaml
             values: [idle, walk, attack] #Enum.
             default: idle
 
-Call to a python script inside of command line
+Call to a python script inside of a command line
             
     Modi.py ModiDemo/src/Player.yaml -o ModiDemo/src -p Models.Player
 
-[Created source code](https://github.com/justpinegames/Modi)
+[Created source code](https://github.com/justpinegames/Modi/tree/master/ModiDemo/src/Models/Player)
 
 Utilities
 --------------------
