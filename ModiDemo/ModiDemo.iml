@@ -2,8 +2,8 @@
 <module type="Flex" version="4">
   <component name="FlexBuildConfigurationManager" active="ModiDemo">
     <configurations>
-      <configuration name="ModiDemo" pure-as="true" main-class="Main" output-file="ModiDemo.swf" output-folder="$PERSONAL_PROJECT_DIR$/Modi/bin" wrapper-template-path="$MODULE_DIR$/html-template">
-        <dependencies target-player="11.1">
+      <configuration name="ModiDemo" target-platform="Desktop" pure-as="true" main-class="Main" output-file="ModiDemo.swf" output-folder="$PERSONAL_PROJECT_DIR$/Modi/bin">
+        <dependencies>
           <entries>
             <entry module-name="Modi" build-configuration-name="Modi">
               <dependency linkage="Merged" />
@@ -12,7 +12,7 @@
           <sdk name="flex_sdk_4" />
         </dependencies>
         <compiler-options />
-        <packaging-air-desktop />
+        <packaging-air-desktop package-file-name="ModiDemo" />
         <packaging-android />
         <packaging-ios />
       </configuration>

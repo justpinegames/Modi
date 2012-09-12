@@ -9,9 +9,9 @@
 package Modi
 {
 	import flash.utils.Dictionary;
-	import Core.Utility;
-	
-	public class ManagedArray implements IObservableArray, ISerializableObject
+    import flash.utils.getDefinitionByName;
+
+    public class ManagedArray implements IObservableArray, ISerializableObject
 	{
 		private var _data:Vector.<ManagedObject>;
 		private var _childType:String;
@@ -510,7 +510,7 @@ package Modi
 				
 			for (var i:int = 0; i < length; i++) 
 			{
-				var ManagedClass:Class = Utility.getClassFromString(_childType);
+				var ManagedClass:Class = Class(getDefinitionByName(_childType) as Class);
 				var object:ManagedObject = new ManagedClass();
 				deserializator.pushObject(i.toString())
 				object.deserialize(deserializator);
