@@ -10,10 +10,17 @@ package Modi
 {
 	public class ManagedValue extends ManagedObject
 	{
+        public static const ATTRIBUTES:Array = ["value"];
+        public static const ATTRIBUTE_TYPES:Array = ["*"];
+
+        public static const ATTRIBUTE_VALUE:String = "value";
+
 		private var _value:*;
 		
 		public function ManagedValue(value:* = null)
 		{
+            this.registerAttributes(ATTRIBUTES, ATTRIBUTE_TYPES);
+
 			_value = value;
 		}
 		
@@ -21,25 +28,22 @@ package Modi
 		{
 			return _value;
 		}
-		
-		public function set value(value:*):void 
-		{
-			_value = value;
 
-
-            if (!this.allowChange("value", _value, value))
+        public final function set value(value:*):void
+        {
+            if (!this.allowChange(ATTRIBUTE_VALUE, _value, value))
             {
                 return;
             }
 
-            this.willChange("value", _value, value);
+            this.willChange(ATTRIBUTE_VALUE, _value, value);
 
             var oldValue:* = _value;
 
             _value = value;
 
-            this.wasChanged("value", oldValue, value);
-		}
+            this.wasChanged(ATTRIBUTE_VALUE, oldValue, _value);
+        }
 
         public function get booleanValue():Boolean
         {

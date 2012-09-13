@@ -2,4 +2,4 @@ bin/*
 obj/*
 .idea/scopes/scope_settings.xml
 .idea/workspace.xml
-src/Modi/ClassWritters.py
+src/Modi/ClassWritters.pyc
