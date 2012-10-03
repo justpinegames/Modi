@@ -160,7 +160,7 @@ class MachineClassWritter:
 
                 if modiClass == "ManagedObjectId":
                     self.write("\t\t\t_" + attributeName + " = ManagedObjectId.UNDEFINED;\n")
-                elif:
+                else:
                     self.write("\t\t\t_" + attributeName + " = new " + modiClass + "();\n")
 
                 if modiClass == "ManagedArray":
