@@ -157,7 +157,12 @@ class MachineClassWritter:
             attributeData = self.classData[attributeName]
             if "Managed" in attributeData and attributeName != "super":
                 modiClass = getModiClass(attributeData)
-                self.write("\t\t\t_" + attributeName + " = new " + modiClass + "();\n")
+
+                if modiClass == "ManagedObjectId":
+                    self.write("\t\t\t_" + attributeName + " = ManagedObjectId.UNDEFINED;\n")
+                elif:
+                    self.write("\t\t\t_" + attributeName + " = new " + modiClass + "();\n")
+
                 if modiClass == "ManagedArray":
                     elementType = getManagedArrayElementType(attributeData)
                     if elementType != "ManagedObject":
