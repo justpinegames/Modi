@@ -13,6 +13,8 @@ package Modi
     public class ManagedObjectId extends ManagedObject
 	{
 		private var _objectId:String;
+
+        public static var UNDEFINED:ManagedObjectId = new ManagedObjectId();
 		
 		public function ManagedObjectId(objectId:String = "")
 		{
