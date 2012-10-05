@@ -20,12 +20,25 @@ package Modi
 			_managedObjects = new Dictionary();
 			_idCounter = 0;
 		}
-		
+
+        public static function createManagedObjectInContext(context:ManagedObjectContext, objectClass:Class):*
+        {
+            if (context)
+            {
+                return context.createManagedObject(objectClass);
+            }
+            else
+            {
+                return new objectClass();
+            }
+        }
+
 		public function addToContext(managedObject:ManagedObject):void
 		{
 			var id:ManagedObjectId = new ManagedObjectId("id" + _idCounter);
 			_managedObjects[id.objectId] = managedObject;
 			managedObject.contextId = id;
+            managedObject.contextReference = this;
 			_idCounter++;
 		}
 		

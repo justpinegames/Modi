@@ -18,13 +18,14 @@ package Modi
 		private var _registeredAttributes:Array;
 		private var _registeredAttributeTypes:Array;
 		private var _contextId:ManagedObjectId;
-		
+
+        private var _contextReference:ManagedObjectContext;
+
 		public function ManagedObject()
 		{
 			_attributeObservers = new Dictionary();
 			_registeredAttributes = new Array();
 			_registeredAttributeTypes = new Array();
-			_contextId = null;
 		}
 		
 		public function set contextId(contextId:ManagedObjectId):void
@@ -373,6 +374,16 @@ package Modi
         public function get registeredAttributes():Array
         {
             return _registeredAttributes;
+        }
+
+        public function get contextReference():ManagedObjectContext
+        {
+            return _contextReference;
+        }
+
+        public function set contextReference(value:ManagedObjectContext):void
+        {
+            _contextReference = value;
         }
     }
 }
