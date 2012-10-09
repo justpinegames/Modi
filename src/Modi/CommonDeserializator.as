@@ -143,7 +143,8 @@ package Modi
 
         public function exists(name:String):Boolean
         {
-            return (name in stackTop());
+            var onTop:* = stackTop();
+            return (name in onTop);
         }
     }
 }

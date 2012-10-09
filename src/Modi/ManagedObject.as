@@ -274,7 +274,8 @@ package Modi
 				
 				if (newObject is ManagedObject)
 				{
-					object.deserialize(deserializator);
+                    deserializator.pushObject(name);
+                    newObject.deserialize(deserializator);
 					object[name] = newObject;
 					deserializator.popObject();
 				}
