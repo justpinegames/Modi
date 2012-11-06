@@ -8,7 +8,7 @@
             <entry module-name="Core" build-configuration-name="Core">
               <dependency linkage="Merged" />
             </entry>
-            <entry library-id="10758801-4e86-411f-81b2-52f269a3a02a">
+            <entry library-id="a1ba35f3-0293-4173-ae3c-2e7ba5228bcd">
               <dependency linkage="Merged" />
             </entry>
           </entries>
@@ -32,7 +32,7 @@
     <orderEntry type="module" module-name="Core" />
     <orderEntry type="module-library">
       <library type="flex">
-        <properties id="10758801-4e86-411f-81b2-52f269a3a02a" />
+        <properties id="a1ba35f3-0293-4173-ae3c-2e7ba5228bcd" />
         <CLASSES>
           <root url="jar://$CODE_DIR$/SharedSWC/external/AS3YAML_041.swc!/" />
         </CLASSES>
