@@ -77,6 +77,7 @@ package Modi
             if (base.contextId)
             {
                 _idCounter = Math.max(_idCounter, base.contextId.extractIndex() + 1);
+                base.contextReference = this;
                 addToContextWithId(base, base.contextId);
             }
 
