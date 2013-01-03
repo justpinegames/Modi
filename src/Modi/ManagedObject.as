@@ -386,5 +386,13 @@ package Modi
         {
             _contextReference = value;
         }
+
+        public function removeSelfFromContext():void
+        {
+            if (this.contextReference != null)
+            {
+                this.contextReference.removeFromContext(this.contextId);
+            }
+        }
     }
 }
