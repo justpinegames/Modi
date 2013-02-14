@@ -148,6 +148,8 @@ class MachineClassWritter:
                             self.write("\t\t\t_" + attributeName + " = \"" + str(attributeData["default"]) + "\";\n")
                         elif attributeData["type"] == "ManagedValue":
                             self.write("\t\t\t_" + attributeName + " = new ManagedValue(" + str(attributeData["default"]) + ");\n")
+                        elif attributeData["type"] == "Boolean":
+                            self.write("\t\t\t_" + attributeName + " = " + str(attributeData["default"]).lower() + ";\n")
                         else:
                             self.write("\t\t\t_" + attributeName + " = " + str(attributeData["default"]) + ";\n")
 
