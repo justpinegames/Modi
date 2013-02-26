@@ -114,7 +114,7 @@ class MachineClassWritter:
                 enum = attributeData["values"]
                 enumValues = ""
                 for value in enum:
-                    self.write("\t\tpublic static const " + attributeName.upper() + "_" + str(value).upper() + ":String = \"" + str(value) + "\";\n")
+                    self.write("\t\tpublic static const " + attributeName.upper() + "_" + toUppercaseWithUnderscores(str(value)) + ":String = \"" + str(value) + "\";\n")
                     enumValues += "\"" + value + "\", "
                 self.write("\t\tpublic static const " + attributeName.upper() + "_ENUM_ARRAY:Array = [" + enumValues + "];\n\n");
 
@@ -142,7 +142,7 @@ class MachineClassWritter:
             if type(attributeData) == dict:
                 if "default" in attributeData:
                     if "values" in attributeData:
-                        self.write("\t\t\t_" + attributeName + " = " + attributeName.upper() + "_" + str(attributeData["default"]).upper() + ";\n")
+                        self.write("\t\t\t_" + attributeName + " = " + attributeName.upper() + "_" + toUppercaseWithUnderscores((attributeData["default"])) + ";\n")
                     elif "type" in attributeData:
                         if attributeData["type"] == "String":
                             self.write("\t\t\t_" + attributeName + " = \"" + str(attributeData["default"]) + "\";\n")
