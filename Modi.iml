@@ -3,7 +3,7 @@
   <component name="FlexBuildConfigurationManager" active="Modi">
     <configurations>
       <configuration name="Modi" pure-as="true" output-type="Library" output-file="Modi.swc" output-folder="$MODULE_DIR$/bin">
-        <dependencies target-player="11.5">
+        <dependencies target-player="11.6">
           <entries>
             <entry module-name="Core" build-configuration-name="Core">
               <dependency linkage="Merged" />
