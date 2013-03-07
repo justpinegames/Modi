@@ -73,6 +73,14 @@ class MachineClassWritter:
         self.write("\timport Modi.*;\n\n")
         self.write("\timport flash.utils.Dictionary;\n")
         
+        # User can specify his own imports.
+        if "imports" in self.classData:
+            self.write("\n")
+
+            imports = self.classData["imports"]
+            for userImport in imports:
+                self.write("\timport " + userImport + ";\n")
+
         superClass = "ManagedObject"
         if "super" in self.classData:
             superClass = self.classData["super"]
@@ -81,14 +89,14 @@ class MachineClassWritter:
     def writeAttributeNamesInArray(self):
         self.write("\t\tpublic static const ATTRIBUTES:Array = [");
         for attributeName in self.classData:
-            if attributeName != "super":
+            if not isReservedWord(attributeName):
                 self.write("\"" + attributeName + "\", ")
         self.write("];\n");
 
     def writeAttributeTypes(self):
         self.write("\t\tpublic static const ATTRIBUTE_TYPES:Array = [");
         for attributeName in self.classData:
-            if attributeName != "super":
+            if not isReservedWord(attributeName):
                 attributeData = self.classData[attributeName]
                 attributeType = attributeData
                 if "Managed" in attributeData:
@@ -103,7 +111,7 @@ class MachineClassWritter:
 
     def writeAttributeNames(self):
         for attributeName in self.classData:
-            if attributeName != "super":
+            if not isReservedWord(attributeName):
                 self.write("\t\tpublic static const ATTRIBUTE_" + toUppercaseWithUnderscores(attributeName) + ":String = \"" + attributeName + "\";\n")
         self.write("\n")
 
@@ -120,7 +128,7 @@ class MachineClassWritter:
 
     def writeAttributes(self):
         for attributeName in self.classData:
-            if attributeName != "super":
+            if not isReservedWord(attributeName):
                 attributeData = self.classData[attributeName]
                 attributeType = attributeData
                 if "Managed" in attributeData:
@@ -157,7 +165,7 @@ class MachineClassWritter:
 
         for attributeName in self.classData:
             attributeData = self.classData[attributeName]
-            if "Managed" in attributeData and attributeName != "super":
+            if "Managed" in attributeData and not isReservedWord(attributeName):
                 modiClass = getModiClass(attributeData)
 
                 if modiClass == "ManagedObjectId":
@@ -171,15 +179,25 @@ class MachineClassWritter:
                         if isModiClass(elementType):
                             self.write("\t\t\t_" + attributeName + '.childType = "Modi.' + elementType + '";\n')
                         else:
-                            packageToAdd = self.package
-                            if self.package != "":
-                                packageToAdd += "."
-                            self.write("\t\t\t_" + attributeName + '.childType = "' + packageToAdd + elementType + '";\n')
+                            childType = ""
+
+                            # User can specify his own package.
+                            if elementType.find(".") != -1:
+                                childType = elementType
+                            # If no package is specified, package that was given as parameter to the script will be used.
+                            else:
+                                # If there is some package, dot must be appended before class name.
+                                if self.package != "":
+                                    childType = self.package + "." + elementType
+                                else:
+                                    childType = elementType
+
+                            self.write("\t\t\t_" + attributeName + '.childType = "' + childType + '";\n')
         self.write("\t\t}\n\n")
 
     def writeGettersAndSetters(self):
         for attributeName in self.classData:
-            if attributeName != "super":
+            if not isReservedWord(attributeName):
                 attributeData = self.classData[attributeName]
                 attributeType = attributeData
                 if "Managed" in attributeData:
@@ -243,5 +261,12 @@ def isModiClass(className):
     modiClasses = ["ManagedArray", "ManagedValue", "ManagedPoint"]
     for modiClass in modiClasses:
         if modiClass == className:
+            return True
+    return False
+
+def isReservedWord(word):
+    reservedWords = ["super", "imports"]
+    for reservedWord in reservedWords:
+        if reservedWord == word:
             return True
     return False
