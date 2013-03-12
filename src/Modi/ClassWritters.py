@@ -28,9 +28,9 @@ class HumanClassWritter:
             print "-------------------------------------------------------------------"
             print "Writing human class: " + self.className + "\n"
 
-        self.write("package " + self.package + "\n{\n\tpublic class " + self.className + " extends _" + self.className + "\n\t{\n")
-        self.write("\n\t\tpublic function " + self.className + "()\n\t\t{\n")
-        self.write("\n\t\t}\n\n\t}\n\n}")
+        self.write("package " + self.package + "\n{\n    public class " + self.className + " extends _" + self.className + "\n    {\n")
+        self.write("\n        public function " + self.className + "()\n        {\n")
+        self.write("\n        }\n\n    }\n\n}")
 
 class MachineClassWritter:
     file = None
@@ -70,8 +70,8 @@ class MachineClassWritter:
 
     def writeClassBasics(self):
         self.write("package " + self.package + "\n{\n")
-        self.write("\timport Modi.*;\n\n")
-        self.write("\timport flash.utils.Dictionary;\n")
+        self.write("    import Modi.*;\n\n")
+        self.write("    import flash.utils.Dictionary;\n")
         
         # User can specify his own imports.
         if "imports" in self.classData:
@@ -79,22 +79,22 @@ class MachineClassWritter:
 
             imports = self.classData["imports"]
             for userImport in imports:
-                self.write("\timport " + userImport + ";\n")
+                self.write("    import " + userImport + ";\n")
 
         superClass = "ManagedObject"
         if "super" in self.classData:
             superClass = self.classData["super"]
-        self.write("\n\tpublic class _" + self.className + " extends " + superClass + "\n\t{\n")
+        self.write("\n    public class _" + self.className + " extends " + superClass + "\n    {\n")
 
     def writeAttributeNamesInArray(self):
-        self.write("\t\tpublic static const ATTRIBUTES:Array = [");
+        self.write("        public static const ATTRIBUTES:Array = [");
         for attributeName in self.classData:
             if not isReservedWord(attributeName):
                 self.write("\"" + attributeName + "\", ")
         self.write("];\n");
 
     def writeAttributeTypes(self):
-        self.write("\t\tpublic static const ATTRIBUTE_TYPES:Array = [");
+        self.write("        public static const ATTRIBUTE_TYPES:Array = [");
         for attributeName in self.classData:
             if not isReservedWord(attributeName):
                 attributeData = self.classData[attributeName]
@@ -112,7 +112,7 @@ class MachineClassWritter:
     def writeAttributeNames(self):
         for attributeName in self.classData:
             if not isReservedWord(attributeName):
-                self.write("\t\tpublic static const ATTRIBUTE_" + toUppercaseWithUnderscores(attributeName) + ":String = \"" + attributeName + "\";\n")
+                self.write("        public static const ATTRIBUTE_" + toUppercaseWithUnderscores(attributeName) + ":String = \"" + attributeName + "\";\n")
         self.write("\n")
 
     def writeEnumValues(self):
@@ -122,9 +122,9 @@ class MachineClassWritter:
                 enum = attributeData["values"]
                 enumValues = ""
                 for value in enum:
-                    self.write("\t\tpublic static const " + attributeName.upper() + "_" + toUppercaseWithUnderscores(str(value)) + ":String = \"" + str(value) + "\";\n")
+                    self.write("        public static const " + toUppercaseWithUnderscores(attributeName) + "_" + toUppercaseWithUnderscores(str(value)) + ":String = \"" + str(value) + "\";\n")
                     enumValues += "\"" + value + "\", "
-                self.write("\t\tpublic static const " + attributeName.upper() + "_ENUM_ARRAY:Array = [" + enumValues + "];\n\n");
+                self.write("        public static const " + toUppercaseWithUnderscores(attributeName) + "_ENUM_ARRAY:Array = [" + enumValues + "];\n\n");
 
     def writeAttributes(self):
         for attributeName in self.classData:
@@ -138,11 +138,11 @@ class MachineClassWritter:
                         attributeType = attributeData["type"]
                     else:
                         attributeType = "String"
-                self.write("\t\tprivate var _" + attributeName + ":" + attributeType + ";\n")
+                self.write("        private var _" + attributeName + ":" + attributeType + ";\n")
 
     def writeConstructor(self):
-        self.write("\n\t\tpublic function _" + self.className + "()\n\t\t{\n")
-        self.write("\t\t\tthis.registerAttributes(ATTRIBUTES, ATTRIBUTE_TYPES);\n")
+        self.write("\n        public function _" + self.className + "()\n        {\n")
+        self.write("            this.registerAttributes(ATTRIBUTES, ATTRIBUTE_TYPES);\n")
         self.write("\n")
         
         for attributeName in self.classData:
@@ -150,16 +150,16 @@ class MachineClassWritter:
             if type(attributeData) == dict:
                 if "default" in attributeData:
                     if "values" in attributeData:
-                        self.write("\t\t\t_" + attributeName + " = " + attributeName.upper() + "_" + toUppercaseWithUnderscores((attributeData["default"])) + ";\n")
+                        self.write("            _" + attributeName + " = " + attributeName.upper() + "_" + toUppercaseWithUnderscores((attributeData["default"])) + ";\n")
                     elif "type" in attributeData:
                         if attributeData["type"] == "String":
-                            self.write("\t\t\t_" + attributeName + " = \"" + str(attributeData["default"]) + "\";\n")
+                            self.write("            _" + attributeName + " = \"" + str(attributeData["default"]) + "\";\n")
                         elif attributeData["type"] == "ManagedValue":
-                            self.write("\t\t\t_" + attributeName + " = new ManagedValue(" + str(attributeData["default"]) + ");\n")
+                            self.write("            _" + attributeName + " = new ManagedValue(" + str(attributeData["default"]) + ");\n")
                         elif attributeData["type"] == "Boolean":
-                            self.write("\t\t\t_" + attributeName + " = " + str(attributeData["default"]).lower() + ";\n")
+                            self.write("            _" + attributeName + " = " + str(attributeData["default"]).lower() + ";\n")
                         else:
-                            self.write("\t\t\t_" + attributeName + " = " + str(attributeData["default"]) + ";\n")
+                            self.write("            _" + attributeName + " = " + str(attributeData["default"]) + ";\n")
 
         self.write("\n")
 
@@ -169,15 +169,15 @@ class MachineClassWritter:
                 modiClass = getModiClass(attributeData)
 
                 if modiClass == "ManagedObjectId":
-                    self.write("\t\t\t_" + attributeName + " = ManagedObjectId.UNDEFINED;\n")
+                    self.write("            _" + attributeName + " = ManagedObjectId.UNDEFINED;\n")
                 else:
-                    self.write("\t\t\t_" + attributeName + " = new " + modiClass + "();\n")
+                    self.write("            _" + attributeName + " = new " + modiClass + "();\n")
 
                 if modiClass == "ManagedArray":
                     elementType = getManagedArrayElementType(attributeData)
                     if elementType != "ManagedObject":
                         if isModiClass(elementType):
-                            self.write("\t\t\t_" + attributeName + '.childType = "Modi.' + elementType + '";\n')
+                            self.write("            _" + attributeName + '.childType = "Modi.' + elementType + '";\n')
                         else:
                             childType = ""
 
@@ -192,8 +192,8 @@ class MachineClassWritter:
                                 else:
                                     childType = elementType
 
-                            self.write("\t\t\t_" + attributeName + '.childType = "' + childType + '";\n')
-        self.write("\t\t}\n\n")
+                            self.write("            _" + attributeName + '.childType = "' + childType + '";\n')
+        self.write("        }\n\n")
 
     def writeGettersAndSetters(self):
         for attributeName in self.classData:
@@ -208,20 +208,20 @@ class MachineClassWritter:
                     else:
                         attributeType = "String"
 
-                self.write("\t\tpublic final function set " + attributeName + "(" + attributeName + ":" + attributeType + "):void\n\t\t{\n")
-                self.write("\t\t\tif (!this.allowChange(ATTRIBUTE_" + toUppercaseWithUnderscores(attributeName) + ", _" + attributeName + ", " + attributeName + "))\n")
-                self.write("\t\t\t{\n\t\t\t\treturn;\n\t\t\t}\n\n\t\t\t")
-                self.write("this.willChange(ATTRIBUTE_" + toUppercaseWithUnderscores(attributeName) + ", _" + attributeName + ", " + attributeName + ");\n\n\t\t\t")
-                self.write("var oldValue:" + attributeType + " = _" + attributeName + ";\n\n\t\t\t")
-                self.write("_" + attributeName + " = " + attributeName + ";\n\n\t\t\t")
-                self.write("this.wasChanged(ATTRIBUTE_" + toUppercaseWithUnderscores(attributeName) + ", oldValue, _" + attributeName + ");\n\t\t}\n\n")
+                self.write("        public final function set " + attributeName + "(" + attributeName + ":" + attributeType + "):void\n        {\n")
+                self.write("            if (!this.allowChange(ATTRIBUTE_" + toUppercaseWithUnderscores(attributeName) + ", _" + attributeName + ", " + attributeName + "))\n")
+                self.write("            {\n                return;\n            }\n\n            ")
+                self.write("this.willChange(ATTRIBUTE_" + toUppercaseWithUnderscores(attributeName) + ", _" + attributeName + ", " + attributeName + ");\n\n            ")
+                self.write("var oldValue:" + attributeType + " = _" + attributeName + ";\n\n            ")
+                self.write("_" + attributeName + " = " + attributeName + ";\n\n            ")
+                self.write("this.wasChanged(ATTRIBUTE_" + toUppercaseWithUnderscores(attributeName) + ", oldValue, _" + attributeName + ");\n        }\n\n")
                 
-                self.write("\t\tpublic final function get " + attributeName + "():" + attributeType + "\n\t\t{\n\t\t\t")
-                self.write("return _" + attributeName + ";\n\t\t}\n\n")
+                self.write("        public final function get " + attributeName + "():" + attributeType + "\n        {\n            ")
+                self.write("return _" + attributeName + ";\n        }\n\n")
                 
-                self.write("\t\tpublic final function set " + attributeName.capitalize() + "DirectUnsafe("+ attributeName + ":" + attributeType)
-                self.write("):void\n\t\t{\n\t\t\t_" + attributeName + " = " + attributeName + ";\n\t\t}\n\n")
-        self.write("\t}\n}")
+                self.write("        public final function set " + attributeName.capitalize() + "DirectUnsafe("+ attributeName + ":" + attributeType)
+                self.write("):void\n        {\n            _" + attributeName + " = " + attributeName + ";\n        }\n\n")
+        self.write("    }\n}")
 
 # Converts attribute name to uppercase with underscores between words.
 def toUppercaseWithUnderscores(name):
