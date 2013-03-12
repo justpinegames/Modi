@@ -150,7 +150,7 @@ class MachineClassWritter:
             if type(attributeData) == dict:
                 if "default" in attributeData:
                     if "values" in attributeData:
-                        self.write("            _" + attributeName + " = " + attributeName.upper() + "_" + toUppercaseWithUnderscores((attributeData["default"])) + ";\n")
+                        self.write("            _" + attributeName + " = " + toUppercaseWithUnderscores(attributeName) + "_" + toUppercaseWithUnderscores((attributeData["default"])) + ";\n")
                     elif "type" in attributeData:
                         if attributeData["type"] == "String":
                             self.write("            _" + attributeName + " = \"" + str(attributeData["default"]) + "\";\n")
