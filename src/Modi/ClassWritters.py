@@ -160,6 +160,8 @@ class MachineClassWritter:
                             self.write("            _" + attributeName + " = " + str(attributeData["default"]).lower() + ";\n")
                         else:
                             self.write("            _" + attributeName + " = " + str(attributeData["default"]) + ";\n")
+            elif attributeData == "Array":
+                self.write("            _" + attributeName + " = [];\n")
 
         self.write("\n")
 
