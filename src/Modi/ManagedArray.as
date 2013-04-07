@@ -76,7 +76,25 @@ package Modi
 			
 			return object;
 		}
-		
+
+        public function shift():ManagedObject
+        {
+            var object:ManagedObject = null;
+            var length:int = _data.length;
+
+            if (length > 0)
+            {
+                object = _data[0];
+
+                if (!remove(object))
+                {
+                    object = null;
+                }
+            }
+
+            return object;
+        }
+
 		public function remove(object:ManagedObject):Boolean
 		{
 			var index:int = _data.indexOf(object);
