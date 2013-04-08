@@ -327,7 +327,7 @@ package Modi
             }
 			else if (type == "ManagedValue")
 			{
-				serializator.writeString(name, object.toString());
+				serializator.writeString(name, (object as ManagedValue).stringValue);
 			}
             else if (type == "ManagedPoint")
             {
