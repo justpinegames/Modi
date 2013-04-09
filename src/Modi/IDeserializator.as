@@ -45,5 +45,7 @@ package Modi
 		function getCurrentLength():int;
 
         function exists(name:String):Boolean;
+
+        function reset():void;
 	}
 }

@@ -111,10 +111,11 @@ package Modi
             _idCounter = 0;
         }
 
-        public function deserialize(data: *, deserializator:IDeserializator, target:ManagedObject):*
+        public function deserialize(data:*, deserializator:IDeserializator, target:ManagedObject):*
         {
             resetContext();
-            deserializator.deserializeData(data);
+            if (deserializator.ready) deserializator.reset();
+            else                      deserializator.deserializeData(data);
             target.deserialize(deserializator);
             deserializeIds(target);
         }

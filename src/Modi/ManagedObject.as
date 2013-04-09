@@ -183,16 +183,17 @@ package Modi
                 writeUnindentified("id", contextId.objectId, "String", serializator);
             }
 		}
-		
-		public function deserialize(deserializator:IDeserializator):void 
+
+
+		public function deserialize(deserializator:IDeserializator):void
 		{
 			if (!deserializator.ready) 
 			{
-				throw new Error("Deserializator was not initialized with data, you should call the deserializeData prior to deserializing data into the ManagedObject");
+				throw new Error("Deserializator was not initialized with data, " +
+                        "you should call the deserializeData prior to deserializing data into the ManagedObject");
 			}
 			
-			var lenght: int = this._registeredAttributes.length;
-			for (var i: int = 0; i < lenght; i++) 
+			for (var i: int = 0; i < this._registeredAttributes.length; i++)
 			{
 				var attributeName:String = _registeredAttributes[i];
 				var attributeType:String = _registeredAttributeTypes[i];
@@ -204,12 +205,28 @@ package Modi
 			}
 
             var id:String = deserializator.readString("id");
-
-            if (id)
-            {
-                contextId = new ManagedObjectId(id);
-            }
+            if (id) contextId = new ManagedObjectId(id);
 		}
+
+        public function deserializeVariable(deserializator:IDeserializator, variableName:String):void
+        {
+            if (!deserializator.ready)
+            {
+                throw new Error("Deserializator was not initialized with data, " +
+                        "you should call the deserializeData prior to deserializing data into the ManagedObject");
+            }
+
+            for (var i: int = 0; i < this._registeredAttributes.length; i++)
+            {
+                var attributeName:String = _registeredAttributes[i];
+                var attributeType:String = _registeredAttributeTypes[i];
+
+                if (deserializator.exists(attributeName) && variableName == attributeName)
+                {
+                    readUnindentified(attributeName, this, attributeType, deserializator);
+                }
+            }
+        }
 		
 		public static function readUnindentified(name:String, object:*, type:String, deserializator:IDeserializator):Boolean
 		{

@@ -146,5 +146,11 @@ package Modi
             var onTop:* = stackTop();
             return (name in onTop);
         }
+
+        public function reset():void
+        {
+            if (!_ready) throw new Error("You can't reset deserializatior if data hasn't been deserialized.")
+            _stack = new Array;
+        }
     }
 }
