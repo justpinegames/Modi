@@ -21,6 +21,8 @@ package Modi
 
         private var _contextReference:ManagedObjectContext;
 
+        private var _requiresInitialization:Boolean
+
 		public function ManagedObject()
 		{
 			_attributeObservers = new Dictionary();
@@ -393,6 +395,16 @@ package Modi
             {
                 this.contextReference.removeFromContext(this.contextId);
             }
+        }
+
+        public function get requiresInitialization():Boolean
+        {
+            return _requiresInitialization;
+        }
+
+        public function set requiresInitialization(value:Boolean):void
+        {
+            _requiresInitialization = value;
         }
     }
 }
