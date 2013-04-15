@@ -260,7 +260,7 @@ def getModiClass(str):
 
 # Returns True if className is one of the Modi classes, false otherwise.
 def isModiClass(className):
-    modiClasses = ["ManagedArray", "ManagedValue", "ManagedPoint"]
+    modiClasses = ["ManagedArray", "ManagedValue", "ManagedPoint", "ManagedObjectId"]
     for modiClass in modiClasses:
         if modiClass == className:
             return True
