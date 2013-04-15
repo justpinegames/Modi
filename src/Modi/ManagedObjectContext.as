@@ -65,6 +65,7 @@ package Modi
         private function addToContextWithId(managedObject:ManagedObject, id:ManagedObjectId):void
         {
             _managedObjects[id.objectId] = managedObject;
+            if (managedObject.requiresInitialization) _requireInitialization.push(managedObject);
         }
 
         private function deserializeIds(base:ManagedObject):void
