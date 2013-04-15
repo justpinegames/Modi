@@ -73,13 +73,11 @@ package Modi
 
         public function writeDictionary(name:String, object:Dictionary):void
         {
-            trace("Not sure that write dictionary works...");
             writeToTop(name, object);
         }
 
         public function writeArray(name:String, object:Array):void
         {
-            trace("Not sure that write array works...");
             writeToTop(name, object);
         }
 
