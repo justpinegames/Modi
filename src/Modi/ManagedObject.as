@@ -387,5 +387,25 @@ package Modi
 
         public function get requiresInitialization():Boolean { return _requiresInitialization; }
         public function set requiresInitialization(value:Boolean):void { _requiresInitialization = value; }
+
+        public static function deserializeObject(data:*, Type:Class, Deserializator:Class):*
+        {
+            var object:ManagedObject = new Type;
+            var deserializator:IDeserializator = new Deserializator();
+
+            deserializator.deserializeData(data);
+            object.deserialize(deserializator);
+
+            return object;
+        }
+
+        public static function serializeObject(object:ManagedObject, Serializator:Class):*
+        {
+            var serializator:ISerializator = new Serializator();
+
+            object.serialize(serializator);
+
+            return serializator.serializeData();
+        }
     }
 }
