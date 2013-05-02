@@ -6,10 +6,10 @@
         <dependencies target-player="11.6">
           <entries>
             <entry module-name="Core" build-configuration-name="Core">
-              <dependency linkage="Merged" />
+              <dependency linkage="External" />
             </entry>
             <entry library-id="d2a57b6f-3c1c-4275-8e98-ebb1289af172">
-              <dependency linkage="Merged" />
+              <dependency linkage="External" />
             </entry>
           </entries>
           <sdk name="flex_sdk_4" />
