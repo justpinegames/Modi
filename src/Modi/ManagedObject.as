@@ -26,8 +26,8 @@ package Modi
         public function ManagedObject()
         {
             _attributeObservers = new Dictionary();
-            _registeredAttributes = new Array();
-            _registeredAttributeTypes = new Array();
+//            _registeredAttributes = new Array();
+//            _registeredAttributeTypes = new Array();
         }
 
         public function set contextId(contextId:ManagedObjectId):void
@@ -81,26 +81,21 @@ package Modi
 
         protected function registerAttributes(attributes:Array, attributeTypes:Array):void
         {
-            _registeredAttributes = _registeredAttributes.concat(attributes);
-            _registeredAttributeTypes = _registeredAttributeTypes.concat(attributeTypes);
+            _registeredAttributes = !_registeredAttributes ? attributes : _registeredAttributes.concat(attributes);
+            _registeredAttributeTypes = !_registeredAttributeTypes ? attributeTypes : _registeredAttributeTypes.concat(attributeTypes);
         }
 
         public function allowChange(attribute:String, oldValue:*, newValue:*):Boolean
         {
             /// Ako ne postoje observeri na ovaj atribut, odma vraca true
-            if (_attributeObservers[attribute] === undefined)
-            {
-                return true;
-            }
+            if (_attributeObservers[attribute] === undefined) return true;
 
             var targetObservers:Vector.<IObserver> = _attributeObservers[attribute];
             var length:int = targetObservers.length;
-            var observer:IObserver;
-            var i:int;
 
-            for (i = 0; i < length; i++)
+            for (var i:int = 0; i < length; i++)
             {
-                observer = targetObservers[i];
+                var observer:IObserver = targetObservers[i];
                 if (observer.observedEvent == ManagedObjectEvent.ALLOW_CHANGE)
                 {
                     var observerEvent:ManagedObjectEvent = new ManagedObjectEvent(this, attribute, ManagedObjectEvent.ALLOW_CHANGE, oldValue, newValue);
@@ -159,12 +154,8 @@ package Modi
                 writeUnindentified(attributeName, this[attributeName], attributeType, serializator);
             }
 
-            if (contextId)
-            {
-                writeUnindentified("id", contextId.objectId, "String", serializator);
-            }
+            if (contextId) writeUnindentified("id", contextId.objectId, "String", serializator);
         }
-
 
         public function deserialize(deserializator:IDeserializator):void
         {
@@ -213,34 +204,13 @@ package Modi
         {
             var pass: Boolean = true;
 
-            if (type == "String")
-            {
-                object[name] = deserializator.readString(name);
-            }
-            else if (type == "int")
-            {
-                object[name] = deserializator.readInt(name);
-            }
-            else if (type == "uint")
-            {
-                object[name] = deserializator.readUInt(name);
-            }
-            else if (type == "Number")
-            {
-                object[name] = deserializator.readNumber(name);
-            }
-            else if (type == "Boolean")
-            {
-                object[name] = deserializator.readBoolean(name);
-            }
-            else if (type == "Dictionary")
-            {
-                object[name] = deserializator.readDictionary(name);
-            }
-            else if (type == "Array")
-            {
-                object[name] = deserializator.readArray(name);
-            }
+            if (type == "String")             object[name] = deserializator.readString(name);
+            else if (type == "int")           object[name] = deserializator.readInt(name);
+            else if (type == "uint")          object[name] = deserializator.readUInt(name);
+            else if (type == "Number")        object[name] = deserializator.readNumber(name);
+            else if (type == "Boolean")       object[name] = deserializator.readBoolean(name);
+            else if (type == "Dictionary")    object[name] = deserializator.readDictionary(name);
+            else if (type == "Array")         object[name] = deserializator.readArray(name);
             else if (type == "ManagedValue")
             {
                 var managedValue:String = deserializator.readString(name);
