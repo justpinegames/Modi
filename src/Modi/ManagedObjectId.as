@@ -43,5 +43,10 @@ package Modi
         {
             return _objectId != "none" && _objectId != "";
         }
+
+        public function equals(other:ManagedObjectId):Boolean
+        {
+            return _objectId == other.objectId;
+        }
     }
 }
