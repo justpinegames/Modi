@@ -26,6 +26,10 @@ def main(argv):
 
     # Any argument that is not preceded by a flag is considered as a model.
     modelFiles = args
+    if len(modelFiles) == 0:
+        printHelp()
+        exit()        
+
     package = ""
     outputDirectory = "."
 
