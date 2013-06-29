@@ -8,8 +8,6 @@
 
 package Modi 
 {
-    import com.chewtinfoil.utils.StringUtils;
-
     public class ManagedObjectId extends ManagedObject
     {
         private var _objectId:String;
@@ -27,7 +25,7 @@ package Modi
         {
             var id: int = -1;
 
-            if (StringUtils.beginsWith(_objectId, "id"))
+            if (_objectId.indexOf("id") == 0)
             {
                 id = int(_objectId.substr(2));
             }

@@ -553,7 +553,7 @@ package Modi
 
         public function each(closure:Function):void
         {
-            Assert(closure != null);
+            if (closure == null) throw new ArgumentError("Closure must not be null.");
 
             for (var i:int = 0; i < this.length; i++)
             {

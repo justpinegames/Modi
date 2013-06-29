@@ -8,9 +8,8 @@
 
 package Modi
 {
-    import Core.Utility;
-
     import flash.utils.Dictionary;
+    import flash.utils.getDefinitionByName;
 
     public class ManagedObject implements IObservableObject, ISerializableObject
     {
@@ -239,7 +238,7 @@ package Modi
             }
             else /// object
             {
-                var objectClass:Class = Utility.getClassFromString(type);
+                var objectClass:Class = Class(getDefinitionByName(type));
                 var newObject:ManagedObject = new objectClass();
 
                 if (newObject is ManagedObject)

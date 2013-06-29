@@ -43,7 +43,7 @@ package Modi
 
         public function removeFromContext(id:ManagedObjectId):void
         {
-            Assert(_managedObjects[id.objectId], "ManagedObject with " + id.objectId + " does not exist!");
+            if (!_managedObjects[id.objectId]) throw new Error("ManagedObject with " + id.objectId + " does not exist!");
             _managedObjects[id.objectId] = null;
         }
 
