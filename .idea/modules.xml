@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PERSONAL_PROJECT_DIR$/Core/Core.iml" filepath="$PERSONAL_PROJECT_DIR$/Core/Core.iml" />
       <module fileurl="file://$PROJECT_DIR$/Modi.iml" filepath="$PROJECT_DIR$/Modi.iml" />
       <module fileurl="file://$PROJECT_DIR$/ModiDemo/ModiDemo.iml" filepath="$PROJECT_DIR$/ModiDemo/ModiDemo.iml" />
     </modules>
