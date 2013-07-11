@@ -10,15 +10,15 @@ package Modi
 {
     public class ManagedArrayEvent
 	{
-		public static var ALLOW_REMOVE:String = "AllowRemove";
-		public static var WILL_REMOVE:String = "WillRemove";
-		public static var WAS_REMOVED:String = "WasRemoved";
-		public static var ALLOW_ADD:String = "AllowAdd";
-		public static var WILL_ADD:String = "WillAdd";
-		public static var WAS_ADDED:String = "WasAdded";
-		public static var ALLOW_REPLACE:String = "AllowReplace";
-		public static var WILL_REPLACE:String = "WillReplace";
-		public static var WAS_REPLACED:String = "WasReplaced";
+		public static const ALLOW_REMOVE:String = "AllowRemove";
+		public static const WILL_REMOVE:String = "WillRemove";
+		public static const WAS_REMOVED:String = "WasRemoved";
+		public static const ALLOW_ADD:String = "AllowAdd";
+		public static const WILL_ADD:String = "WillAdd";
+		public static const WAS_ADDED:String = "WasAdded";
+		public static const ALLOW_REPLACE:String = "AllowReplace";
+		public static const WILL_REPLACE:String = "WillReplace";
+		public static const WAS_REPLACED:String = "WasReplaced";
 
         public var owner:ManagedArray;
 		public var object:ManagedObject;

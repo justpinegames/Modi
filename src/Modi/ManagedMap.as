@@ -34,7 +34,7 @@ package Modi
 			_yValues = new Vector.<int>();
 		}
 		
-		public function addEventListener(event:String, listener:Function):void
+		public function addObserver(event:String, listener:Function):void
 		{
 			if (_observers[event] === undefined)
 			{
@@ -44,7 +44,7 @@ package Modi
 			_observers[event].push(new IObserver(event, listener));
 		}
 		
-		public function removeEventListener(event:String, listener:Function):Boolean
+		public function removeObserver(event:String, listener:Function):Boolean
 		{
 			if (_observers[event] === undefined)
 			{

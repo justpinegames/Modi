@@ -10,9 +10,9 @@ package Modi
 {
     public class ManagedMapEvent
 	{
-		public static var ALLOW_CHANGE:String = "AllowChange";
-		public static var WILL_CHANGE:String = "WillChange";
-		public static var WAS_CHANGED:String = "WasChanged";
+		public static const ALLOW_CHANGE:String = "AllowChange";
+		public static const WILL_CHANGE:String = "WillChange";
+		public static const WAS_CHANGED:String = "WasChanged";
 
         public var owner:ManagedMap;
 		public var oldObject:ManagedObject;

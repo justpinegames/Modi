@@ -10,9 +10,9 @@ package Modi
 {
 	public interface IObservableObject
 	{
-		function addEventListener(attribute:String, event:String, listener:Function):void;
+		function addObserver(attribute:String, event:String, listener:Function):void;
 		
-		function removeEventListener(attribute:String, listener:Function):Boolean;
+		function removeObserver(attribute:String, listener:Function):Boolean;
 		
 		function allowChange(attribute:String, oldValue:*, newValue:*):Boolean;
 		

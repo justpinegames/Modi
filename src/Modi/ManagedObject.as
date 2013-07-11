@@ -8,10 +8,11 @@
 
 package Modi
 {
+    import flash.events.EventDispatcher;
     import flash.utils.Dictionary;
     import flash.utils.getDefinitionByName;
 
-    public class ManagedObject implements IObservableObject, ISerializableObject
+    public class ManagedObject extends EventDispatcher implements IObservableObject, ISerializableObject
     {
         private var _attributeObservers:Dictionary;
         private var _registeredAttributes:Array;
@@ -25,8 +26,6 @@ package Modi
         public function ManagedObject()
         {
             _attributeObservers = new Dictionary();
-//            _registeredAttributes = new Array();
-//            _registeredAttributeTypes = new Array();
         }
 
         public function set contextId(contextId:ManagedObjectId):void
@@ -39,7 +38,7 @@ package Modi
             return _contextId;
         }
 
-        public function addEventListener(attribute:String, event:String, listener:Function):void
+        public function addObserver(attribute:String, event:String, listener:Function):void
         {
             var index:int = _registeredAttributes.indexOf(attribute);
             if (index == -1)
@@ -55,7 +54,7 @@ package Modi
             _attributeObservers[attribute].push(new IObserver(event, listener));
         }
 
-        public function removeEventListener(attribute:String, listener:Function):Boolean
+        public function removeObserver(attribute:String, listener:Function):Boolean
         {
             if (_attributeObservers[attribute] === undefined)
             {
