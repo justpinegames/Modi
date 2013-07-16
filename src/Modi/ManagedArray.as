@@ -50,7 +50,12 @@ package Modi
 			
 			wasAdded(object, index);
 		}
-		
+
+        public function pushUnsafe(object:ManagedObject):void
+        {
+            _data.push(object);
+        }
+
 		public function pushMultiple(array:Array):void
 		{
 			for each (var element:ManagedObject in array)
@@ -58,7 +63,15 @@ package Modi
 				this.push(element);
 			}
 		}
-		
+
+        public function pushMultipleUnsafe(array:Array):void
+        {
+            for each (var element:ManagedObject in array)
+            {
+                this.pushUnsafe(element);
+            }
+        }
+
 		public function pop():ManagedObject
 		{
 			var object:ManagedObject = null;
@@ -77,6 +90,20 @@ package Modi
 			return object;
 		}
 
+        public function popUnsafe():ManagedObject
+        {
+            var object:ManagedObject = null;
+            var length:int = _data.length;
+
+            if (length > 0)
+            {
+                object = _data[length - 1];
+                removeUnsafe(object);
+            }
+
+            return object;
+        }
+
         public function shift():ManagedObject
         {
             var object:ManagedObject = null;
@@ -90,6 +117,20 @@ package Modi
                 {
                     object = null;
                 }
+            }
+
+            return object;
+        }
+
+        public function shiftUnsafe():ManagedObject
+        {
+            var object:ManagedObject = null;
+            var length:int = _data.length;
+
+            if (length > 0)
+            {
+                object = _data[0];
+                removeUnsafe(object);
             }
 
             return object;
@@ -116,7 +157,19 @@ package Modi
 			
 			return false;
 		}
-		
+
+        public function removeUnsafe(object:ManagedObject):Boolean
+        {
+            var index:int = _data.indexOf(object);
+            if (index != -1)
+            {
+                _data.splice(index, 1);
+                return true;
+            }
+
+            return false;
+        }
+
 		public function splice(startIndex:int, deleteCount:int):Vector.<ManagedObject>
 		{
 			var splicedObjects:Vector.<ManagedObject> = new Vector.<ManagedObject>();
@@ -147,7 +200,31 @@ package Modi
 			
 			return splicedObjects;
 		}
-		
+
+        public function spliceUnsafe(startIndex:int, deleteCount:int):Vector.<ManagedObject>
+        {
+            var splicedObjects:Vector.<ManagedObject> = new Vector.<ManagedObject>();
+
+            if (startIndex < _data.length && (startIndex + deleteCount) <= _data.length)
+            {
+                var object:ManagedObject;
+
+                while (deleteCount > 0)
+                {
+                    object = _data[startIndex];
+                    removeUnsafe(object);
+                    splicedObjects.push(object);
+                    deleteCount--;
+                }
+            }
+            else
+            {
+                throw new RangeError("startIndex and deleteCount arguments specify an index to be deleted that's outside the ManagedArray's bounds.");
+            }
+
+            return splicedObjects;
+        }
+
 		public function replaceObject(oldObject:ManagedObject, newObject:ManagedObject):Boolean
 		{
 			var index:int = _data.indexOf(oldObject);
@@ -158,7 +235,18 @@ package Modi
 			
 			return replaceObjectAt(index, newObject);
 		}
-		
+
+        public function replaceObjectUnsafe(oldObject:ManagedObject, newObject:ManagedObject):Boolean
+        {
+            var index:int = _data.indexOf(oldObject);
+            if (index == -1)
+            {
+                throw new Error("Object " + oldObject + " you are trying to replace is not stored in ManagedArray!");
+            }
+
+            return replaceObjectAtUnsafe(index, newObject);
+        }
+
 		public function replaceObjectAt(index:int, newObject:ManagedObject):Boolean
 		{
 			if (index < 0 || index >= _data.length)
@@ -181,6 +269,18 @@ package Modi
 			
 			return true;
 		}
+
+        public function replaceObjectAtUnsafe(index:int, newObject:ManagedObject):Boolean
+        {
+            if (index < 0 || index >= _data.length)
+            {
+                throw new RangeError("Index out of bounds.");
+            }
+
+            _data[index] = newObject;
+
+            return true;
+        }
 		
 		public function indexOf(searchElement:ManagedObject, fromIndex:int = 0):int
 		{
@@ -504,7 +604,15 @@ package Modi
 				this.pop();
 			}
 		}
-		
+
+        public function removeAllObjectsUnsafe():void
+        {
+            while (_data.length > 0)
+            {
+                this.popUnsafe();
+            }
+        }
+
 		/* INTERFACE Modi.ISerializableObject */
 		
 		public function serialize(serializator:ISerializator):void 
