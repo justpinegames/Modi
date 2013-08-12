@@ -639,10 +639,18 @@ package Modi
 			{
 				var ManagedClass:Class = Class(getDefinitionByName(_childType) as Class);
 				var object:ManagedObject = new ManagedClass();
-				deserializator.pushObject(i.toString())
-				object.deserialize(deserializator);
-				deserializator.popObject();
-				
+
+                if (object is ManagedObjectId)
+                {
+                    object = new ManagedObjectId(deserializator.readString(i.toString()));
+                }
+                else
+                {
+                    deserializator.pushObject(i.toString())
+                    object.deserialize(deserializator);
+                    deserializator.popObject();
+                }
+
 				this.push(object);
 			}
 			
