@@ -622,7 +622,8 @@ package Modi
 			serializator.writeInt("length", _data.length);
 			for each (var object:* in _data) 
 			{
-				ManagedObject.writeUnindentified(i.toString(), object, "ManagedObject", serializator);
+                var type:String = object is ManagedObjectId ? "ManagedObjectId" : "ManagedObject";
+				ManagedObject.writeUnindentified(i.toString(), object, type, serializator);
 				i++;
 			}
 			
