@@ -677,5 +677,14 @@ package Modi
                 closure(this.objectAt(i));
             }
         }
-	}
+
+        public function clone():ManagedArray
+        {
+            var array:ManagedArray = new ManagedArray();
+            array._childType = _childType;
+            array._data = _data.concat();
+
+            return array;
+        }
+    }
 }
