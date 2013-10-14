@@ -8,7 +8,7 @@
 
 package Modi
 {
-	import flash.utils.Dictionary;
+    import flash.utils.Dictionary;
     import flash.utils.getDefinitionByName;
 
     public class ManagedArray implements IObservableArray, ISerializableObject

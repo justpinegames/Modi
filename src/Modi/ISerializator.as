@@ -8,9 +8,9 @@
 
 package Modi
 {
-	import flash.utils.Dictionary;
-	
-	public interface ISerializator 
+    import flash.utils.Dictionary;
+
+    public interface ISerializator
 	{
 		function writeString(name:String, object:String):void;
 

@@ -8,9 +8,9 @@
 
 package Modi
 {
-	import flash.utils.Dictionary;
-	
-	public interface IDeserializator 
+    import flash.utils.Dictionary;
+
+    public interface IDeserializator
 	{
 		function get ready():Boolean;
 		
