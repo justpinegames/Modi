@@ -1,10 +1,3 @@
-/**
- * Created with IntelliJ IDEA.
- * User: Tomislav
- * Date: 7.3.13.
- * Time: 15:14
- * To change this template use File | Settings | File Templates.
- */
 package Modi
 {
     public class ObjectDeserializator extends CommonDeserializator
