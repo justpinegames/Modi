@@ -119,6 +119,8 @@ package Modi
             else                      deserializator.deserializeData(data);
             target.deserialize(deserializator);
             deserializeIds(target);
+
+            return target;
         }
 
         public function get requireInitialization():Vector.<ManagedObject> { return _requireInitialization.concat(); }

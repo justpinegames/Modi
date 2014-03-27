@@ -299,10 +299,7 @@ package Modi
 		
 		public function objectAt(index:int):*
 		{
-			if (index < 0 || index >= _data.length)
-			{
-				throw new RangeError("Index out of bounds.");
-			}
+			if (index < 0 || index >= _data.length) throw new RangeError("Index out of bounds.");
 			
 			return _data[index];
 		}
@@ -674,7 +671,7 @@ package Modi
 
             for (var i:int = 0; i < this.length; i++)
             {
-                closure(this.objectAt(i));
+                closure(_data[i]);
             }
         }
 

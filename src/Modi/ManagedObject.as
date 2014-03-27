@@ -347,10 +347,7 @@ package Modi
 
         public function removeSelfFromContext():void
         {
-            if (this.contextReference != null)
-            {
-                this.contextReference.removeFromContext(this.contextId);
-            }
+            if (_contextReference != null) _contextReference.removeFromContext(_contextId);
         }
 
         public function get requiresInitialization():Boolean { return _requiresInitialization; }
