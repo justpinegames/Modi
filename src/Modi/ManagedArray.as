@@ -37,7 +37,7 @@ package Modi
 		
 		public function push(object:ManagedObject):void
 		{
-			var index:int = _data.indexOf(object);
+			var index:int = _data.length;
 			
 			if (!allowAdd(object, index))
 			{
