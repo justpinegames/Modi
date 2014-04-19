@@ -142,6 +142,14 @@ package Modi
             }
         }
 
+        public function equalsById(other:ManagedObject):Boolean
+        {
+            if      (!_contextId)      return false;
+            else if (!other)           return false;
+            else if (!other.contextId) return false;
+            else                       return _contextId.equals(other.contextId);
+        }
+
         public function serialize(serializator:ISerializator):void
         {
             for (var i: int = 0; i < _registeredAttributes.length; i++)
