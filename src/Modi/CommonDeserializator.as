@@ -1,6 +1,13 @@
+/*
+ * This is free software; you can redistribute it and/or modify it under the
+ * terms of MIT free software license as published by the Massachusetts
+ * Institute of Technology.
+ *
+ * Copyright 2014. Pine Studio
+ */
+
 package Modi
 {
-
     import flash.utils.Dictionary;
 
     public class CommonDeserializator implements IDeserializator
@@ -17,7 +24,7 @@ package Modi
         {
             _ready = false;
             _data = null;
-            _stack = new Array;
+            _stack = [];
         }
 
         private function stackTop():*
@@ -55,10 +62,7 @@ package Modi
             throw new Error("You have to override deserializeData!");
         }
 
-        public function get ready():Boolean
-        {
-            return _ready;
-        }
+        public function get ready():Boolean { return _ready; }
 
         public function readString(name:String):String
         {
@@ -131,14 +135,8 @@ package Modi
 
         public function getCurrentLength():int
         {
-            if (stackTopContext() == SERIALIZATOR_STATE_ARRAY)
-            {
-                return stackTop().length;
-            }
-            else
-            {
-                throw new Error("current state is not an array")
-            }
+            if (stackTopContext() == SERIALIZATOR_STATE_ARRAY) return stackTop().length;
+            else                                               throw new Error("current state is not an array");
         }
 
         public function exists(name:String):Boolean
@@ -150,7 +148,7 @@ package Modi
         public function reset():void
         {
             if (!_ready) throw new Error("You can't reset deserializatior if data hasn't been deserialized.")
-            _stack = new Array;
+            _stack = [];
         }
     }
 }

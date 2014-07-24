@@ -10,6 +10,7 @@ Requirements
 * [Python 2.7.3](http://python.org/)
 * [as3yaml](http://code.google.com/p/as3yaml/)
 * [PyYAML](http://pyyaml.org/wiki/PyYAML)
+* [jinja2](https://pypi.python.org/pypi/Jinja2)
 
 ModiDemo example
 --------------------
@@ -68,13 +69,12 @@ YAMLDeserializator
 
 Using event listeners
 
-    player.addEventListener(_Player.ATTRIBUTE_NAME, ManagedObjectEvent.WAS_CHANGED, nameWasChanged);
+    player.addEventListener(_Player.ATTRIBUTE_NAME, onNameChange);
     player.name = "Sirnica";
 
-    function nameWasChanged(e:ManagedObjectEvent):void
+    function onNameChange(e:ManagedObjectEvent):void
     {
-        trace(e.attribute); /// name
-        trace(e.event); /// WasChanged
+        trace(e.type); /// name
         trace(e.newValue); /// Sirnica
         trace(e.oldValue); /// Burek
         trace(e.owner); /// [object Player]

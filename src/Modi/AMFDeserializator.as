@@ -3,7 +3,7 @@
  * terms of MIT free software license as published by the Massachusetts
  * Institute of Technology.
  *
- * Copyright 2013. Just Pine Games
+ * Copyright 2014. Pine Studio
  */
 
 package Modi

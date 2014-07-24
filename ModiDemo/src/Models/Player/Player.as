@@ -1,13 +1,10 @@
 package Models.Player
 {
-	public class Player extends _Player
-	{
+    public class Player extends _Player
+    {
+        public function Player()
+        {
 
-		public function Player()
-		{
-
-		}
-
-	}
-
+        }
+    }
 }

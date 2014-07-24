@@ -1,3 +1,11 @@
+/*
+ * This is free software; you can redistribute it and/or modify it under the
+ * terms of MIT free software license as published by the Massachusetts
+ * Institute of Technology.
+ *
+ * Copyright 2014. Pine Studio
+ */
+
 package Modi
 {
     import flash.utils.Dictionary;
@@ -12,7 +20,7 @@ package Modi
 
         public function CommonSerializator()
         {
-            _stack = new Array();
+            _stack = [];
             _stack.push({data: {}, context: SERIALIZATOR_STATE_OBJECT});
         }
 

@@ -18,14 +18,8 @@ package
 	{
 		public function Main():void 
 		{
-			if (stage)
-			{
-				init();
-			}
-			else
-			{
-				addEventListener(Event.ADDED_TO_STAGE, init, false, 0, true);
-			}
+			if (stage) init();
+			else       addEventListener(Event.ADDED_TO_STAGE, init, false, 0, true);
 		}
 		
 		private function init(e:Event = null):void
@@ -69,14 +63,13 @@ package
             trace(player.name); /// Burek
 
             /// Adding event listener to attribute name.
-            player.addEventListener(_Player.ATTRIBUTE_NAME, ManagedObjectEvent.WAS_CHANGED, nameWasChanged);
+            player.addEventListener(_Player.ATTRIBUTE_NAME, onNameChange);
             player.name = "Sirnica";
 		}
 
-        private function nameWasChanged(e:ManagedObjectEvent):void
+        private function onNameChange(e:ManagedObjectEvent):void
         {
-            trace(e.attribute); /// name
-            trace(e.event); /// WasChanged
+            trace(e.type); /// name
             trace(e.newValue); /// Sirnica
             trace(e.oldValue); /// Burek
             trace(e.owner); /// [object Player]

@@ -3,7 +3,7 @@
  * terms of MIT free software license as published by the Massachusetts
  * Institute of Technology.
  *
- * Copyright 2012. Vjekoslav Krajacic, Tomislav Podhraski
+ * Copyright 2014. Pine Studio
  */
 
 package Modi

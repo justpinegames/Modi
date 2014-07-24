@@ -3,7 +3,7 @@
  * terms of MIT free software license as published by the Massachusetts
  * Institute of Technology.
  *
- * Copyright 2012. Vjekoslav Krajacic, Tomislav Podhraski
+ * Copyright 2014. Pine Studio
  */
 
 package Modi
@@ -29,62 +29,15 @@ package Modi
             _y = 0;
         }
 
-        public function set y(y:Number):void
-        {
-            if (!this.allowChange(ATTRIBUTE_Y, this._y, y))
-            {
-                return;
-            }
+        public function set y(y:Number):void { dispatchChangeEvent(ATTRIBUTE_Y, _y, _y = y); }
+        public function set YDirectUnsafe(y:Number):void { _y = y; }
+        public function get y():Number { return _y; }
 
-            this.willChange(ATTRIBUTE_Y, this._y, y);
+        public function set x(x:Number):void { dispatchChangeEvent(ATTRIBUTE_X, _x, _x = x); }
+        public function set XDirectUnsafe(x:Number):void { _x = x; }
+        public function get x():Number { return _x; }
 
-            var oldValue:Number = this._y;
-
-            this._y = y;
-
-            this.wasChanged(ATTRIBUTE_Y, oldValue, y);
-        }
-
-        public function get y():Number
-        {
-            return this._y;
-        }
-
-        public function set YDirectUnsafe(y:Number):void
-        {
-            this._y = y;
-        }
-
-        public function set x(x:Number):void
-        {
-            if (!this.allowChange(ATTRIBUTE_X, this._x, x))
-            {
-                return;
-            }
-
-            this.willChange(ATTRIBUTE_X, this._x, x);
-
-            var oldValue:Number = this._x;
-
-            this._x = x;
-
-            this.wasChanged(ATTRIBUTE_X, oldValue, x);
-        }
-
-        public function get x():Number
-        {
-            return this._x;
-        }
-
-        public function get point():Point
-        {
-            return new Point(_x, _y);
-        }
-
-        public function set XDirectUnsafe(x:Number):void
-        {
-            this._x = x;
-        }
+        public function get point():Point { return new Point(_x, _y); }
 
         public function equals(point:ManagedPoint):Boolean
         {

@@ -1,69 +1,84 @@
 #!/usr/bin/python
 
+# This is free software; you can redistribute it and/or modify it under the
+# terms of MIT free software license as published by the Massachusetts
+# Institute of Technology.
+#
+# Copyright 2014. Pine Studio
+
+
 import os
 import sys
 import getopt
 import yaml
 
-from ClassWritters import HumanClassWritter
-from ClassWritters import MachineClassWritter
+from class_writters import HumanClassWritter
+from class_writters import MachineClassWritter
 
 VERBOSE = False
-VERSION = "1.0.0"
+VERSION = "1.0.1"
+
 
 def main(argv):
-    # If the user does not specify any argument, call printHelp to show him how to call the script properly.
+    # If the user does not specify any argument, call print_help to show
+    # him how to call the script properly.
     if len(argv) == 0:
-        printHelp()
+        print_help()
+        exit()
 
     # Retrieve the options and arguments from the user input from the command line.
     try:
-        opts, args = getopt.gnu_getopt(argv, "o:p:hvVO:P:H", ["output=", "package=", "help", "version", "verbose"])
+        opts, args = getopt.gnu_getopt(
+            argv, "o:p:hvVO:P:H",
+            ["output=", "package=", "help", "version", "verbose"])
     except getopt.GetoptError:
-        # If the error occurred while reading the arguments, printhelp will be called and the script will terminate.
-        printHelp()
+        # If the error occurred while reading the arguments, printhelp will
+        # be called and the script will terminate.
+        print_help()
         exit()
 
     # Any argument that is not preceded by a flag is considered as a model.
-    modelFiles = args
-    if len(modelFiles) == 0:
-        printHelp()
+    model_files = args
+    if len(model_files) == 0:
+        print_help()
         exit()        
 
     package = ""
-    outputDirectory = "."
+    output_directory = "."
 
     # Check for any additional options that the user may have specified.
     for opt, arg in opts:
         if opt in ("-h", "-H", "--help"):
-            printHelp()
+            print_help()
         elif opt in ("-o", "-O", "--output"):
-            outputDirectory = arg
+            output_directory = arg
         elif opt in ("-p", "-P", "--package"):
             package = arg
         elif opt in ("-V", "--verbose"):
             global VERBOSE
             VERBOSE = True
         elif opt in ("-v", "--version"):
-            printVersion()
+            print_version()
 
-    packageDirectory = package.replace(".", "/")
-    classesDirectory = os.path.abspath(outputDirectory + "/" + packageDirectory)
-    createDirectory(classesDirectory)
+    package_directory = package.replace(".", "/")
+    classes_directory = os.path.abspath(output_directory + "/" + package_directory)
+    create_directory(classes_directory)
 
-    for model in modelFiles:
-        modelDirectory = os.path.abspath(model)
-        generateClassesFromModel(modelDirectory, classesDirectory, package)
+    for model in model_files:
+        model_directory = os.path.abspath(model)
+        generate_classes_from_model(model_directory, classes_directory, package)
 
-def generateClassesFromModel(model, directory, package):
+
+def generate_classes_from_model(model, directory, package):
     try:
         stream = open(model, 'r')
-        yamlData = yaml.load_all(stream)
+        yaml_data = yaml.load_all(stream)
 
-        for classesData in yamlData:
-            for className in classesData:
-                createMachineClass(directory, package, className, classesData[className])
-                createHumanClass(directory, package, className)
+        for classes_data in yaml_data:
+            for class_name in classes_data:
+                create_machine_class(
+                    directory, package, class_name, classes_data[class_name])
+                create_human_class(directory, package, class_name)
     except yaml.YAMLError, exc:
         if hasattr(exc, 'problem_mark'):
             mark = exc.problem_mark
@@ -73,82 +88,80 @@ def generateClassesFromModel(model, directory, package):
         print "I/O error({0}): {1}".format(e.errno, e.strerror)
         exit()
 
-def createHumanClass(directory, package, className):
-    classPath = directory + "/" + className + ".as"
+
+def create_human_class(directory, package, class_name):
+    class_path = directory + "/" + class_name + ".as"
     
     # If the user already generated this human class before, script must NOT override it.
-    if not os.path.exists(classPath):
+    if not os.path.exists(class_path):
         try:
-            humanClassWritter = HumanClassWritter(open(classPath, "w"), package, className, VERBOSE)
-            humanClassWritter.writeClass()
+            human_class_writter = HumanClassWritter(
+                open(class_path, "w"), package, class_name, VERBOSE)
+            human_class_writter.write_class()
         except IOError:
             print "I/O error({0}): {1}".format(e.errno, e.strerror)
             exit()
         finally:
-            humanClassWritter.closeFile()
-            humanClassWritter = None
+            human_class_writter.close_file()
+            human_class_writter = None
 
-def createMachineClass(directory, package, className, classData):
-    classPath = directory + "/_" + className + ".as"    
+
+def create_machine_class(directory, package, class_name, class_data):
+    class_path = directory + "/_" + class_name + ".as"    
 
     try:
-        machineClassWritter = MachineClassWritter(open(classPath, "w"), package, className, classData, VERBOSE)
-        machineClassWritter.writeClass()
-
-        # FOR DEBUGGING
-        # machineClassWritter.writeClassBasics()
-        # machineClassWritter.writeAttributeNamesInArray()
-        # machineClassWritter.writeAttributeTypes()
-        # machineClassWritter.writeAttributeNames()
-        # machineClassWritter.writeEnumValues()
-        # machineClassWritter.writeAttributes()
-        # machineClassWritter.writeConstructor()
-        # machineClassWritter.writeGettersAndSetters()
+        machine_class_writter = MachineClassWritter(
+            open(class_path, "w"), package, class_name, class_data, VERBOSE)
+        machine_class_writter.write_class()
     except IOError:
         print "I/O error({0}): {1}".format(e.errno, e.strerror)
         exit()
     finally:
-        machineClassWritter.closeFile()
-        machineClassWritter = None
+        machine_class_writter.close_file()
+        machine_class_writter = None
 
-def createDirectory(directory):
+
+def create_directory(directory):
     if not os.path.exists(directory):
         os.makedirs(directory)    
 
-def printHelp():
-    help =  "\nScript options:\n\n"
-    help += "\t-o, -O, --output\n"
-    help += "\t\tDirectory where the class files will be saved.\n"
-    help += "\t\tThe script will automatically create folders for\n"
-    help += "\t\tthese classes if they do not already exist.\n"
-    help += "\t\tThe script supports both '\\' and '/' as a separator.\n"
-    help += "\t\tThe output directory does not include package\n"
-    help += "\t\tdirectory. Package directory is specified separately\n"
-    help += "\t\tusing the --package option.\n\n"
-    help += "\t-p, -P, --package\n"
-    help += "\t\tPackage that will be included in the class.\n"
-    help += "\t\tThe script will automatically create folders for\n"
-    help += "\t\tthese packages if they do not already exist.\n"
-    help += "\t\tPackages should be written in the same way as they are\n"
-    help += "\t\tin the code, where each package directory is separated\n"
-    help += "\t\tby a period.\n\n"
-    help += "\t-V, --verbose\n"
-    help += "\t\tShow all created classes in the console.\n\n"
-    help += "\t-v, --version\n"
-    help += "\t\tShow the current version of Modi.\n\n"
-    help += "\t-h, -H, --help\n"
-    help += "\t\tShow a short usage summary.\n\n"
-    help += "Example of use:\n"
-    help += "Modi.py Game.yaml Player.yaml -o C:\Projects\Game -p models.game\n"
-    help += "            ^          ^                ^                 ^\n"
-    help += "         model 1    model 2      output directory   package directory\n"
-    help += "\nYou can specify any number of models. Each argument that is not preceded by an option is considered as a model."
-    help += " This concrete call will create classes for all models in directory 'C:\Projects\Game\models\game'."
-    help += " Each class will include package 'models.game' on top of it."
-    print help
 
-def printVersion():
+def print_help():
+    print "\nScript options:\n"
+    print "\t-o, -O, --output"
+    print "\t\tDirectory where the class files will be saved."
+    print "\t\tThe script will automatically create folders for"
+    print "\t\tthese classes if they do not already exist."
+    print "\t\tThe script supports both '\\' and '/' as a separator."
+    print "\t\tThe output directory does not include package"
+    print "\t\tdirectory. Package directory is specified separately"
+    print "\t\tusing the --package option.\n"
+    print "\t-p, -P, --package"
+    print "\t\tPackage that will be included in the class."
+    print "\t\tThe script will automatically create folders for"
+    print "\t\tthese packages if they do not already exist."
+    print "\t\tPackages should be written in the same way as they are"
+    print "\t\tin the code, where each package directory is separated"
+    print "\t\tby a period.\n"
+    print "\t-V, --verbose"
+    print "\t\tShow all created classes in the console.\n"
+    print "\t-v, --version"
+    print "\t\tShow the current version of Modi.\n"
+    print "\t-h, -H, --help"
+    print "\t\tShow a short usage summary.\n"
+    print "Example of use:"
+    print "Modi.py Game.yaml Player.yaml -o C:\Projects\Game -p models.game"
+    print "            ^          ^                ^                 ^"
+    print "         model 1    model 2      output directory   package directory"
+    print "\nYou can specify any number of models. Each argument that is not "
+    print "preceded by an option is considered as a model. This concrete call "
+    print "will create classes for all models in directory 'C:\Projects\Game\models\game'."
+    print "Each class will include package 'models.game' on top of it."
+
+
+def print_version():
     print "Modi version: " + VERSION
+
 
 if __name__ == "__main__":
     main(sys.argv[1:])

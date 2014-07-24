@@ -3,7 +3,7 @@
  * terms of MIT free software license as published by the Massachusetts
  * Institute of Technology.
  *
- * Copyright 2012. Vjekoslav Krajacic, Tomislav Podhraski
+ * Copyright 2014. Pine Studio
  */
 
 package Modi
@@ -23,51 +23,18 @@ package Modi
 
 			_value = value;
 		}
-		
-		public function get value():* 
-		{
-			return _value;
-		}
 
-        public final function set value(value:*):void
-        {
-            if (!this.allowChange(ATTRIBUTE_VALUE, _value, value))
-            {
-                return;
-            }
+        public final function set value(value:*):void { dispatchChangeEvent(ATTRIBUTE_VALUE, _value, _value = value); }
+        public final function get value():* { return _value; }
 
-            this.willChange(ATTRIBUTE_VALUE, _value, value);
+        public final function get booleanValue():Boolean { return Boolean(_value); }
 
-            var oldValue:* = _value;
+        public final function get intValue():int { return int(_value); }
 
-            _value = value;
+        public final function get uintValue():uint { return uint(_value); }
 
-            this.wasChanged(ATTRIBUTE_VALUE, oldValue, _value);
-        }
+        public final function get numberValue():Number { return Number(_value); }
 
-        public function get booleanValue():Boolean
-        {
-            return Boolean(_value);
-        }
-
-        public function get intValue():int
-        {
-            return int(_value);
-        }
-
-        public function get uintValue():uint
-        {
-            return uint(_value);
-        }
-
-        public function get numberValue():Number
-        {
-            return Number(_value);
-        }
-
-        public function get stringValue():String
-        {
-            return String(_value);
-        }
-	}
+        public final function get stringValue():String { return String(_value); }
+    }
 }
