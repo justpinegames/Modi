@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 # This is free software; you can redistribute it and/or modify it under the
 # terms of MIT free software license as published by the Massachusetts
 # Institute of Technology.
@@ -186,7 +184,7 @@ class MachineClassWritter:
                         elif data["type"] == "ManagedValue":
                             default_value = "new ManagedValue(" + str(defaultValue) + ")"
                         elif data["type"] == "Boolean":
-                            default_value = str(defaultValue.lower())
+                            default_value = str(defaultValue).lower()
                         else:
                             default_value = str(defaultValue)
 

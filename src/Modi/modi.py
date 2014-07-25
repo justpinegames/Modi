@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 # This is free software; you can redistribute it and/or modify it under the
 # terms of MIT free software license as published by the Massachusetts
