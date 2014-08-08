@@ -11,9 +11,7 @@
           </entries>
           <sdk name="air_sdk" />
         </dependencies>
-        <compiler-options>
-          <option name="additionalOptions" value="-debug=false" />
-        </compiler-options>
+        <compiler-options />
         <packaging-air-desktop />
         <packaging-android />
         <packaging-ios />
