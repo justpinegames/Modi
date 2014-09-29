@@ -6,7 +6,7 @@
         <dependencies target-player="10.1">
           <entries>
             <entry library-id="bdb41d27-fe59-4858-9696-69efa965926a">
-              <dependency linkage="Merged" />
+              <dependency linkage="Include" />
             </entry>
           </entries>
           <sdk name="air_sdk" />
