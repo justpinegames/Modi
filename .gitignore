@@ -1,5 +1,7 @@
-bin/*
-obj/*
+Demo/bin
+
+Framework/src/Modi/ClassWritters.pyc
+
+.idea/copyright/
 .idea/scopes/scope_settings.xml
 .idea/workspace.xml
-src/Modi/ClassWritters.pyc

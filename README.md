@@ -1,8 +1,6 @@
 Modi
 ====================
 
-[Introduction post](http://justpinegames.com/blog/2012/09/introducing-modi/)
-
 Modi is a model library that was inspired by [Core Data](http://en.wikipedia.org/wiki/Core_Data) framework on MacOS. Core principle is seperating data from code. Model definitions are stored as [YAML](http://en.wikipedia.org/wiki/YAML) text files and are easy to read and maintain. Using simple Python script, data is transformed into Actionscript classes that are easy to monitor.
 
 Requirements
@@ -12,10 +10,10 @@ Requirements
 * [PyYAML](http://pyyaml.org/wiki/PyYAML)
 * [jinja2](https://pypi.python.org/pypi/Jinja2)
 
-ModiDemo example
+Demo example
 --------------------
 
-ModiDemo/src/Player.yaml
+Demo/src/Player.yaml
 
     Player:
         name: String
@@ -30,9 +28,9 @@ ModiDemo/src/Player.yaml
 
 Call to a python script inside of a command line
             
-    Modi.py ModiDemo/src/Player.yaml -o ModiDemo/src -p Models.Player
+    Modi.py Demo/src/Player.yaml -o Demo/src -p Models.Player
 
-[Created source code](https://github.com/justpinegames/Modi/tree/master/ModiDemo/src/Models/Player)
+[Created source code](https://github.com/justpinegames/Modi/tree/master/Demo/src/Models/Player)
 
 Utilities
 --------------------

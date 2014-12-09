@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="Flex" version="4">
-  <component name="FlexBuildConfigurationManager" active="ModiDemo">
+  <component name="FlexBuildConfigurationManager" active="Demo">
     <configurations>
-      <configuration name="ModiDemo" target-platform="Desktop" pure-as="true" main-class="Main" output-file="ModiDemo.swf" output-folder="$PROJECT_DIR$/bin">
+      <configuration name="Demo" target-platform="Desktop" pure-as="true" main-class="Main" output-file="Demo.swf" output-folder="$MODULE_DIR$/bin">
         <dependencies>
           <entries>
-            <entry module-name="Modi" build-configuration-name="Modi">
+            <entry module-name="Framework" build-configuration-name="Framework">
               <dependency linkage="Merged" />
             </entry>
           </entries>
-          <sdk name="flex_sdk_4" />
+          <sdk name="air_sdk" />
         </dependencies>
         <compiler-options />
-        <packaging-air-desktop package-file-name="ModiDemo" />
+        <packaging-air-desktop package-file-name="Demo" />
         <packaging-android />
         <packaging-ios />
       </configuration>
@@ -23,10 +23,10 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/bin" />
     </content>
-    <orderEntry type="jdk" jdkName="flex_sdk_4" jdkType="Flex SDK Type (new)" />
+    <orderEntry type="jdk" jdkName="air_sdk" jdkType="Flex SDK Type (new)" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="Modi" />
+    <orderEntry type="module" module-name="Framework" exported="" />
   </component>
 </module>
-

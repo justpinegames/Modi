@@ -4,4 +4,4 @@ gold: !!float 0
 id: id0
 mode: idle
 name: Burek
-selectedEntity: 
+selectedEntity: none

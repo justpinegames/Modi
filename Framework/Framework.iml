@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="Flex" version="4">
-  <component name="FlexBuildConfigurationManager" active="Modi">
+  <component name="FlexBuildConfigurationManager" active="Framework">
     <configurations>
-      <configuration name="Modi" pure-as="true" output-type="Library" output-file="Modi.swc" output-folder="$MODULE_DIR$/bin">
+      <configuration name="Framework" pure-as="true" output-type="Library" output-file="Modi.swc" output-folder="$MODULE_DIR$/bin">
         <dependencies target-player="10.1">
           <entries>
-            <entry library-id="bdb41d27-fe59-4858-9696-69efa965926a">
+            <entry library-id="a56aab0a-f6ec-458c-96eb-dbb376f9c503">
               <dependency linkage="Include" />
             </entry>
           </entries>
@@ -23,16 +23,13 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
-      <excludeFolder url="file://$MODULE_DIR$/.idea" />
-      <excludeFolder url="file://$MODULE_DIR$/ModiDemo" />
       <excludeFolder url="file://$MODULE_DIR$/bin" />
-      <excludeFolder url="file://$MODULE_DIR$/lib" />
     </content>
     <orderEntry type="jdk" jdkName="air_sdk" jdkType="Flex SDK Type (new)" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library" exported="">
       <library type="flex">
-        <properties id="bdb41d27-fe59-4858-9696-69efa965926a" />
+        <properties id="a56aab0a-f6ec-458c-96eb-dbb376f9c503" />
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/as3-yaml.swc!/" />
         </CLASSES>
@@ -42,4 +39,3 @@
     </orderEntry>
   </component>
 </module>
-
