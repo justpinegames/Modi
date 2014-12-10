@@ -2,7 +2,7 @@
 <module type="Flex" version="4">
   <component name="FlexBuildConfigurationManager" active="Modi">
     <configurations>
-      <configuration name="Modi" pure-as="true" output-type="Library" output-file="Modi.swc" output-folder="$MODULE_DIR$/bin">
+      <configuration name="Modi" pure-as="true" output-type="Library" output-file="Modi.swc" output-folder="$MODULE_DIR$/bin" skip-build="true">
         <dependencies target-player="10.1">
           <entries>
             <entry library-id="432843c6-cbdc-4c6e-918b-91618c257b4a">
