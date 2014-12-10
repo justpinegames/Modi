@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="Flex" version="4">
-  <component name="FlexBuildConfigurationManager" active="Framework">
+  <component name="FlexBuildConfigurationManager" active="Modi">
     <configurations>
-      <configuration name="Framework" pure-as="true" output-type="Library" output-file="Modi.swc" output-folder="$MODULE_DIR$/bin">
+      <configuration name="Modi" pure-as="true" output-type="Library" output-file="Modi.swc" output-folder="$MODULE_DIR$/bin">
         <dependencies target-player="10.1">
           <entries>
-            <entry library-id="a56aab0a-f6ec-458c-96eb-dbb376f9c503">
+            <entry library-id="432843c6-cbdc-4c6e-918b-91618c257b4a">
               <dependency linkage="Include" />
             </entry>
           </entries>
@@ -29,7 +29,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library" exported="">
       <library type="flex">
-        <properties id="a56aab0a-f6ec-458c-96eb-dbb376f9c503" />
+        <properties id="432843c6-cbdc-4c6e-918b-91618c257b4a" />
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/as3-yaml.swc!/" />
         </CLASSES>
